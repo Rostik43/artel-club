@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import { useState } from "react"
 
 // иконки через CDN (мы уже подключили их в index.html)
 const { Building2, Home, Phone, Hammer, Ruler, Shield, ChevronRight, ExternalLink } = (window as any).Lucide;
