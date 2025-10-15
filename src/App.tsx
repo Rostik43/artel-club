@@ -1,7 +1,7 @@
 import { useState } from "react"
 
 // иконки через CDN (мы уже подключили их в index.html)
-const { Building2, Home, Phone, Hammer, Ruler, Shield, ChevronRight, ExternalLink } = (window as any).Lucide;
+import { Building2, Home, Phone, Hammer, Ruler, Shield, ChevronRight, ExternalLink } from "lucide-react";
 
 import { Button } from "./components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "./components/ui/card"
