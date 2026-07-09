@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<title>АРТЕЛЬ · Рынок новостроек Удмуртии</title>
+<style>
+  :root{
+    --bg:#FFFFFF; --ink:#171717; --ink-2:#525252; --ink-3:#A3A3A3;
+    --line:#E5E5E5; --accent:#B5432A; --bar:#78716C; --bar-soft:#E7E5E4;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  }
+  /* Фирменный стиль АРТЕЛЬ: белый, монохром, тонкие линии — колода намеренно однотемная */
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:var(--sans);}
+  .deck{position:fixed;inset:0;overflow:hidden;background:var(--bg);}
+  .slide{position:absolute;inset:0;display:flex;flex-direction:column;
+    padding:6vh 7vw 4vh;box-sizing:border-box;opacity:0;visibility:hidden;
+    transition:opacity .35s ease;}
+  .slide.active{opacity:1;visibility:visible;}
+  @media (prefers-reduced-motion:reduce){.slide{transition:none}.bar{transition:none!important}}
+
+  /* Типографика */
+  .eyebrow{font-size:clamp(11px,1.05vw,15px);letter-spacing:.18em;text-transform:uppercase;
+    color:var(--ink-3);font-weight:500;margin:0 0 2.2vh;}
+  .eyebrow b{color:var(--accent);font-weight:600;}
+  h1{font-size:clamp(34px,5.6vw,84px);line-height:1.04;letter-spacing:-.02em;
+    font-weight:650;margin:0;text-wrap:balance;max-width:22ch;}
+  h2{font-size:clamp(26px,3.6vw,54px);line-height:1.08;letter-spacing:-.018em;
+    font-weight:650;margin:0 0 1vh;text-wrap:balance;max-width:26ch;}
+  .sub{font-size:clamp(15px,1.6vw,24px);line-height:1.45;color:var(--ink-2);
+    max-width:58ch;margin:2.2vh 0 0;}
+  .sub strong{color:var(--ink);font-weight:600;}
+  .grow{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0;}
+  .num{font-variant-numeric:tabular-nums;}
+
+  /* Футер слайда */
+  .foot{display:flex;align-items:baseline;gap:2ch;border-top:1px solid var(--line);
+    padding-top:1.6vh;font-size:clamp(10px,1vw,14px);color:var(--ink-3);}
+  .foot .brand{letter-spacing:.22em;font-weight:600;color:var(--ink);}
+  .foot .src{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .foot .pg{font-variant-numeric:tabular-nums;}
+
+  /* Стат-тайлы */
+  .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--line);}
+  .tile{padding:3.2vh 1.6vw;border-right:1px solid var(--line);}
+  .tile:last-child{border-right:0;}
+  .tile .v{font-size:clamp(30px,4.4vw,66px);font-weight:650;letter-spacing:-.02em;line-height:1;}
+  .tile .v em{font-style:normal;color:var(--accent);}
+  .tile .l{margin-top:1.2vh;font-size:clamp(11px,1.15vw,16px);color:var(--ink-2);line-height:1.35;}
+  @media (max-aspect-ratio:1/1){.tiles{grid-template-columns:1fr 1fr;}.tile:nth-child(2){border-right:0}.tile:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+
+  /* Барчарт */
+  .chart{display:flex;flex-direction:column;gap:1.4vh;margin-top:2.4vh;}
+  .row{display:grid;grid-template-columns:minmax(16ch,22ch) 1fr;align-items:center;gap:1.6vw;}
+  .cat{font-size:clamp(13px,1.5vw,21px);color:var(--ink);font-weight:500;line-height:1.25;}
+  .cat .n{display:block;font-size:.72em;color:var(--ink-3);font-weight:400;}
+  .track{display:flex;align-items:center;gap:1vw;border-left:1px solid var(--line);
+    padding-left:2px;min-height:clamp(20px,3.4vh,34px);}
+  .bar{height:clamp(18px,3vh,30px);width:0;background:var(--bar);
+    border-radius:0 4px 4px 0;transition:width .7s cubic-bezier(.22,.8,.3,1);}
+  .active .bar{width:var(--v);}
+  .row.hl .bar{background:var(--accent);}
+  .val{font-size:clamp(14px,1.7vw,24px);font-weight:650;letter-spacing:-.01em;
+    font-variant-numeric:tabular-nums;white-space:nowrap;}
+  .row.hl .val{color:var(--accent);}
+  .row.dim .cat,.row.dim .val{color:var(--ink-3);}
+  .row.dim .bar{background:var(--bar-soft);}
+  .legend-note{margin-top:2vh;font-size:clamp(11px,1.1vw,15px);color:var(--ink-3);}
+
+  /* Двухколонник */
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:4vw;align-items:start;}
+  @media (max-aspect-ratio:1/1){.cols{grid-template-columns:1fr;gap:3vh}}
+  .colhead{font-size:clamp(12px,1.15vw,16px);letter-spacing:.14em;text-transform:uppercase;
+    color:var(--ink-3);font-weight:600;border-bottom:1px solid var(--line);padding-bottom:1vh;margin:0 0 1.6vh;}
+  .plain{font-size:clamp(14px,1.6vw,22px);line-height:1.5;color:var(--ink-2);margin:0;}
+  .plain strong{color:var(--ink);}
+
+  /* Хиро-число */
+  .hero-num{font-size:clamp(70px,13vw,190px);font-weight:650;letter-spacing:-.035em;
+    line-height:.95;color:var(--accent);font-variant-numeric:tabular-nums;}
+  .hero-cap{font-size:clamp(16px,2vw,30px);color:var(--ink);max-width:34ch;margin-top:2vh;line-height:1.35;}
+
+  /* Список ходов */
+  .moves{display:flex;flex-direction:column;margin-top:1vh;}
+  .move{display:grid;grid-template-columns:3.2ch 1fr;gap:1.6vw;align-items:baseline;
+    padding:1.7vh 0;border-bottom:1px solid var(--line);}
+  .move:last-child{border-bottom:0;}
+  .move .k{font-weight:650;color:var(--accent);font-variant-numeric:tabular-nums;
+    font-size:clamp(16px,2vw,28px);}
+  .move .t{font-size:clamp(15px,1.8vw,25px);line-height:1.35;}
+  .move .t small{display:block;color:var(--ink-2);font-size:.72em;margin-top:.3vh;font-weight:400;}
+  .move .t{font-weight:600;}
+
+  /* Типографический поворот */
+  .turn{display:flex;flex-direction:column;gap:.6vh;}
+  .turn .no{font-size:clamp(24px,3.4vw,50px);font-weight:650;letter-spacing:-.015em;color:var(--ink-3);
+    text-decoration:line-through;text-decoration-color:var(--accent);text-decoration-thickness:2px;}
+  .turn .yes{font-size:clamp(40px,6.6vw,100px);font-weight:650;letter-spacing:-.025em;margin-top:2.4vh;}
+  .turn .yes em{font-style:normal;color:var(--accent);}
+
+  /* Знак АРТЕЛЬ (два дома тонкими линиями) */
+  .mark{width:clamp(34px,3.4vw,52px);height:clamp(34px,3.4vw,52px);border:1px solid var(--ink);
+    border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:2.4vh;}
+  .mark svg{width:60%;height:60%;stroke:var(--ink);stroke-width:1.4;fill:none;}
+
+  /* Навигация */
+  .hud{position:fixed;left:0;right:0;bottom:0;height:2px;background:transparent;z-index:5;}
+  .hud i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s;}
+  .navhint{position:fixed;right:1.2vw;bottom:1.4vh;font-size:11px;color:var(--ink-3);
+    z-index:5;user-select:none;}
+  @media print{
+    .deck{position:static;overflow:visible;}
+    .slide{position:relative;opacity:1;visibility:visible;page-break-after:always;height:100vh;}
+    .bar{width:var(--v)!important;transition:none;}
+    .hud,.navhint{display:none;}
+  }
+</style>
+
+<div class="deck" id="deck">
+
+<!-- 01 · Титул -->
+<section class="slide active">
+  <div class="grow">
+    <div class="mark"><svg viewBox="0 0 24 24"><path d="M3 20h18M4 20v-7l4-4 4 4v7M12 20v-9l5-5 4 4v10"/></svg></div>
+    <p class="eyebrow">АРТЕЛЬ · Архитектура · Проектирование · Строительство</p>
+    <h1>Рынок, который больше не растёт ценой</h1>
+    <p class="sub">Что показывают данные по <strong>118 строящимся домам Удмуртии</strong> — и что с этим делать застройщику и архитектору.</p>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">Аналитический доклад · июль 2026</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 02 · Метод -->
+<section class="slide">
+  <p class="eyebrow">Метод</p>
+  <div class="grow">
+    <h2>Мы не будем рассказывать вам ваш рынок — вы знаете его лучше</h2>
+    <div class="cols" style="margin-top:3vh">
+      <p class="plain">Вместо этого мы прогнали открытые данные по <strong>каждому строящемуся дому региона</strong>: распроданность, этажность, материал стен, класс, срок сдачи, цена. Дом за домом.</p>
+      <p class="plain"><strong>118 домов · дом-уровень ЕИСЖС · срез 08.07.2026.</strong><br>Методика открыта и воспроизводима. Три результата нас удивили — проверьте их на своём опыте.</p>
+    </div>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">наш.дом.рф / ЕИСЖС, карточки домов, срез 08.07.2026</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 03 · Портрет рынка -->
+<section class="slide">
+  <p class="eyebrow">Портрет рынка</p>
+  <h2>Строящаяся Удмуртия в четырёх числах</h2>
+  <div class="grow">
+    <div class="tiles">
+      <div class="tile"><div class="v num">118</div><div class="l">строящихся домов<br>у 65 застройщиков</div></div>
+      <div class="tile"><div class="v num">22 111</div><div class="l">квартир в стройке<br>≈ 1,09 млн м²</div></div>
+      <div class="tile"><div class="v num">31,1%</div><div class="l">средняя распроданность,<br>взвешенная по квартирам</div></div>
+      <div class="tile"><div class="v num"><em>~95%</em></div><div class="l">рынка — ижевская агломерация<br>(Ижевск + Завьялово)</div></div>
+    </div>
+    <p class="legend-note">Концентрация: КОМОССТРОЙ — 28,8% объёма региона; фактически продукт всего рынка определяют 5–7 компаний (ЕРЗ, 01.07.2026).</p>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">ЕИСЖС 08.07.2026 · ЕРЗ 01.07.2026</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 04 · Контекст -->
+<section class="slide">
+  <p class="eyebrow">Контекст</p>
+  <h2>Чем сегодня платит покупатель</h2>
+  <div class="grow">
+    <div class="tiles" style="grid-template-columns:repeat(3,1fr)">
+      <div class="tile"><div class="v num">14,25%</div><div class="l">ключевая ставка ЦБ (с 22.06.2026);<br>цикл снижения с пика 21%</div></div>
+      <div class="tile"><div class="v num">~19%</div><div class="l">рыночная ипотека на новостройки —<br>фактически запретительная</div></div>
+      <div class="tile"><div class="v num"><em>+5–7%</em></div><div class="l">прогноз роста цен на 2026 —<br>после +17% за 2025 год*</div></div>
+    </div>
+    <p class="sub" style="margin-top:3vh">Продажи держатся на <strong>семейной ипотеке под 6%</strong> и рассрочках. Ценовой рычаг, который двигал рынок два года, — исчерпан.</p>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">ЦБ РФ 08.07.2026 · *оценки участников рынка, отраслевые СМИ</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 05 · Инсайт 1: график -->
+<section class="slide">
+  <p class="eyebrow"><b>Инсайт 01</b> · Навес-2028</p>
+  <h2>Срок сдачи — сильнейший предиктор распроданности</h2>
+  <div class="grow">
+    <div class="chart">
+      <div class="row"><div class="cat">Сдача 2026 <span class="n num">4 016 квартир</span></div><div class="track"><div class="bar" style="--v:63.4%"></div><span class="val num">63,4%</span></div></div>
+      <div class="row"><div class="cat">Сдача 2027 <span class="n num">5 777 квартир</span></div><div class="track"><div class="bar" style="--v:38.1%"></div><span class="val num">38,1%</span></div></div>
+      <div class="row hl"><div class="cat">Сдача 2028 <span class="n num">9 796 квартир</span></div><div class="track"><div class="bar" style="--v:15.4%"></div><span class="val num">15,4%</span></div></div>
+      <div class="row dim"><div class="cat">Сдача 2029 <span class="n num">2 127 квартир</span></div><div class="track"><div class="bar" style="--v:4.5%"></div><span class="val num">4,5%</span></div></div>
+      <div class="row dim"><div class="cat">Сдача 2030 <span class="n num">395 квартир</span></div><div class="track"><div class="bar" style="--v:5.9%"></div><span class="val num">5,9%</span></div></div>
+    </div>
+    <p class="legend-note">Распродано, % квартир · взвешено по числу квартир · длина полосы = доля проданного</p>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">ЕИСЖС, дом-уровень, 08.07.2026</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 06 · Инсайт 1: вывод -->
+<section class="slide">
+  <p class="eyebrow"><b>Инсайт 01</b> · Навес-2028</p>
+  <div class="grow">
+    <div class="hero-num num">44%</div>
+    <p class="hero-cap"><strong>рынка — в когорте 2028 года, и она продана на 15%.</strong> Норма распроданности к вводу — около 70%: она раскрывает эскроу и удешевляет проектное финансирование.</p>
+    <p class="sub">Это не отдельные слабые дома — это структурный навес раннего предложения. Вопрос каждому застройщику: <strong>чем вы будете его разгонять, когда ценой уже нельзя?</strong></p>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">ЕИСЖС 08.07.2026 · норматив — методика ДОМ.РФ/ЕРЗ</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 07 · Инсайт 2: материал -->
+<section class="slide">
+  <p class="eyebrow"><b>Инсайт 02</b> · Продукт, а не технология</p>
+  <h2>79% рынка строится в материале, который продаётся хуже всех</h2>
+  <div class="grow">
+    <div class="chart">
+      <div class="row dim"><div class="cat">Блоки <span class="n num">716 квартир · малая база</span></div><div class="track"><div class="bar" style="--v:64.6%"></div><span class="val num">64,6%</span></div></div>
+      <div class="row"><div class="cat">Кирпич <span class="n num">2 065 квартир</span></div><div class="track"><div class="bar" style="--v:47.3%"></div><span class="val num">47,3%</span></div></div>
+      <div class="row"><div class="cat">Другое <span class="n num">1 829 квартир</span></div><div class="track"><div class="bar" style="--v:35.8%"></div><span class="val num">35,8%</span></div></div>
+      <div class="row hl"><div class="cat">Монолит-кирпич <span class="n num">17 501 квартира · 79% рынка</span></div><div class="track"><div class="bar" style="--v:28.1%"></div><span class="val num">28,1%</span></div></div>
+    </div>
+    <p class="legend-note">Дело не в качестве стройки: монолит-кирпич надёжен. Дело в том, что это самый <em>безликий</em> массовый продукт — покупателю не за что зацепиться.</p>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">ЕИСЖС, дом-уровень, 08.07.2026 · распродано % квартир</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 08 · Инсайт 2: этажность -->
+<section class="slide">
+  <p class="eyebrow"><b>Инсайт 02</b> · Продукт, а не технология</p>
+  <h2>Рынок наказывает за безликость</h2>
+  <div class="grow">
+    <div class="chart">
+      <div class="row"><div class="cat">Высотные, 25+ этажей <span class="n num">1 723 квартиры · видовые доминанты</span></div><div class="track"><div class="bar" style="--v:48.8%"></div><span class="val num">48,8%</span></div></div>
+      <div class="row"><div class="cat">10–17 этажей <span class="n num">6 646 квартир</span></div><div class="track"><div class="bar" style="--v:35.0%"></div><span class="val num">35,0%</span></div></div>
+      <div class="row dim"><div class="cat">До 4 этажей <span class="n num">120 квартир · малая база</span></div><div class="track"><div class="bar" style="--v:33.9%"></div><span class="val num">33,9%</span></div></div>
+      <div class="row"><div class="cat">5–9 этажей <span class="n num">2 478 квартир</span></div><div class="track"><div class="bar" style="--v:29.6%"></div><span class="val num">29,6%</span></div></div>
+      <div class="row hl"><div class="cat">18–24 этажа <span class="n num">11 144 квартиры · половина рынка</span></div><div class="track"><div class="bar" style="--v:26.5%"></div><span class="val num">26,5%</span></div></div>
+    </div>
+    <p class="legend-note">Дома «с характером» (видовые 25+) продаются почти вдвое лучше самого массового формата. Именно там, где архитектура сегодня не работает, она даст максимальный прирост.</p>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">ЕИСЖС, дом-уровень, 08.07.2026 · распродано % квартир</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 09 · Инсайт 3: цена -->
+<section class="slide">
+  <p class="eyebrow"><b>Инсайт 03</b> · Потолок спроса</p>
+  <h2>Выше 160 тысяч за метр спрос резко падает</h2>
+  <div class="grow">
+    <div class="chart">
+      <div class="row"><div class="cat">130–160 тыс ₽/м² <span class="n num">8 118 квартир</span></div><div class="track"><div class="bar" style="--v:37.2%"></div><span class="val num">37,2%</span></div></div>
+      <div class="row"><div class="cat">100–130 тыс ₽/м² <span class="n num">7 984 квартиры</span></div><div class="track"><div class="bar" style="--v:29.3%"></div><span class="val num">29,3%</span></div></div>
+      <div class="row hl"><div class="cat">160–200 тыс ₽/м² <span class="n num">1 920 квартир</span></div><div class="track"><div class="bar" style="--v:23.4%"></div><span class="val num">23,4%</span></div></div>
+      <div class="row hl"><div class="cat">Свыше 200 тыс ₽/м² <span class="n num">939 квартир</span></div><div class="track"><div class="bar" style="--v:19.1%"></div><span class="val num">19,1%</span></div></div>
+    </div>
+    <p class="legend-note">Проходной бюджет массового покупателя ≈ 7,5 млн ₽: лимит семейной ипотеки 6 млн + первоначальный взнос. Всё, что выпадает из коридора, — тормозит.</p>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">ЕИСЖС, дом-уровень, 08.07.2026 · распродано % квартир</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 10 · Инсайт 3: класс + разброс -->
+<section class="slide">
+  <p class="eyebrow"><b>Инсайт 03</b> · Потолок спроса</p>
+  <h2>Покупатель голосует против «просто метров»</h2>
+  <div class="grow">
+    <div class="cols">
+      <div>
+        <p class="colhead">Распроданность по классу</p>
+        <div class="chart" style="margin-top:1vh">
+          <div class="row"><div class="cat">Комфорт <span class="n num">17 468 квартир</span></div><div class="track"><div class="bar" style="--v:66%"></div><span class="val num">33,1%</span></div></div>
+          <div class="row"><div class="cat">Бизнес <span class="n num">2 325 квартир</span></div><div class="track"><div class="bar" style="--v:59%"></div><span class="val num">29,5%</span></div></div>
+          <div class="row hl"><div class="cat">Типовой <span class="n num">2 296 квартир</span></div><div class="track"><div class="bar" style="--v:35%"></div><span class="val num">17,5%</span></div></div>
+        </div>
+      </div>
+      <div>
+        <p class="colhead">Разброс между застройщиками</p>
+        <div class="hero-num num" style="font-size:clamp(56px,9vw,130px)">×20</div>
+        <p class="plain" style="margin-top:1.5vh">При одном рынке, одной ставке, одной локации распроданность у разных застройщиков — <strong>от 4% до 80%</strong>. Разница — в продукте и его подаче.</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">ЕИСЖС, дом-уровень, 08.07.2026 · полоса — в масштабе колонки</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 11 · Поворот -->
+<section class="slide">
+  <p class="eyebrow">Поворот</p>
+  <div class="grow">
+    <div class="turn">
+      <div class="no">Конкурировать скидкой — ломает эскроу и маржу</div>
+      <div class="no">Конкурировать ставкой — она не ваша</div>
+      <div class="no">Конкурировать локацией — она уже выбрана</div>
+      <div class="yes">Остаётся <em>продукт</em>.</div>
+    </div>
+    <p class="sub" style="margin-top:3vh">А продукт в жилье — это планировка, фасад, двор, сценарий жизни.<br><strong>То, что проектирует архитектор.</strong></p>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">Все три инсайта — об одном</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 12 · Роль архитектора -->
+<section class="slide">
+  <p class="eyebrow">Роль архитектора</p>
+  <div class="grow">
+    <div class="hero-num num" style="color:var(--ink)">28% <span style="color:var(--ink-3)">→</span> <span style="color:var(--accent)">47%</span></div>
+    <p class="hero-cap">Архитектура — не строка расходов, а <strong>инструмент управления распроданностью</strong>: скоростью раскрытия эскроу и стоимостью денег.</p>
+    <div class="cols" style="margin-top:3.5vh">
+      <div>
+        <p class="colhead">Застройщику</p>
+        <p class="plain">Архитектор не тратит бюджет — он ускоряет продажи. Гонорар окупается разницей в распроданности на десятках квартир.</p>
+      </div>
+      <div>
+        <p class="colhead">Архитектору</p>
+        <p class="plain">Продавать не «красоту», а распроданность. Говорить с застройщиком его языком: воронка, темп, средний чек, эскроу.</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">28,1% — монолит-кирпич · 47,3% — кирпич · ЕИСЖС 08.07.2026</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 13 · Что делать -->
+<section class="slide">
+  <p class="eyebrow">Что делать · пять ходов по приоритету</p>
+  <div class="grow">
+    <div class="moves">
+      <div class="move"><span class="k num">01</span><div class="t">Квартирография под лимит ипотеки<small>Проходной бюджет ≈ 7,5 млн ₽. Пересобрать сетку лотов под коридор до 160 тыс ₽/м².</small></div></div>
+      <div class="move"><span class="k num">02</span><div class="t">Разгонять когорту-2028 сейчас, а не у сдачи<small>Пока распроданность 15%, продукт ещё можно донастроить. У сдачи останется только скидка.</small></div></div>
+      <div class="move"><span class="k num">03</span><div class="t">Переупаковать массовый монолит-кирпич 18–24 этажа<small>Самый большой и самый слабый сегмент: фасад с характером, дворы, планировочная вариативность.</small></div></div>
+      <div class="move"><span class="k num">04</span><div class="t">Отделка как финансовый продукт<small>Готовая отделка в теле льготного кредита — почти пустая ниша: «заехать сразу за тот же платёж».</small></div></div>
+      <div class="move"><span class="k num">05</span><div class="t">В малых городах — продукт против вторички<small>Там семейная ипотека действует и на вторичку. Новостройка побеждает только очевидным качеством.</small></div></div>
+    </div>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">Выводы из разрезов ЕИСЖС · детали — в полном отчёте</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 14 · Тайминг -->
+<section class="slide">
+  <p class="eyebrow">Тайминг</p>
+  <div class="grow">
+    <h2>Окно — сейчас, пока рынок здоров</h2>
+    <div class="cols" style="margin-top:3vh">
+      <p class="plain"><strong>Хорошая новость:</strong> Удмуртия — один из самых здоровых рынков страны: распроданность в верхней десятке регионов, переносов сроков вдвое меньше среднего.</p>
+      <p class="plain"><strong>Плохая:</strong> ценовой рост закончился, а половину рынка ещё предстоит продать. Перепаковывать продукт нужно до того, как остатки зависли, — а не после.</p>
+    </div>
+    <p class="sub" style="margin-top:4vh"><strong>Тот, кто первым начнёт конкурировать продуктом, а не скидкой, — снимет этот рынок.</strong></p>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">ДОМ.РФ Q3 2025 · ЕИСЖС 08.07.2026</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 15 · Финал -->
+<section class="slide">
+  <div class="grow">
+    <div class="mark"><svg viewBox="0 0 24 24"><path d="M3 20h18M4 20v-7l4-4 4 4v7M12 20v-9l5-5 4 4v10"/></svg></div>
+    <h1 style="max-width:20ch">Мы посчитали.<br>Ход за вами.</h1>
+    <p class="sub">Данные и методика открыты. Если захотите увидеть свой проект в этих разрезах — поговорим.</p>
+    <p class="sub" style="color:var(--ink)"><strong>АРТЕЛЬ</strong> · архитектура · проектирование · строительство<br><span style="color:var(--ink-2)">info@artel.ru · +7 (999) 000-00-00</span></p>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">Спасибо · вопросы</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 16 · Методика -->
+<section class="slide">
+  <p class="eyebrow">Приложение · методика и источники</p>
+  <div class="grow">
+    <div class="cols">
+      <div>
+        <p class="colhead">Данные</p>
+        <p class="plain" style="font-size:clamp(12px,1.3vw,18px)">
+          <strong>ЕИСЖС / наш.дом.рф</strong> — карточки всех 118 строящихся домов региона, срез 08.07.2026: распроданность, этажность, материал, класс, срок, цена.<br><br>
+          <strong>ЕРЗ.РФ</strong> — топ застройщиков УР на 01.07.2026.<br>
+          <strong>ЦБ РФ</strong> — ключевая ставка, ряд изменений.<br>
+          Распроданность взвешена по числу квартир; данные есть у 98 из 118 домов.</p>
+      </div>
+      <div>
+        <p class="colhead">Границы точности</p>
+        <p class="plain" style="font-size:clamp(12px,1.3vw,18px)">
+          Строительная готовность в % публичным API не раскрывается — соотношение «распроданность/готовность» не рассчитывалось.<br><br>
+          Оценки роста цен и структуры оплаты — отраслевые источники, помечены в докладе.<br>
+          Расчёты воспроизводимы: скрипт и выгрузка доступны по запросу.</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">Аналитика подготовлена бюро «АРТЕЛЬ» · июль 2026</span><span class="pg num" data-pg></span></div>
+</section>
+
+</div>
+<div class="hud"><i id="hudbar"></i></div>
+<div class="navhint">← → листать · Home/End</div>
+
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide')),i=0;
+  var hud=document.getElementById('hudbar');
+  slides.forEach(function(s,j){
+    var pg=s.querySelector('[data-pg]');
+    if(pg)pg.textContent=String(j+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0');
+  });
+  function go(n){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach(function(s,j){s.classList.toggle('active',j===i);});
+    hud.style.width=((i+1)/slides.length*100)+'%';
+    try{history.replaceState(null,'','#'+(i+1));}catch(e){}
+  }
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' '||e.key==='PageDown'){e.preventDefault();go(i+1);}
+    else if(e.key==='ArrowLeft'||e.key==='ArrowUp'||e.key==='PageUp'){e.preventDefault();go(i-1);}
+    else if(e.key==='Home'){go(0);}else if(e.key==='End'){go(slides.length-1);}
+  });
+  document.getElementById('deck').addEventListener('click',function(e){
+    var x=e.clientX/window.innerWidth;
+    if(x<0.2)go(i-1);else go(i+1);
+  });
+  var tx=null;
+  document.addEventListener('touchstart',function(e){tx=e.touches[0].clientX;},{passive:true});
+  document.addEventListener('touchend',function(e){
+    if(tx===null)return;
+    var dx=e.changedTouches[0].clientX-tx;
+    if(Math.abs(dx)>40)go(i+(dx<0?1:-1));
+    tx=null;
+  },{passive:true});
+  var h=parseInt((location.hash||'').slice(1),10);
+  go(isNaN(h)?0:h-1);
+})();
+</script>
+
+</body>
+</html>
