@@ -1,0 +1,282 @@
+[
+ {
+  "t": "Проекты",
+  "h": "https://zhcom.ru/projects"
+ },
+ {
+  "t": "Недвижимость",
+  "h": "https://zhcom.ru/flats"
+ },
+ {
+  "t": "Акции",
+  "h": "https://zhcom.ru/promos"
+ },
+ {
+  "t": "Коммерция",
+  "h": "https://zhcom.ru/commercial"
+ },
+ {
+  "t": "Контакты",
+  "h": "https://zhcom.ru/contacts"
+ },
+ {
+  "t": "",
+  "h": "https://zhcom.ru/izhevsk/favorites/"
+ },
+ {
+  "t": "Проекты",
+  "h": "https://zhcom.ru/projects/"
+ },
+ {
+  "t": "Квартиры",
+  "h": "https://zhcom.ru/flats/"
+ },
+ {
+  "t": "Избранное",
+  "h": "https://zhcom.ru/favorites/"
+ },
+ {
+  "t": "Выбрать квартиру",
+  "h": "https://zhcom.ru/izhevsk/flats/?order=original_price&limit=12&has_superdiscount=true&view=CARDS"
+ },
+ {
+  "t": "",
+  "h": "https://zhcom.ru/izhevsk/%D0%9F%D0%BE%D0%BB%D0%BD%D0%B0%D1%8F%20%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D1%8C%20%D0%BA%D1%80%D0%B5%D0%B4%D0%B8%D1%82%D0%B0:%2017,81%E2%80%9321,433%."
+ },
+ {
+  "t": "Узнать подробнее",
+  "h": "https://zhcom.ru/promos/35"
+ },
+ {
+  "t": "303 квартиры",
+  "h": "https://zhcom.ru/izhevsk/flats?limit=16"
+ },
+ {
+  "t": "303 квартиры",
+  "h": "https://zhcom.ru/izhevsk/flats?limit=16"
+ },
+ {
+  "t": "О проекте",
+  "h": "https://zhcom.ru/izhevsk/projects/ikigai"
+ },
+ {
+  "t": "Все 111 квартир",
+  "h": "https://zhcom.ru/izhevsk/flats?project=ikigai"
+ },
+ {
+  "t": "",
+  "h": "https://zhcom.ru/izhevsk/projects/ikigai"
+ },
+ {
+  "t": "О проекте",
+  "h": "https://zhcom.ru/izhevsk/projects/miry"
+ },
+ {
+  "t": "Все 86 квартир",
+  "h": "https://zhcom.ru/izhevsk/flats?project=miry"
+ },
+ {
+  "t": "",
+  "h": "https://zhcom.ru/izhevsk/projects/miry"
+ },
+ {
+  "t": "О проекте",
+  "h": "https://zhcom.ru/izhevsk/projects/znak_izh"
+ },
+ {
+  "t": "Все 7 квартир",
+  "h": "https://zhcom.ru/izhevsk/flats?project=znak_izh"
+ },
+ {
+  "t": "",
+  "h": "https://zhcom.ru/izhevsk/projects/znak_izh"
+ },
+ {
+  "t": "О проекте",
+  "h": "https://zhcom.ru/izhevsk/projects/znak2_izh"
+ },
+ {
+  "t": "Все 99 квартир",
+  "h": "https://zhcom.ru/izhevsk/flats?project=znak2_izh"
+ },
+ {
+  "t": "",
+  "h": "https://zhcom.ru/izhevsk/projects/znak2_izh"
+ },
+ {
+  "t": "Условия использования",
+  "h": "https://yandex.ru/legal/maps_termsofuse/?lang=ru_RU"
+ },
+ {
+  "t": "",
+  "h": "https://yandex.ru/maps/?from=api-maps&utm_source=jsapi&ll=53.28889224999998%2C56.87548199999255&origin=jsapi_3&z=11&l=map"
+ },
+ {
+  "t": "",
+  "h": "https://zhcom.ru/publications/news/"
+ },
+ {
+  "t": "",
+  "h": "https://zhcom.ru/publications/news/"
+ },
+ {
+  "t": "",
+  "h": "https://zhcom.ru/publications/news/"
+ },
+ {
+  "t": "",
+  "h": "https://zhcom.ru/publications/news/"
+ },
+ {
+  "t": "",
+  "h": "https://zhcom.ru/publications/news/"
+ },
+ {
+  "t": "Смотреть все новости",
+  "h": "https://zhcom.ru/publications/news"
+ },
+ {
+  "t": "",
+  "h": "https://zhcom.ru/publications/news/"
+ },
+ {
+  "t": "Обработку персональных данных",
+  "h": "https://zhcom.ru/privacy/"
+ },
+ {
+  "t": "Получение рекламно-информационных рассылок",
+  "h": "https://zhcom.ru/mailing/"
+ },
+ {
+  "t": "На карте",
+  "h": "https://zhcom.ru/contacts/"
+ },
+ {
+  "t": "На карте",
+  "h": "https://zhcom.ru/contacts/"
+ },
+ {
+  "t": "Квартиры",
+  "h": "https://zhcom.ru/flats/"
+ },
+ {
+  "t": "Машино-места",
+  "h": "https://zhcom.ru/parking/"
+ },
+ {
+  "t": "Кладовые",
+  "h": "https://zhcom.ru/storage/"
+ },
+ {
+  "t": "Коммерция",
+  "h": "https://zhcom.ru/commercial/"
+ },
+ {
+  "t": "Акции",
+  "h": "https://zhcom.ru/promos"
+ },
+ {
+  "t": "О компании",
+  "h": "https://zhcom.ru/about"
+ },
+ {
+  "t": "Новости",
+  "h": "https://zhcom.ru/publications/news"
+ },
+ {
+  "t": "Контакты",
+  "h": "https://zhcom.ru/contacts"
+ },
+ {
+  "t": "Акция Кешбэк от застройщика",
+  "h": "https://drive.google.com/file/d/1_r9UduG7DhGKK2a5b6p6UGfc66AhdAd8/view"
+ },
+ {
+  "t": "Реферальная программа",
+  "h": "https://referal.zhcom.ru/client"
+ },
+ {
+  "t": "Политика использования контента",
+  "h": "https://drive.google.com/file/d/1C-IvTHMjYFbkfP81IZuaq3g2i1UovNNr/view?usp=sharing"
+ },
+ {
+  "t": "Ход строительства",
+  "h": "https://zhcom.ru/progress"
+ },
+ {
+  "t": "Квартиры",
+  "h": "https://zhcom.ru/flats/"
+ },
+ {
+  "t": "Машино-места",
+  "h": "https://zhcom.ru/parking/"
+ },
+ {
+  "t": "Кладовые",
+  "h": "https://zhcom.ru/storage/"
+ },
+ {
+  "t": "Коммерция",
+  "h": "https://zhcom.ru/commercial/"
+ },
+ {
+  "t": "Акции",
+  "h": "https://zhcom.ru/promos"
+ },
+ {
+  "t": "О компании",
+  "h": "https://zhcom.ru/about"
+ },
+ {
+  "t": "Новости",
+  "h": "https://zhcom.ru/publications/news"
+ },
+ {
+  "t": "Контакты",
+  "h": "https://zhcom.ru/contacts"
+ },
+ {
+  "t": "Акция Кешбэк от застройщика",
+  "h": "https://drive.google.com/file/d/1_r9UduG7DhGKK2a5b6p6UGfc66AhdAd8/view"
+ },
+ {
+  "t": "Реферальная программа",
+  "h": "https://referal.zhcom.ru/client"
+ },
+ {
+  "t": "Политика использования контента",
+  "h": "https://drive.google.com/file/d/1C-IvTHMjYFbkfP81IZuaq3g2i1UovNNr/view?usp=sharing"
+ },
+ {
+  "t": "Ход строительства",
+  "h": "https://zhcom.ru/progress"
+ },
+ {
+  "t": "",
+  "h": "https://vk.com/zhelezno_izhevsk"
+ },
+ {
+  "t": "",
+  "h": "https://t.me/zheleznoizhevsk"
+ },
+ {
+  "t": "",
+  "h": "https://zhcom.ru/%D0%9A%D0%B8%D1%80%D0%BE%D0%B2:%20https://max.ru/join/kGx3z0gPsgwfBhq9zI3GIx8NHM6XKsIKxuBe8OS1uzs%20%D0%98%D0%B6%D0%B5%D0%B2%D1%81%D0%BA:%20https://max.ru/join/no29NnfM5-L5v9_lkF5I7HG4_VEXCUJTVKB5fuqIhX4%20%D0%9F%D0%B5%D1%80%D0%BC%D1%8C:%20https://max.ru/join/6d0C2NT4QfeJt3K492Ha_315aXmGFOWSFcpCj3Y5etA%20%D0%A3%D0%BB%D1%8C%D1%8F%D0%BD%D0%BE%D0%B2%D1%81%D0%BA:%20https://max.ru/join/xS8BUCDzDXtwkACRzecy_zxTpDlOV6Y1MP-yUvLBeT4%20%D0%95%D0%BA%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D0%B1%D1%83%D1%80%D0%B3:%20https://max.ru/join/mMOeE6XLagbR5TfWuWZ-BHZIudXAZ5qdmFf4S8II3xk%20%D0%92%D0%BE%D0%BB%D0%B3%D0%BE%D0%B3%D1%80%D0%B0%D0%B4:%20https://max.ru/join/CqMQ7dFGpSbSWWn0Z1twLcI-wDC2UJGpqHAC6RwqFuY"
+ },
+ {
+  "t": "наш.дом.рф.",
+  "h": "https://xn--80az8a.xn--d1aqf.xn--p1ai/%D1%81%D0%B5%D1%80%D0%B2%D0%B8%D1%81%D1%8B/%D0%B5%D0%B4%D0%B8%D0%BD%D1%8B%D0%B9-%D1%80%D0%B5%D0%B5%D1%81%D1%82%D1%80-%D0%B7%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D1%89%D0%B8%D0%BA%D0%BE%D0%B2/7553"
+ },
+ {
+  "t": "Согласие на обработку персональных данных",
+  "h": "https://zhcom.ru/agreement"
+ },
+ {
+  "t": "Политика конфиденциальности",
+  "h": "https://zhcom.ru/privacy"
+ },
+ {
+  "t": "Пользовательского соглашения.",
+  "h": "https://zhcom.ru/privacy"
+ }
+]

@@ -1,0 +1,734 @@
+[
+ {
+  "t": "Telegram",
+  "h": "https://t.me/+79090638313?roistat_visit=280410"
+ },
+ {
+  "t": "Все проекты",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/projects/"
+ },
+ {
+  "t": "Город-паркот 3,6 млн руб.",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/projects/gorod-park/"
+ },
+ {
+  "t": "Новый городот 5,9 млн руб.",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/projects/novyy-gorod/"
+ },
+ {
+  "t": "Новый восходот 5,0 млн руб.",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/projects/novyy-voskhod/"
+ },
+ {
+  "t": "Реализованные проекты",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/projects/#projects-completed"
+ },
+ {
+  "t": "Все квартиры",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/flats/"
+ },
+ {
+  "t": "Студии",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/flats/?filters[ROOMS][]=0"
+ },
+ {
+  "t": "1-комнатные",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/flats/?filters[ROOMS][]=1"
+ },
+ {
+  "t": "2-комнатные",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/flats/?filters[ROOMS][]=2"
+ },
+ {
+  "t": "3-комнатные",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/flats/?filters[ROOMS][]=3"
+ },
+ {
+  "t": "4-комнатные",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/flats/?filters[ROOMS][]=4"
+ },
+ {
+  "t": "Паркинг",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/#popup_FormParkingConsultation"
+ },
+ {
+  "t": "Кладовые",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/#popup_FormPantryConsultation"
+ },
+ {
+  "t": "Коммерческая недвижимость",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/commercial/"
+ },
+ {
+  "t": "Ипотека",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/how-to-buy/mortgage/"
+ },
+ {
+  "t": "Семейная",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/how-to-buy/mortgage/#mortgageRichCalculator"
+ },
+ {
+  "t": "Базовая",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/how-to-buy/mortgage/#mortgageRichCalculator"
+ },
+ {
+  "t": "IT-ипотека",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/how-to-buy/mortgage/#mortgageRichCalculator"
+ },
+ {
+  "t": "Рассрочка",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/how-to-buy/portion/"
+ },
+ {
+  "t": "Маткапитал",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/how-to-buy/maternity-capital/"
+ },
+ {
+  "t": "Обмен жилья",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/how-to-buy/obmen/"
+ },
+ {
+  "t": "Акции на квартиры",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/sales/"
+ },
+ {
+  "t": "Акции на коммерцию",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/sales/commercial/"
+ },
+ {
+  "t": "О компании",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/about/"
+ },
+ {
+  "t": "Новости",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/about/news/"
+ },
+ {
+  "t": "Работа в Островах",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/about/vacancies/"
+ },
+ {
+  "t": "Контакты",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/contacts/"
+ },
+ {
+  "t": "Офис продаж",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/sales-offices/"
+ },
+ {
+  "t": "Запись на экскурсию",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/about/excursion/"
+ },
+ {
+  "t": "VK",
+  "h": "https://vk.com/ostrova.group?roistat_visit=280410"
+ },
+ {
+  "t": "Rutube",
+  "h": "https://rutube.ru/channel/24670566/?roistat_visit=280410"
+ },
+ {
+  "t": "Все проекты",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/projects/"
+ },
+ {
+  "t": "Город-паркот 3,6 млн руб.",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/projects/gorod-park/"
+ },
+ {
+  "t": "Новый городот 5,9 млн руб.",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/projects/novyy-gorod/"
+ },
+ {
+  "t": "Новый восходот 5,0 млн руб.",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/projects/novyy-voskhod/"
+ },
+ {
+  "t": "Реализованные проекты",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/projects/#projects-completed"
+ },
+ {
+  "t": "О компании",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/about/"
+ },
+ {
+  "t": "Новости",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/about/news/"
+ },
+ {
+  "t": "Работа в Островах",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/about/vacancies/"
+ },
+ {
+  "t": "Контакты",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/contacts/"
+ },
+ {
+  "t": "Все квартиры",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/flats/"
+ },
+ {
+  "t": "Студии",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/flats/?filters[ROOMS][]=0"
+ },
+ {
+  "t": "1-комнатные",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/flats/?filters[ROOMS][]=1"
+ },
+ {
+  "t": "2-комнатные",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/flats/?filters[ROOMS][]=2"
+ },
+ {
+  "t": "3-комнатные",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/flats/?filters[ROOMS][]=3"
+ },
+ {
+  "t": "4-комнатные",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/flats/?filters[ROOMS][]=4"
+ },
+ {
+  "t": "Паркинг",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/#popup_FormParkingConsultation"
+ },
+ {
+  "t": "Кладовые",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/#popup_FormPantryConsultation"
+ },
+ {
+  "t": "Коммерческая недвижимость",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/commercial/"
+ },
+ {
+  "t": "Офис продаж",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/sales-offices/"
+ },
+ {
+  "t": "Запись на экскурсию",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/about/excursion/"
+ },
+ {
+  "t": "Ипотека",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/how-to-buy/mortgage/"
+ },
+ {
+  "t": "Семейная",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/how-to-buy/mortgage/#mortgageRichCalculator"
+ },
+ {
+  "t": "Базовая",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/how-to-buy/mortgage/#mortgageRichCalculator"
+ },
+ {
+  "t": "IT-ипотека",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/how-to-buy/mortgage/#mortgageRichCalculator"
+ },
+ {
+  "t": "Рассрочка",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/how-to-buy/portion/"
+ },
+ {
+  "t": "Маткапитал",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/how-to-buy/maternity-capital/"
+ },
+ {
+  "t": "Обмен жилья",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/how-to-buy/obmen/"
+ },
+ {
+  "t": "Акции на квартиры",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/sales/"
+ },
+ {
+  "t": "Акции на коммерцию",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/sales/commercial/"
+ },
+ {
+  "t": "VK",
+  "h": "https://vk.com/ostrova.group?roistat_visit=280410"
+ },
+ {
+  "t": "Rutube",
+  "h": "https://rutube.ru/channel/24670566/?roistat_visit=280410"
+ },
+ {
+  "t": "Все проекты",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/projects/"
+ },
+ {
+  "t": "Город-паркот 3,6 млн руб.",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/projects/gorod-park/"
+ },
+ {
+  "t": "Новый городот 5,9 млн руб.",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/projects/novyy-gorod/"
+ },
+ {
+  "t": "Новый восходот 5,0 млн руб.",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/projects/novyy-voskhod/"
+ },
+ {
+  "t": "Реализованные проекты",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/projects/#projects-completed"
+ },
+ {
+  "t": "Все квартиры",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/flats/"
+ },
+ {
+  "t": "Студии",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/flats/?filters[ROOMS][]=0"
+ },
+ {
+  "t": "1-комнатные",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/flats/?filters[ROOMS][]=1"
+ },
+ {
+  "t": "2-комнатные",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/flats/?filters[ROOMS][]=2"
+ },
+ {
+  "t": "3-комнатные",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/flats/?filters[ROOMS][]=3"
+ },
+ {
+  "t": "4-комнатные",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/flats/?filters[ROOMS][]=4"
+ },
+ {
+  "t": "Паркинг",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/#popup_FormParkingConsultation"
+ },
+ {
+  "t": "Кладовые",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/#popup_FormPantryConsultation"
+ },
+ {
+  "t": "Коммерческая недвижимость",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/commercial/"
+ },
+ {
+  "t": "Ипотека",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/how-to-buy/mortgage/"
+ },
+ {
+  "t": "Семейная",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/how-to-buy/mortgage/#mortgageRichCalculator"
+ },
+ {
+  "t": "Базовая",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/how-to-buy/mortgage/#mortgageRichCalculator"
+ },
+ {
+  "t": "IT-ипотека",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/how-to-buy/mortgage/#mortgageRichCalculator"
+ },
+ {
+  "t": "Рассрочка",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/how-to-buy/portion/"
+ },
+ {
+  "t": "Маткапитал",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/how-to-buy/maternity-capital/"
+ },
+ {
+  "t": "Обмен жилья",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/how-to-buy/obmen/"
+ },
+ {
+  "t": "Акции на квартиры",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/sales/"
+ },
+ {
+  "t": "Акции на коммерцию",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/sales/commercial/"
+ },
+ {
+  "t": "О компании",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/about/"
+ },
+ {
+  "t": "Новости",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/about/news/"
+ },
+ {
+  "t": "Работа в Островах",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/about/vacancies/"
+ },
+ {
+  "t": "Контакты",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/contacts/"
+ },
+ {
+  "t": "Офис продаж",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/sales-offices/"
+ },
+ {
+  "t": "Запись на экскурсию",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/about/excursion/"
+ },
+ {
+  "t": "VK",
+  "h": "https://vk.com/ostrova.group?roistat_visit=280410"
+ },
+ {
+  "t": "Rutube",
+  "h": "https://rutube.ru/channel/24670566/?roistat_visit=280410"
+ },
+ {
+  "t": "Острова",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/"
+ },
+ {
+  "t": "Проекты",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/projects/"
+ },
+ {
+  "t": "Квартиры",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/flats/"
+ },
+ {
+  "t": "Коммерческая недвижимость",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/commercial/"
+ },
+ {
+  "t": "Как купить",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/how-to-buy/"
+ },
+ {
+  "t": "Акции",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/sales/"
+ },
+ {
+  "t": "Компания",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/about/"
+ },
+ {
+  "t": "Узнать больше",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/projects/gorod-park/"
+ },
+ {
+  "t": "Обмен жилья Новая квартира взамен старой",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/how-to-buy/obmen/"
+ },
+ {
+  "t": "Квартиры с террасами Удобство городской жизни и комфорт загородного дома",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/flats/?filters[FEATURES][]=192"
+ },
+ {
+  "t": "Город-парк",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/projects/gorod-park/"
+ },
+ {
+  "t": "289 квартир в 1 доме",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/flats/?filters[BUILDING][]=3894"
+ },
+ {
+  "t": "",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/projects/gorod-park/"
+ },
+ {
+  "t": "Новый город",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/projects/novyy-gorod/"
+ },
+ {
+  "t": "355 квартир в 2 домах",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/flats/?filters[BUILDING][]=201&filters[BUILDING][]=203&filters[BUILDING][]=202&filters[BUILDING][]=204"
+ },
+ {
+  "t": "",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/projects/novyy-gorod/"
+ },
+ {
+  "t": "Новый восход",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/projects/novyy-voskhod/"
+ },
+ {
+  "t": "86 квартир в 4 домах",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/flats/?filters[BUILDING][]=207&filters[BUILDING][]=208&filters[BUILDING][]=205&filters[BUILDING][]=206"
+ },
+ {
+  "t": "",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/projects/novyy-voskhod/"
+ },
+ {
+  "t": "О компании",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/about/"
+ },
+ {
+  "t": "Все новости",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/about/news/"
+ },
+ {
+  "t": "Режим работы офиса продаж с 11 по 14 июня 10 июня 2026",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/about/news/rezhim-raboty-ofisa-prodazh-s-11-po-14-iyunya/"
+ },
+ {
+  "t": "Мы получили премию «Твердые знаки—2026» 25 мая 2026",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/about/news/my-poluchili-premiyu-tverdye-znaki-2026-/"
+ },
+ {
+  "t": "Старт продаж квартала «Исторический» в районе «Город-парк» 19 мая 2026",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/about/news/start-prodazh-kvartala-istoricheskiy-v-rayone-gorod-park-/"
+ },
+ {
+  "t": "Режим работы офиса продаж в майские праздники 29 апреля 2026",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/about/news/rezhim-raboty-ofisa-prodazh-v-mayskie-prazdniki/"
+ },
+ {
+  "t": "Новый восход в тройке лучших новостроек Удмуртии 16 марта 2026",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/about/news/novyy-voskhod-v-troyke-luchshikh-novostroek-udmurtii/"
+ },
+ {
+  "t": "Работа офиса продаж 6-9 марта 5 марта 2026",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/about/news/rabota-ofisa-prodazh-6-9-marta/"
+ },
+ {
+  "t": "Разрешение на ввод в эксплуатацию дома 45Ак1 на Воткинском шоссе 3 марта 2026",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/about/news/razreshenie-na-vvod-v-ekspluatatsiyu-doma-45ak1-na-votkinskom-shosse/"
+ },
+ {
+  "t": "Режим работы офиса продаж в февральские праздники 20 февраля 2026",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/about/news/rezhim-raboty-ofisa-prodazh-v-fevralskie-prazdniki/"
+ },
+ {
+  "t": "Фокус-группа по эксплуатации двора на стилобате 6 февраля 2026",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/about/news/fokus-gruppa-po-ekspluatatsii-dvora-na-stilobate/"
+ },
+ {
+  "t": "С 1 февраля 2026 года вырос размер материнского капитала 1 февраля 2026",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/about/news/s-1-fevralya-2026-goda-vyros-razmer-materinskogo-kapitala/"
+ },
+ {
+  "t": "Изменения в семейной ипотеке с 1 февраля 2026 года 14 января 2026",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/about/news/izmeneniya-v-semeynoy-ipoteke-s-1-fevralya-2026-goda/"
+ },
+ {
+  "t": "График работы офиса продаж в новогодние праздники 25 декабря 2025",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/about/news/grafik-raboty-ofisa-prodazh-v-novogodnie-prazdniki/"
+ },
+ {
+  "t": "Каким будет Ижевск через пять лет? 20 декабря 2025",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/about/news/kakim-budet-izhevsk-cherez-pyat-let/"
+ },
+ {
+  "t": "Будущие жители Седьмого дома-квартала поучаствовали в проектировании своего двор",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/about/news/budushchie-zhiteli-sedmogo-doma-kvartala-pouchastvovali-v-proektirovanii-svoego-dvora/"
+ },
+ {
+  "t": "Старт передачи ключей будущим жителям дома 45А в Новом восходе 12 ноября 2025",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/about/news/gruppa-kompaniy-ostrova-i-rayon-novyy-gorod-poluchili-nagrady-premii-top-zhk-2025/"
+ },
+ {
+  "t": "Режим работы офиса продаж в ноябрьские праздники 31 октября 2025",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/about/news/rezhim-raboty-kompanii-v-prazdnichnye-dni/"
+ },
+ {
+  "t": "Получили разрешение на ввод в эксплуатацию дома 45А в ЖК «Новый восход» 30 октяб",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/about/news/poluchili-razreshenie-na-vvod-v-ekspluatatsiyu-doma-53k1-v-zhk-novyy-voskhod/"
+ },
+ {
+  "t": "Острова",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/"
+ },
+ {
+  "t": "VK",
+  "h": "https://vk.com/ostrova.group?roistat_visit=280410"
+ },
+ {
+  "t": "Rutube",
+  "h": "https://rutube.ru/channel/24670566/?roistat_visit=280410"
+ },
+ {
+  "t": "Новый город",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/projects/novyy-gorod/"
+ },
+ {
+  "t": "Новый восход",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/projects/novyy-voskhod/"
+ },
+ {
+  "t": "Реализованные проекты",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/projects/#projects-completed"
+ },
+ {
+  "t": "Студии",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/flats/?filters[ROOMS][]=0"
+ },
+ {
+  "t": "1-комнатные",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/flats/?filters[ROOMS][]=1"
+ },
+ {
+  "t": "2-комнатные",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/flats/?filters[ROOMS][]=2"
+ },
+ {
+  "t": "3-комнатные",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/flats/?filters[ROOMS][]=3"
+ },
+ {
+  "t": "4-комнатные",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/flats/?filters[ROOMS][]=4"
+ },
+ {
+  "t": "Коммерция",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/commercial/"
+ },
+ {
+  "t": "Ипотека",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/how-to-buy/mortgage/"
+ },
+ {
+  "t": "Рассрочка",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/how-to-buy/portion/"
+ },
+ {
+  "t": "Маткапитал",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/how-to-buy/maternity-capital/"
+ },
+ {
+  "t": "Обмен жилья",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/how-to-buy/obmen/"
+ },
+ {
+  "t": "Акции",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/sales/"
+ },
+ {
+  "t": "О компании",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/about/"
+ },
+ {
+  "t": "Новости",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/about/news/"
+ },
+ {
+  "t": "Работа в Островах",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/about/vacancies/"
+ },
+ {
+  "t": "Контакты",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/contacts/"
+ },
+ {
+  "t": "Запись на экскурсию",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/about/excursion/"
+ },
+ {
+  "t": "Офисы продаж",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/sales-offices/"
+ },
+ {
+  "t": "Новый город",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/projects/novyy-gorod/"
+ },
+ {
+  "t": "Новый восход",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/projects/novyy-voskhod/"
+ },
+ {
+  "t": "Реализованные проекты",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/projects/#projects-completed"
+ },
+ {
+  "t": "Студии",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/flats/?filters[ROOMS][]=0"
+ },
+ {
+  "t": "1-комнатные",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/flats/?filters[ROOMS][]=1"
+ },
+ {
+  "t": "2-комнатные",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/flats/?filters[ROOMS][]=2"
+ },
+ {
+  "t": "3-комнатные",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/flats/?filters[ROOMS][]=3"
+ },
+ {
+  "t": "4-комнатные",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/flats/?filters[ROOMS][]=4"
+ },
+ {
+  "t": "Коммерция",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/commercial/"
+ },
+ {
+  "t": "Ипотека",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/how-to-buy/mortgage/"
+ },
+ {
+  "t": "Рассрочка",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/how-to-buy/portion/"
+ },
+ {
+  "t": "Маткапитал",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/how-to-buy/maternity-capital/"
+ },
+ {
+  "t": "Обмен жилья",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/how-to-buy/obmen/"
+ },
+ {
+  "t": "Акции",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/sales/"
+ },
+ {
+  "t": "О компании",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/about/"
+ },
+ {
+  "t": "Новости",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/about/news/"
+ },
+ {
+  "t": "Работа в Островах",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/about/vacancies/"
+ },
+ {
+  "t": "Контакты",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/contacts/"
+ },
+ {
+  "t": "Запись на экскурсию",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/about/excursion/"
+ },
+ {
+  "t": "Офисы продаж",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/sales-offices/"
+ },
+ {
+  "t": "Политика конфиденциальности",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/privacy-policy/"
+ },
+ {
+  "t": "Политика обработки персональных данных",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/data-processing-policy/"
+ },
+ {
+  "t": "Разработка сайта",
+  "h": "https://d-c.agency/?roistat_visit=280410"
+ },
+ {
+  "t": "Политика конфиденциальности",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/privacy-policy/"
+ },
+ {
+  "t": "Политика обработки персональных данных",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/data-processing-policy/"
+ },
+ {
+  "t": "Разработка сайта",
+  "h": "https://d-c.agency/?roistat_visit=280410"
+ },
+ {
+  "t": "Политикой конфиденциальности",
+  "h": "https://xn--80adrpkbapik.xn--p1ai/privacy-policy/"
+ },
+ {
+  "t": "Сообщить о нарушении",
+  "h": "https://www.bitrix24.ru/abuse/?b24_form_id=34&b24_address=https%3A%2F%2Fgkostrova.bitrix24.ru&b24_form_address=https%3A%2F%2Fxn--80adrpkbapik.xn--p1ai%2F&roistat_visit=280410"
+ }
+]

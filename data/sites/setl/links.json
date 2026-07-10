@@ -1,0 +1,550 @@
+[
+ {
+  "t": "Собственникам",
+  "h": "https://setlgroup.ru/owners"
+ },
+ {
+  "t": "Инвесторам",
+  "h": "https://setlgroup.ru/investors"
+ },
+ {
+  "t": "Тендеры",
+  "h": "https://setlgroup.ru/tenders/partnership"
+ },
+ {
+  "t": "",
+  "h": "https://setlgroup.ru/"
+ },
+ {
+  "t": "Проекты",
+  "h": "https://setlgroup.ru/projects/search/spb"
+ },
+ {
+  "t": "Выбрать квартиру",
+  "h": "https://setlgroup.ru/buildings/search/flats/spb"
+ },
+ {
+  "t": "Покупателям",
+  "h": "https://setlgroup.ru/customers"
+ },
+ {
+  "t": "О нас",
+  "h": "https://setlgroup.ru/about"
+ },
+ {
+  "t": "Контакты",
+  "h": "https://setlgroup.ru/contacts"
+ },
+ {
+  "t": "",
+  "h": "https://lk.pn.ru/auth"
+ },
+ {
+  "t": "Акция Универ Сити Универсальный и уникальный Подробнее",
+  "h": "https://setlgroup.ru/projects/univer-city"
+ },
+ {
+  "t": "Подробнее",
+  "h": "https://setlgroup.ru/projects/univer-city"
+ },
+ {
+  "t": "Акция Аристократ Стильная локация и архитектура Подробнее",
+  "h": "https://setlgroup.ru/projects/aristokrat"
+ },
+ {
+  "t": "Подробнее",
+  "h": "https://setlgroup.ru/projects/aristokrat"
+ },
+ {
+  "t": "Акция Сэтл Лофт Комфорт и уникальность Подробнее",
+  "h": "https://setlgroup.ru/projects/setl-loft"
+ },
+ {
+  "t": "Подробнее",
+  "h": "https://setlgroup.ru/projects/setl-loft"
+ },
+ {
+  "t": "Акция Титул в Московском Авторская архитектура Подробнее",
+  "h": "https://setlgroup.ru/projects/titul-v-moskovskom"
+ },
+ {
+  "t": "Подробнее",
+  "h": "https://setlgroup.ru/projects/titul-v-moskovskom"
+ },
+ {
+  "t": "Сэтл – это честно Мы не просто строим дома. Мы строим доверие. Подробнее",
+  "h": "https://setlgroup.ru/about"
+ },
+ {
+  "t": "Подробнее",
+  "h": "https://setlgroup.ru/about"
+ },
+ {
+  "t": "",
+  "h": "https://setlgroup.ru/projects/gorod-zvezd#special"
+ },
+ {
+  "t": "",
+  "h": "https://setlgroup.ru/projects/gorod-zvezd#special"
+ },
+ {
+  "t": "",
+  "h": "https://setlgroup.ru/projects/gorod-zvezd#special"
+ },
+ {
+  "t": "",
+  "h": "https://setlgroup.ru/projects/gorod-zvezd#special"
+ },
+ {
+  "t": "Бизнес SetlHome Аристократ от 14,2 млн ₽ м. Горный институт 10 мин. г. Санкт-Пет",
+  "h": "https://setlgroup.ru/projects/aristokrat"
+ },
+ {
+  "t": "Комфорт Есть сданные дома Город звезд от 4,5 млн ₽ м. Обухово 13 мин. Ленинградс",
+  "h": "https://setlgroup.ru/projects/gorod-zvezd"
+ },
+ {
+  "t": "Высокий комфорт Сэтл Лофт от 7,9 млн ₽ м. Звездная 25 мин. г. Санкт-Петербург, у",
+  "h": "https://setlgroup.ru/projects/setl-loft"
+ },
+ {
+  "t": "Высокий комфорт Астра Континенталь от 8,9 млн ₽ м. Елизаровская 5 мин. г. Санкт-",
+  "h": "https://setlgroup.ru/projects/astra-kontinental"
+ },
+ {
+  "t": "Высокий комфорт Сэтл Ривьера от 7,8 млн ₽ м. пр. Большевиков 10 мин. г. Санкт-Пе",
+  "h": "https://setlgroup.ru/projects/setl-rivera"
+ },
+ {
+  "t": "",
+  "h": "https://setlgroup.ru/projects/gorod-zvezd#special"
+ },
+ {
+  "t": "",
+  "h": "https://setlgroup.ru/projects/gorod-zvezd#special"
+ },
+ {
+  "t": "",
+  "h": "https://setlgroup.ru/projects/univer-city#special"
+ },
+ {
+  "t": "",
+  "h": "https://setlgroup.ru/projects/gorod-zvezd#special"
+ },
+ {
+  "t": "",
+  "h": "https://setlgroup.ru/projects/bionika-zapovednaya#special"
+ },
+ {
+  "t": "",
+  "h": "https://setlgroup.ru/projects/paradnyi-ansambl#special"
+ },
+ {
+  "t": "",
+  "h": "https://setlgroup.ru/projects/titul-v-moskovskom#special"
+ },
+ {
+  "t": "",
+  "h": "https://setlgroup.ru/projects/astra-kontinental#special"
+ },
+ {
+  "t": "",
+  "h": "https://setlgroup.ru/projects/setl-rivera#special"
+ },
+ {
+  "t": "",
+  "h": "https://setlgroup.ru/lifestyle"
+ },
+ {
+  "t": "Стандарты Setl В фокусе стандартов Setl – главные ценности современного человека",
+  "h": "https://setlgroup.ru/lifestyle#standarts"
+ },
+ {
+  "t": "Образование будущего Для юных жителей мы создаем уникальную образовательную сред",
+  "h": "https://setlgroup.ru/lifestyle#lyceum"
+ },
+ {
+  "t": "Сообщество единомышленников Жить комфортно – это значит дружить, общаться, твори",
+  "h": "https://setlgroup.ru/lifestyle#community"
+ },
+ {
+  "t": "",
+  "h": "https://setlgroup.ru/news/2915"
+ },
+ {
+  "t": "На Архивной улице в ЖК «Пульс Премьер» открылся детсад с огородом для 240 малыше",
+  "h": "https://setlgroup.ru/news/2915"
+ },
+ {
+  "t": "Волонтёры Setl Group помогли очистить берег Финского залива",
+  "h": "https://setlgroup.ru/news/2914"
+ },
+ {
+  "t": "Setl Group построит школу на 825 мест на Среднем проспекте Васильевского острова",
+  "h": "https://setlgroup.ru/news/2913"
+ },
+ {
+  "t": "",
+  "h": "https://setlgroup.ru/news/2916"
+ },
+ {
+  "t": "Setl Group объявляет архитектурный конкурс на концепцию застройки кварталов в Но",
+  "h": "https://setlgroup.ru/news/2916"
+ },
+ {
+  "t": "В Новосаратовке сдана четвёртая очередь ЖК «Город Звёзд»",
+  "h": "https://setlgroup.ru/news/2912"
+ },
+ {
+  "t": "Все новости",
+  "h": "https://setlgroup.ru/news"
+ },
+ {
+  "t": "Все новости",
+  "h": "https://setlgroup.ru/news"
+ },
+ {
+  "t": "",
+  "h": "https://setlgroup.ru/"
+ },
+ {
+  "t": "",
+  "h": "https://vk.com/setlgroupnews"
+ },
+ {
+  "t": "",
+  "h": "https://t.me/setlgroup"
+ },
+ {
+  "t": "О холдинге",
+  "h": "https://setlgroup.ru/about"
+ },
+ {
+  "t": "Вакансии",
+  "h": "https://job.setlgroup.ru/"
+ },
+ {
+  "t": "Покупателям",
+  "h": "https://setlgroup.ru/customers"
+ },
+ {
+  "t": "Новости",
+  "h": "https://setlgroup.ru/news"
+ },
+ {
+  "t": "Собственникам",
+  "h": "https://setlgroup.ru/owners"
+ },
+ {
+  "t": "Контакты",
+  "h": "https://setlgroup.ru/contacts"
+ },
+ {
+  "t": "Инвесторам",
+  "h": "https://setlgroup.ru/investors"
+ },
+ {
+  "t": "Тендеры",
+  "h": "https://setlgroup.ru/tenders/partnership"
+ },
+ {
+  "t": "Устойчивое развитие",
+  "h": "https://setlgroup.ru/sustainability"
+ },
+ {
+  "t": "Стиль жизни Setl",
+  "h": "https://setlgroup.ru/lifestyle"
+ },
+ {
+  "t": "Город звезд",
+  "h": "https://setlgroup.ru/projects/gorod-zvezd"
+ },
+ {
+  "t": "Дворцовый фасад",
+  "h": "https://setlgroup.ru/projects/dvortsovyi-fasad"
+ },
+ {
+  "t": "Парадный ансамбль",
+  "h": "https://setlgroup.ru/projects/paradnyi-ansambl"
+ },
+ {
+  "t": "Смотреть все",
+  "h": "https://setlgroup.ru/projects/search/spb/classtype-comfort"
+ },
+ {
+  "t": "Сэтл Лофт",
+  "h": "https://setlgroup.ru/projects/setl-loft"
+ },
+ {
+  "t": "Астра Континенталь",
+  "h": "https://setlgroup.ru/projects/astra-kontinental"
+ },
+ {
+  "t": "Сэтл Ривьера",
+  "h": "https://setlgroup.ru/projects/setl-rivera"
+ },
+ {
+  "t": "Смотреть все",
+  "h": "https://setlgroup.ru/projects/search/spb/classtype-high_comfort"
+ },
+ {
+  "t": "Аристократ",
+  "h": "https://setlgroup.ru/projects/aristokrat"
+ },
+ {
+  "t": "Svetlana Park",
+  "h": "https://setlgroup.ru/projects/svetlana-park"
+ },
+ {
+  "t": "Притяжение",
+  "h": "https://setlgroup.ru/projects/prityazhenie-na-vyborgskoi"
+ },
+ {
+  "t": "Резиденс (The Residence)",
+  "h": "https://setlgroup.ru/projects/the-residence"
+ },
+ {
+  "t": "Империал Клаб",
+  "h": "https://setlgroup.ru/projects/imperial-club"
+ },
+ {
+  "t": "GRAND VIEW",
+  "h": "https://setlgroup.ru/projects/grand-view"
+ },
+ {
+  "t": "The One",
+  "h": "https://setlgroup.ru/projects/the-one"
+ },
+ {
+  "t": "Смотреть все",
+  "h": "https://setlgroup.ru/projects/search/spb/classtype-premium"
+ },
+ {
+  "t": "Кроны и Волны",
+  "h": "https://setlgroup.ru/projects/krony-i-volny"
+ },
+ {
+  "t": "Лэйк Сити-4",
+  "h": "https://setlgroup.ru/projects/lake-city-4"
+ },
+ {
+  "t": "Лэйк Сити-9",
+  "h": "https://setlgroup.ru/projects/lake-city-9"
+ },
+ {
+  "t": "Смотреть все",
+  "h": "https://setlgroup.ru/projects/search/kaliningrad"
+ },
+ {
+  "t": "Город звезд",
+  "h": "https://setlgroup.ru/projects/gorod-zvezd"
+ },
+ {
+  "t": "Дворцовый фасад",
+  "h": "https://setlgroup.ru/projects/dvortsovyi-fasad"
+ },
+ {
+  "t": "Парадный ансамбль",
+  "h": "https://setlgroup.ru/projects/paradnyi-ansambl"
+ },
+ {
+  "t": "Универ Сити",
+  "h": "https://setlgroup.ru/projects/univer-city"
+ },
+ {
+  "t": "Зеленый квартал на Пулковских высотах",
+  "h": "https://setlgroup.ru/projects/green-kvartal"
+ },
+ {
+  "t": "Чистое небо",
+  "h": "https://setlgroup.ru/projects/chistoe-nebo"
+ },
+ {
+  "t": "Солнечный город",
+  "h": "https://setlgroup.ru/projects/solnechnyi-gorod"
+ },
+ {
+  "t": "Смотреть все",
+  "h": "https://setlgroup.ru/projects/search/spb/classtype-comfort"
+ },
+ {
+  "t": "Сэтл Лофт",
+  "h": "https://setlgroup.ru/projects/setl-loft"
+ },
+ {
+  "t": "Астра Континенталь",
+  "h": "https://setlgroup.ru/projects/astra-kontinental"
+ },
+ {
+  "t": "Сэтл Ривьера",
+  "h": "https://setlgroup.ru/projects/setl-rivera"
+ },
+ {
+  "t": "Прайм Приморский",
+  "h": "https://setlgroup.ru/projects/praim-primorskii"
+ },
+ {
+  "t": "Панорама парк Сосновка",
+  "h": "https://setlgroup.ru/projects/panorama-park-u-sosnovki"
+ },
+ {
+  "t": "Пульс Премьер",
+  "h": "https://setlgroup.ru/projects/pulse-premier"
+ },
+ {
+  "t": "Сенат",
+  "h": "https://setlgroup.ru/projects/senat"
+ },
+ {
+  "t": "Смотреть все",
+  "h": "https://setlgroup.ru/projects/search/spb/classtype-high_comfort"
+ },
+ {
+  "t": "Аристократ",
+  "h": "https://setlgroup.ru/projects/aristokrat"
+ },
+ {
+  "t": "Svetlana Park",
+  "h": "https://setlgroup.ru/projects/svetlana-park"
+ },
+ {
+  "t": "Притяжение",
+  "h": "https://setlgroup.ru/projects/prityazhenie-na-vyborgskoi"
+ },
+ {
+  "t": "Резиденс (The Residence)",
+  "h": "https://setlgroup.ru/projects/the-residence"
+ },
+ {
+  "t": "Империал Клаб",
+  "h": "https://setlgroup.ru/projects/imperial-club"
+ },
+ {
+  "t": "GRAND VIEW",
+  "h": "https://setlgroup.ru/projects/grand-view"
+ },
+ {
+  "t": "The One",
+  "h": "https://setlgroup.ru/projects/the-one"
+ },
+ {
+  "t": "Петровский Квартал на воде",
+  "h": "https://setlgroup.ru/projects/petrovskii-kvartal"
+ },
+ {
+  "t": "Стокгольм (STOCKHOLM)",
+  "h": "https://setlgroup.ru/projects/stockholm"
+ },
+ {
+  "t": "Дом на Кирочной",
+  "h": "https://setlgroup.ru/projects/dom-na-kirochnoi"
+ },
+ {
+  "t": "Кроны и Волны",
+  "h": "https://setlgroup.ru/projects/krony-i-volny"
+ },
+ {
+  "t": "Лэйк Сити-4",
+  "h": "https://setlgroup.ru/projects/lake-city-4"
+ },
+ {
+  "t": "Лэйк Сити-9",
+  "h": "https://setlgroup.ru/projects/lake-city-9"
+ },
+ {
+  "t": "Консул",
+  "h": "https://setlgroup.ru/projects/artilleriiskaya"
+ },
+ {
+  "t": "Лэйк Сити-7",
+  "h": "https://setlgroup.ru/projects/lake-city-7"
+ },
+ {
+  "t": "Лэйк Сити-10",
+  "h": "https://setlgroup.ru/projects/lake-city-10"
+ },
+ {
+  "t": "Лэйк Сити-11",
+  "h": "https://setlgroup.ru/projects/lake-city-11"
+ },
+ {
+  "t": "Смотреть все",
+  "h": "https://setlgroup.ru/projects/search/kaliningrad"
+ },
+ {
+  "t": "Реквизиты",
+  "h": "https://setlgroup.ru/back/documents/requisites"
+ },
+ {
+  "t": "Информация об охране труда",
+  "h": "https://setlgroup.ru/back/documents/ohrana-truda"
+ },
+ {
+  "t": "Защита персональных данных",
+  "h": "https://setlgroup.ru/back/documents/personal-data"
+ },
+ {
+  "t": "Главная",
+  "h": "https://setlgroup.ru/"
+ },
+ {
+  "t": "Выбрать квартиру",
+  "h": "https://setlgroup.ru/buildings/search/flats/spb"
+ },
+ {
+  "t": "Проекты",
+  "h": "https://setlgroup.ru/projects/search/spb"
+ },
+ {
+  "t": "Покупателям",
+  "h": "https://setlgroup.ru/customers"
+ },
+ {
+  "t": "UIS",
+  "h": "https://www.uiscom.ru/reshenija/servis-obratnogo-zvonka/?utm_source=widget_clients"
+ },
+ {
+  "t": "UIS",
+  "h": "https://www.uiscom.ru/reshenija/servis-obratnogo-zvonka/?utm_source=widget_clients"
+ },
+ {
+  "t": "",
+  "h": "https://t.me/spbrealty_bot"
+ },
+ {
+  "t": "",
+  "h": "https://vk.com/im?sel=-53653785"
+ },
+ {
+  "t": "",
+  "h": "https://max.ru/id7816094750_bot"
+ },
+ {
+  "t": "Согласие",
+  "h": "https://pn.ru/page/soglasie-na-obrabotku-personalnyh-dannyh-obratnyi-zvonok"
+ },
+ {
+  "t": "",
+  "h": "https://t.me/spbrealty_bot"
+ },
+ {
+  "t": "",
+  "h": "https://vk.com/im?sel=-53653785"
+ },
+ {
+  "t": "",
+  "h": "https://max.ru/id7816094750_bot"
+ },
+ {
+  "t": "",
+  "h": "https://t.me/spbrealty_bot"
+ },
+ {
+  "t": "",
+  "h": "https://vk.com/im?sel=-53653785"
+ },
+ {
+  "t": "",
+  "h": "https://max.ru/id7816094750_bot"
+ }
+]
