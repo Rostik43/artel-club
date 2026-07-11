@@ -1,0 +1,915 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<title>АРТЕЛЬ · Рынок новостроек Удмуртии — полная версия</title>
+<style>
+  :root{
+    --bg:#FFFFFF; --ink:#171717; --ink-2:#525252; --ink-3:#A3A3A3;
+    --line:#E5E5E5; --accent:#B5432A; --bar:#78716C; --bar-soft:#E7E5E4;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  }
+  /* Фирменный стиль АРТЕЛЬ: белый, монохром, тонкие линии — колода намеренно однотемная */
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:var(--sans);}
+  .deck{position:fixed;inset:0;overflow:hidden;background:var(--bg);}
+  .slide{position:absolute;inset:0;display:flex;flex-direction:column;
+    padding:6vh 7vw 4vh;box-sizing:border-box;opacity:0;visibility:hidden;
+    transition:opacity .35s ease;}
+  .slide.active{opacity:1;visibility:visible;}
+  @media (prefers-reduced-motion:reduce){.slide{transition:none}.bar{transition:none!important}}
+
+  .eyebrow{font-size:clamp(11px,1.05vw,15px);letter-spacing:.18em;text-transform:uppercase;
+    color:var(--ink-3);font-weight:500;margin:0 0 2.2vh;}
+  .eyebrow b{color:var(--accent);font-weight:600;}
+  h1{font-size:clamp(34px,5.6vw,84px);line-height:1.04;letter-spacing:-.02em;
+    font-weight:650;margin:0;text-wrap:balance;max-width:22ch;}
+  h2{font-size:clamp(24px,3.2vw,48px);line-height:1.08;letter-spacing:-.018em;
+    font-weight:650;margin:0 0 1vh;text-wrap:balance;max-width:30ch;}
+  .sub{font-size:clamp(14px,1.5vw,22px);line-height:1.45;color:var(--ink-2);
+    max-width:62ch;margin:2.2vh 0 0;}
+  .sub strong{color:var(--ink);font-weight:600;}
+  .grow{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0;}
+  .num{font-variant-numeric:tabular-nums;}
+
+  .foot{display:flex;align-items:baseline;gap:2ch;border-top:1px solid var(--line);
+    padding-top:1.6vh;font-size:clamp(10px,1vw,14px);color:var(--ink-3);}
+  .foot .brand{letter-spacing:.22em;font-weight:600;color:var(--ink);}
+  .foot .src{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .foot .pg{font-variant-numeric:tabular-nums;}
+
+  .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--line);}
+  .tile{padding:3.2vh 1.6vw;border-right:1px solid var(--line);}
+  .tile:last-child{border-right:0;}
+  .tile .v{font-size:clamp(30px,4.4vw,66px);font-weight:650;letter-spacing:-.02em;line-height:1;}
+  .tile .v em{font-style:normal;color:var(--accent);}
+  .tile .l{margin-top:1.2vh;font-size:clamp(11px,1.15vw,16px);color:var(--ink-2);line-height:1.35;}
+  @media (max-aspect-ratio:1/1){.tiles{grid-template-columns:1fr 1fr;}.tile:nth-child(2){border-right:0}.tile:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+
+  .chart{display:flex;flex-direction:column;gap:1.3vh;margin-top:2.2vh;}
+  .row{display:grid;grid-template-columns:minmax(16ch,24ch) 1fr;align-items:center;gap:1.6vw;}
+  .cat{font-size:clamp(12px,1.4vw,20px);color:var(--ink);font-weight:500;line-height:1.25;}
+  .cat .n{display:block;font-size:.72em;color:var(--ink-3);font-weight:400;}
+  .track{display:flex;align-items:center;gap:1vw;border-left:1px solid var(--line);
+    padding-left:2px;min-height:clamp(18px,3vh,32px);}
+  .bar{height:clamp(16px,2.7vh,28px);width:0;background:var(--bar);
+    border-radius:0 4px 4px 0;transition:width .7s cubic-bezier(.22,.8,.3,1);}
+  .active .bar{width:var(--v);}
+  .row.hl .bar{background:var(--accent);}
+  .val{font-size:clamp(13px,1.6vw,22px);font-weight:650;letter-spacing:-.01em;
+    font-variant-numeric:tabular-nums;white-space:nowrap;}
+  .row.hl .val{color:var(--accent);}
+  .row.dim .cat,.row.dim .val{color:var(--ink-3);}
+  .row.dim .bar{background:var(--bar-soft);}
+  .legend-note{margin-top:1.8vh;font-size:clamp(11px,1.05vw,15px);color:var(--ink-3);line-height:1.45;}
+
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:4vw;align-items:start;}
+  @media (max-aspect-ratio:1/1){.cols{grid-template-columns:1fr;gap:3vh}}
+  .colhead{font-size:clamp(12px,1.15vw,16px);letter-spacing:.14em;text-transform:uppercase;
+    color:var(--ink-3);font-weight:600;border-bottom:1px solid var(--line);padding-bottom:1vh;margin:0 0 1.6vh;}
+  .plain{font-size:clamp(13px,1.45vw,20px);line-height:1.5;color:var(--ink-2);margin:0;}
+  .plain strong{color:var(--ink);}
+  .plain em{font-style:normal;color:var(--accent);font-weight:600;}
+
+  .hero-num{font-size:clamp(64px,12vw,180px);font-weight:650;letter-spacing:-.035em;
+    line-height:.95;color:var(--accent);font-variant-numeric:tabular-nums;}
+  .hero-cap{font-size:clamp(15px,1.9vw,28px);color:var(--ink);max-width:38ch;margin-top:2vh;line-height:1.35;}
+
+  .moves{display:flex;flex-direction:column;margin-top:1vh;}
+  .move{display:grid;grid-template-columns:3.2ch 1fr;gap:1.6vw;align-items:baseline;
+    padding:1.4vh 0;border-bottom:1px solid var(--line);}
+  .move:last-child{border-bottom:0;}
+  .move .k{font-weight:650;color:var(--accent);font-variant-numeric:tabular-nums;
+    font-size:clamp(15px,1.8vw,26px);}
+  .move .t{font-size:clamp(14px,1.6vw,23px);line-height:1.35;font-weight:600;}
+  .move .t small{display:block;color:var(--ink-2);font-size:.74em;margin-top:.3vh;font-weight:400;line-height:1.45;}
+
+  .turn{display:flex;flex-direction:column;gap:.6vh;}
+  .turn .no{font-size:clamp(22px,3.2vw,46px);font-weight:650;letter-spacing:-.015em;color:var(--ink-3);
+    text-decoration:line-through;text-decoration-color:var(--accent);text-decoration-thickness:2px;}
+  .turn .yes{font-size:clamp(38px,6.2vw,94px);font-weight:650;letter-spacing:-.025em;margin-top:2.4vh;}
+  .turn .yes em{font-style:normal;color:var(--accent);}
+
+  .mark{width:clamp(34px,3.4vw,52px);height:clamp(34px,3.4vw,52px);border:1px solid var(--ink);
+    border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:2.4vh;}
+  .mark svg{width:60%;height:60%;stroke:var(--ink);stroke-width:1.4;fill:none;}
+
+  /* Таблицы данных (рабочая версия колоды) */
+  table.dt{width:100%;border-collapse:collapse;margin-top:1.6vh;
+    font-size:clamp(11px,1.15vw,16px);line-height:1.35;}
+  table.dt th{font-size:.82em;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);
+    font-weight:600;text-align:left;border-bottom:1px solid var(--ink);padding:.7vh .8ch;}
+  table.dt td{border-bottom:1px solid var(--line);padding:.65vh .8ch;color:var(--ink-2);vertical-align:top;}
+  table.dt td:first-child{color:var(--ink);font-weight:500;}
+  table.dt td.r,table.dt th.r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;}
+  table.dt tr.hl td{color:var(--accent);font-weight:600;}
+  table.dt tr.dim td{color:var(--ink-3);}
+  table.dt .ok{color:var(--ink);font-weight:600;}
+  table.dt .no{color:var(--ink-3);}
+  table.dt .half{color:var(--ink-2);}
+  .dt-note{margin-top:1.4vh;font-size:clamp(10px,1vw,14px);color:var(--ink-3);line-height:1.45;}
+
+  .quote{border-left:2px solid var(--accent);padding-left:2ch;margin:1.6vh 0;
+    font-size:clamp(14px,1.6vw,23px);line-height:1.5;color:var(--ink);}
+  .quote small{display:block;color:var(--ink-3);font-size:.72em;margin-top:.6vh;}
+
+  .hud{position:fixed;left:0;right:0;bottom:0;height:2px;background:transparent;z-index:5;}
+  .hud i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s;}
+  .navhint{position:fixed;right:1.2vw;bottom:1.4vh;font-size:11px;color:var(--ink-3);
+    z-index:5;user-select:none;}
+  @media print{
+    .deck{position:static;overflow:visible;}
+    .slide{position:relative;opacity:1;visibility:visible;page-break-after:always;height:100vh;}
+    .bar{width:var(--v)!important;transition:none;}
+    .hud,.navhint{display:none;}
+  }
+</style>
+
+<div class="deck" id="deck">
+
+<!-- 01 · Титул -->
+<section class="slide active">
+  <div class="grow">
+    <div class="mark"><svg viewBox="0 0 24 24"><path d="M3 20h18M4 20v-7l4-4 4 4v7M12 20v-9l5-5 4 4v10"/></svg></div>
+    <p class="eyebrow">АРТЕЛЬ · аналитика рынка · <b>полная рабочая версия</b></p>
+    <h1>Рынок новостроек Удмуртии: что показывают данные</h1>
+    <p class="sub">Все 120 строящихся домов региона (ЕИСЖС, срез 11.07.2026) + разбор 16 сайтов застройщиков. Версия без лимита времени: каждый тезис — с проверкой, контролями и источником.</p>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">Рабочая версия для проработки · сценическая версия — udmurtia-keynote.html</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 02 · Как устроена колода -->
+<section class="slide">
+  <p class="eyebrow">Навигация по колоде</p>
+  <h2>Три акта, два ликбеза, четыре приложения</h2>
+  <div class="grow">
+    <div class="cols">
+      <div>
+        <p class="colhead">Структура</p>
+        <p class="plain"><strong>Акт I · Что происходит с продажами</strong> — портрет рынка, навес-2028, разрезы: материал (с контролями и ликбезом), этажность, цена, класс, застройщики.<br><br>
+        <strong>Акт II · Как рынок продаёт</strong> — 16 сайтов: первый экран, финансы, цифровые инструменты, сигналы доверия, архитектор-невидимка, кейс Острова×SPEECH, рейтинг сайтов УР.<br><br>
+        <strong>Акт III · Что делать</strong> — роль архитектора, 5 ходов по продукту, 6 быстрых побед витрины, сигналы готовности рынка.</p>
+      </div>
+      <div>
+        <p class="colhead">Чем отличается от сценической</p>
+        <p class="plain">Здесь есть всё, что на сцене прозвучит одной фразой: <strong>контроли и оговорки</strong> (чтобы не поплыть на вопросах), <strong>полные таблицы</strong> (все 19 групп застройщиков, все 8 сайтов УР по признакам), <strong>ликбез по технологиям</strong> и <strong>словарик</strong>.<br><br>
+        Каждая цитата с сайтов проверена вживую 11.07.2026 (<em>docs/fact-check-report.md</em>). Всё, что нельзя проверить, помечено.</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">Полная версия · ~40 слайдов</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 03 · Метод -->
+<section class="slide">
+  <p class="eyebrow">Метод</p>
+  <h2>Два исследования, одна логика: продажи и витрины</h2>
+  <div class="grow">
+    <div class="cols">
+      <div>
+        <p class="colhead">Исследование 1 · Данные продаж</p>
+        <p class="plain"><strong>ЕИСЖС / наш.дом.рф</strong>, карточки всех <strong>120 строящихся домов</strong> УР (срез 11.07.2026): распроданность, этажность, материал стен, класс, срок сдачи, цена м², координаты.<br><br>
+        Распроданность взвешена по числу квартир; данные есть у 98 из 120 домов. ЕИСЖС обновляет распроданность ~10 числа месяца.</p>
+      </div>
+      <div>
+        <p class="colhead">Исследование 2 · Данные витрин</p>
+        <p class="plain">Снапшоты <strong>16 сайтов</strong> (8 УР + 8 федеральных: ПИК, Самолет, Брусника, Level, Setl, А101, Донстрой, Эталон), 09–10.07.2026, российский IP: тексты, скриншоты, опись 8 признаков.<br><br>
+        <strong>Живая перепроверка 11.07.2026</strong>: каждая цитата и каждый признак «Нет» проверены на действующих сайтах, ошибки исправлены.</p>
+      </div>
+    </div>
+    <p class="legend-note">Дополнительно: ЕРЗ.РФ (топ застройщиков, 01.07.2026) · ЦБ РФ (ставка, проверено 11.07) · первоисточники СМИ-фактов открыты и сверены.</p>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">Факт-чек: docs/fact-check-report.md</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 04 · Портрет -->
+<section class="slide">
+  <p class="eyebrow"><b>Акт I</b> · портрет рынка</p>
+  <h2>Строящаяся Удмуртия в четырёх числах</h2>
+  <div class="grow">
+    <div class="tiles">
+      <div class="tile"><div class="v num">120</div><div class="l">строящихся домов<br>у 68 застройщиков (юрлиц)</div></div>
+      <div class="tile"><div class="v num">22 286</div><div class="l">квартир в стройке<br>≈ 1,10 млн м² жилой площади</div></div>
+      <div class="tile"><div class="v num">32,4%</div><div class="l">средняя распроданность,<br>взвешенная по квартирам</div></div>
+      <div class="tile"><div class="v num"><em>~95%</em></div><div class="l">рынка — ижевская агломерация<br>(Ижевск + Завьялово)</div></div>
+    </div>
+    <p class="legend-note">Регион — в топ-10 РФ по «здоровью» рынка. Для сравнения: срез 08.07 давал 118 домов и 31,1% — ЕИСЖС обновил данные по 33 домам ~10 июля, продажи идут. Перед выступлением цифры обновить (процедура — 10 минут).</p>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">ЕИСЖС 11.07.2026 · дом-уровень</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 05 · География -->
+<section class="slide">
+  <p class="eyebrow"><b>Акт I</b> · география</p>
+  <h2>Один рынок: Ижевск и его пригород</h2>
+  <div class="grow">
+    <table class="dt">
+      <tr><th>Локация</th><th class="r">Домов</th><th class="r">Квартир</th><th class="r">Доля рынка</th><th class="r">Распродано</th></tr>
+      <tr class="hl"><td>Завьялово (пригород)</td><td class="r">32</td><td class="r">4 987</td><td class="r">22,4%</td><td class="r">39,0%</td></tr>
+      <tr><td>Воткинск</td><td class="r">2</td><td class="r">72</td><td class="r">0,3%</td><td class="r">35,6%</td></tr>
+      <tr><td>Ижевск</td><td class="r">79</td><td class="r">16 250</td><td class="r">72,9%</td><td class="r">31,1%</td></tr>
+      <tr><td>Глазов</td><td class="r">4</td><td class="r">588</td><td class="r">2,6%</td><td class="r">25,2%</td></tr>
+      <tr class="dim"><td>Сарапул</td><td class="r">3</td><td class="r">389</td><td class="r">1,7%</td><td class="r">13,6%</td></tr>
+      <tr class="dim"><td>Можга</td><td class="r">0</td><td class="r">—</td><td class="r">—</td><td class="r">—</td></tr>
+    </table>
+    <p class="dt-note">Завьялово продаётся лучше Ижевска: пригородные малоэтажные форматы («Город-парк» Талана+Островов, кварталы у леса) — уже заметный сегмент спроса. Малые города почти не строятся — там конкурент новостройки не другой ЖК, а вторичка (и на неё действует семейная ипотека).</p>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">ЕИСЖС 11.07.2026</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 06 · Концентрация -->
+<section class="slide">
+  <p class="eyebrow"><b>Акт I</b> · концентрация</p>
+  <h2>Продукт региона определяют 5–7 компаний</h2>
+  <div class="grow">
+    <table class="dt">
+      <tr><th>Группа</th><th class="r">Доля региона (ЕРЗ)</th><th class="r">В стройке, м²</th><th class="r">Распродано (ЕИСЖС)</th></tr>
+      <tr class="hl"><td>КОМОССТРОЙ</td><td class="r">28,81%</td><td class="r">321 882</td><td class="r">33,7%</td></tr>
+      <tr><td>Железно (Киров)</td><td class="r">8,48%</td><td class="r">94 685</td><td class="r">49,2%</td></tr>
+      <tr><td>UDS</td><td class="r">6,89%</td><td class="r">77 000</td><td class="r">38,4%</td></tr>
+      <tr><td>ГК Федерация</td><td class="r">6,31%</td><td class="r">70 544</td><td class="r">42,8%</td></tr>
+      <tr><td>ГК Острова</td><td class="r">4,97%</td><td class="r">55 475</td><td class="r">37,3%</td></tr>
+      <tr><td>Зардон-групп</td><td class="r">4,75%</td><td class="r">53 099</td><td class="r">32,8%</td></tr>
+      <tr class="dim"><td>ГК РЕНТЕК</td><td class="r">2,85%</td><td class="r">31 794</td><td class="r">12,6%</td></tr>
+      <tr class="dim"><td>ГК АСПЭК-Домстрой</td><td class="r">2,63%</td><td class="r">29 331</td><td class="r">4,2%</td></tr>
+      <tr><td>Талан (федеральный)</td><td class="r">2,14%</td><td class="r">23 865</td><td class="r">39,8%</td></tr>
+    </table>
+    <p class="dt-note">Доля лидера ~29% — но заметьте: доля рынка не гарантирует темп продаж. Железно с долей 8% распродано на 49%, лидер — на 34%. Полная таблица всех 19 групп — в приложении. Источники: ЕРЗ 01.07.2026 (объём), ЕИСЖС 11.07.2026 (распроданность).</p>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">ЕРЗ 01.07.2026 · ЕИСЖС 11.07.2026</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 07 · Фон: ставка -->
+<section class="slide">
+  <p class="eyebrow"><b>Акт I</b> · макрофон</p>
+  <h2>Ставка отпускает, но рыночная ипотека ещё мертва</h2>
+  <div class="grow">
+    <div class="chart">
+      <div class="row dim"><div class="cat">Пик · окт 2024</div><div class="track"><div class="bar" style="--v:100%"></div><span class="val num">21,00%</span></div></div>
+      <div class="row dim"><div class="cat">Дек 2025</div><div class="track"><div class="bar" style="--v:76%"></div><span class="val num">16,00%</span></div></div>
+      <div class="row dim"><div class="cat">Апр 2026</div><div class="track"><div class="bar" style="--v:69%"></div><span class="val num">14,50%</span></div></div>
+      <div class="row hl"><div class="cat">Сейчас · с 22.06.2026</div><div class="track"><div class="bar" style="--v:68%"></div><span class="val num">14,25%</span></div></div>
+    </div>
+    <p class="sub">Рыночная ипотека ~19% годовых — платёж неподъёмный, сделки живут на <strong>семейной ипотеке (6%)</strong> и <strong>рассрочках застройщика</strong>. Снижение ставки медленное: ценового ралли ждать неоткуда.</p>
+    <p class="legend-note">⚠️ Заседание ЦБ — 24.07.2026: перед докладом обновить. Проверено на cbr.ru 11.07.2026. Доля ипотеки/рассрочки в сделках по УР публично не раскрывается — только федеральные прокси, со сцены давать как оценку.</p>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">ЦБ РФ, проверено 11.07.2026</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 08 · Фон: цены -->
+<section class="slide">
+  <p class="eyebrow"><b>Акт I</b> · макрофон</p>
+  <h2>Ценовой рычаг исчерпан</h2>
+  <div class="grow">
+    <div class="cols">
+      <div>
+        <p class="colhead">2025 · рост подтверждён</p>
+        <p class="plain">Новостройки УР подорожали за 2025 год на <strong>16,6–19%</strong> — один из самых высоких темпов в РФ:<br><br>
+        · Домклик/СберИндекс — <strong>16,6%</strong><br>
+        · «Объектив.РФ» (Коммерсантъ) — <strong>17,5%</strong>, до 134,5 тыс ₽/м²<br>
+        · ЦИАН — <strong>19%</strong>, до 135,3 тыс ₽/м²</p>
+      </div>
+      <div>
+        <p class="colhead">2026 · рост закончился</p>
+        <p class="plain">Точного консенсус-прогноза в открытых источниках нет; эксперты говорят о росте <strong>«на уровне инфляции»</strong>. Смысл один: <em>двузначного роста цен, который прощал слабый продукт, больше не будет.</em><br><br>
+        Продавать «подожди — подорожает» нельзя. Остаётся продавать сам продукт.</p>
+      </div>
+    </div>
+    <p class="legend-note">Формулировку «+5–7% в 2026» в источниках найти не удалось — со сцены подавать как собственную оценку или не называть цифру (факт-чек 11.07.2026).</p>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">Коммерсантъ · ЦИАН · Домклик/ТАСС · сверено 11.07.2026</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 09 · Срок сдачи -->
+<section class="slide">
+  <p class="eyebrow"><b>Инсайт 01</b> · время</p>
+  <h2>Срок сдачи — сильнейший предиктор распроданности</h2>
+  <div class="grow">
+    <div class="chart">
+      <div class="row"><div class="cat">Сдача 2026 <span class="n num">4 015 квартир</span></div><div class="track"><div class="bar" style="--v:65.4%"></div><span class="val num">65,4%</span></div></div>
+      <div class="row"><div class="cat">Сдача 2027 <span class="n num">5 538 квартир</span></div><div class="track"><div class="bar" style="--v:40.1%"></div><span class="val num">40,1%</span></div></div>
+      <div class="row hl"><div class="cat">Сдача 2028 <span class="n num">10 035 квартир</span></div><div class="track"><div class="bar" style="--v:16.0%"></div><span class="val num">16,0%</span></div></div>
+      <div class="row dim"><div class="cat">Сдача 2029 <span class="n num">2 303 квартиры</span></div><div class="track"><div class="bar" style="--v:4.5%"></div><span class="val num">4,5%</span></div></div>
+      <div class="row dim"><div class="cat">Сдача 2030 <span class="n num">395 квартир</span></div><div class="track"><div class="bar" style="--v:5.9%"></div><span class="val num">5,9%</span></div></div>
+    </div>
+    <p class="legend-note">Это ожидаемая лесенка — дом продаётся по мере стройки. Важно другое: размер ступеней. Этот разрез — фон для всех остальных: любой другой разрез (материал, этажность) нужно проверять «а не сроки ли это?». Мы проверили — см. дальше.</p>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">ЕИСЖС, дом-уровень, 11.07.2026</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 10 · Навес-2028 -->
+<section class="slide">
+  <p class="eyebrow"><b>Инсайт 01</b> · навес-2028</p>
+  <div class="grow">
+    <div class="hero-num num">45%</div>
+    <p class="hero-cap"><strong>рынка — в когорте 2028 года, и она продана на 16%.</strong> Норма распроданности к вводу — около 70%: она раскрывает эскроу и удешевляет проектное финансирование.</p>
+    <p class="sub">10 035 квартир должны найти покупателя за два года — без роста цен, при живой только льготной ипотеке. Это не отдельные слабые дома — это структурный навес раннего предложения. Конкуренция за каждого покупателя вырастет кратно.</p>
+    <p class="legend-note">Источник нормы ~70%: Аналитический центр ДОМ.РФ (М. Гольдберг) — «равновесный» уровень распроданности к сдаче; 60–70% не вызывает опасений, выше — дом продаётся с прибылью. Подтверждено первоисточником 11.07.2026.</p>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">ЕИСЖС 11.07.2026 · норматив — АЦ ДОМ.РФ</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 11 · Финиш-2026 -->
+<section class="slide">
+  <p class="eyebrow"><b>Инсайт 01</b> · и даже на финише</p>
+  <h2>Продукт решает даже у самой сдачи</h2>
+  <div class="grow">
+    <p class="plain" style="max-width:66ch">Когорта-2026 в среднем распродана на <strong>65,4%</strong> — близко к норме. Но и на финише остались дома-аутсайдеры (сдача 2026–2027, продано меньше четверти):</p>
+    <table class="dt">
+      <tr><th>Дом</th><th>Формат</th><th class="r">Сдача</th><th class="r">Квартир</th><th class="r">Продано</th><th class="r">₽/м²</th></tr>
+      <tr><td>«ДОММ» (Ижевск)</td><td>7 эт · монолит-кирпич · элитный</td><td class="r">2026</td><td class="r">22</td><td class="r">18%</td><td class="r">261 992</td></tr>
+      <tr><td>«Домовой» (Завьялово)</td><td>6 эт · монолит-кирпич · типовой</td><td class="r">2026</td><td class="r">49</td><td class="r">21%</td><td class="r">109 280</td></tr>
+      <tr><td>Третий дом-риск</td><td>см. data/analysis (не называем)</td><td class="r">2027</td><td class="r">—</td><td class="r">&lt;25%</td><td class="r">—</td></tr>
+    </table>
+    <p class="dt-note">Показательно: провалиться можно и в «элитном» (цена в 2 раза выше потолка спроса), и в «типовом» (безликость). Со сцены имена аутсайдеров не называем — таблица для внутренней работы. Это кандидаты на срочную переупаковку/репозиционирование.</p>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">ЕИСЖС 11.07.2026 · сдача 2026–27, распроданность &lt;25%, ≥20 кв</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 12 · Материал: сырая картина -->
+<section class="slide">
+  <p class="eyebrow"><b>Инсайт 02</b> · материал стен · сырая картина</p>
+  <h2>Кирпич распродан вдвое лучше монолит-кирпича</h2>
+  <div class="grow">
+    <div class="chart">
+      <div class="row dim"><div class="cat">Блоки <span class="n num">715 квартир · малая база</span></div><div class="track"><div class="bar" style="--v:64.9%"></div><span class="val num">64,9%</span></div></div>
+      <div class="row"><div class="cat">Кирпич <span class="n num">2 065 квартир · 9% рынка</span></div><div class="track"><div class="bar" style="--v:52.0%"></div><span class="val num">52,0%</span></div></div>
+      <div class="row"><div class="cat">Другое <span class="n num">1 829 квартир</span></div><div class="track"><div class="bar" style="--v:36.2%"></div><span class="val num">36,2%</span></div></div>
+      <div class="row hl"><div class="cat">Монолит-кирпич <span class="n num">17 677 квартир · 79% рынка</span></div><div class="track"><div class="bar" style="--v:29.2%"></div><span class="val num">29,2%</span></div></div>
+    </div>
+    <p class="legend-note"><strong>Это сырое сравнение — не спешите с выводом «материал решает».</strong> Кирпичный и монолитный портфели по-разному устроены (размер, сроки, класс). Следующие три слайда — честная механика этого разрыва: именно её спросит эксперт в зале.</p>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">ЕИСЖС 11.07.2026 · распродано % квартир, взвешено по квартирам</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 13 · Материал: почему портфели разные -->
+<section class="slide">
+  <p class="eyebrow"><b>Инсайт 02</b> · механика разрыва · шаг 1</p>
+  <h2>Это два разных продукта, а не две технологии</h2>
+  <div class="grow">
+    <table class="dt">
+      <tr><th>Профиль портфеля</th><th class="r">Кирпич (22 дома)</th><th class="r">Монолит-кирпич (86 домов)</th></tr>
+      <tr><td>Средний дом</td><td class="r">94 квартиры</td><td class="r">206 квартир</td></tr>
+      <tr><td>Средняя этажность</td><td class="r">6,4 этажа</td><td class="r">15,4 этажа</td></tr>
+      <tr><td>Медианная цена</td><td class="r">137 тыс ₽/м²</td><td class="r">133 тыс ₽/м²</td></tr>
+      <tr class="hl"><td>Квартир со сдачей уже в 2026</td><td class="r">45%</td><td class="r">13%</td></tr>
+      <tr><td>Класс</td><td class="r">комфорт (20 из 22)</td><td class="r">весь спектр, вкл. типовой</td></tr>
+      <tr><td>Кто строит</td><td class="r">Железно, Федерация, UDS…</td><td class="r">все крупные игроки</td></tr>
+    </table>
+    <p class="dt-note">Кирпич в УР — малые дома человеческого масштаба на финише стройки, почти по той же цене. Монолит-кирпич — крупные башни с дальними сроками. Раз срок сдачи — главный предиктор, часть разрыва 52/29 объясняется именно структурой. Сколько именно — следующий слайд.</p>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">ЕИСЖС 11.07.2026 · подробно: docs/kirpich-vs-monolit.md</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 14 · Материал: контроль -->
+<section class="slide">
+  <p class="eyebrow"><b>Инсайт 02</b> · механика разрыва · шаг 2 · контроль</p>
+  <h2>Сравниваем дома одного года сдачи</h2>
+  <div class="grow">
+    <table class="dt">
+      <tr><th>Год сдачи</th><th class="r">Кирпич</th><th class="r">Монолит-кирпич</th><th class="r">Разрыв</th></tr>
+      <tr class="hl"><td>2026 (финиш)</td><td class="r">74,5% · 12 домов</td><td class="r">59,9% · 15 домов</td><td class="r">+14,6 пп</td></tr>
+      <tr><td>2027</td><td class="r">38,8% · 5 домов</td><td class="r">41,8% · 21 дом</td><td class="r">−3,0 пп</td></tr>
+      <tr><td>2028</td><td class="r">14,3% · 5 домов</td><td class="r">16,2% · 39 домов</td><td class="r">−1,9 пп</td></tr>
+    </table>
+    <p class="plain" style="margin-top:2vh">И контроль по размеру внутри финишной когорты-2026 (чтобы исключить «кирпичные дома просто меньше»):</p>
+    <table class="dt">
+      <tr><th>Дома со сдачей 2026</th><th class="r">Кирпич</th><th class="r">Монолит-кирпич</th></tr>
+      <tr><td>Малые (≤120 квартир)</td><td class="r">33,9%</td><td class="r">20,0%</td></tr>
+      <tr><td>Крупные (&gt;120 квартир)</td><td class="r">79,5%</td><td class="r">61,2%</td></tr>
+    </table>
+    <p class="dt-note">Вывод: на дальних сроках материал не решает — там всё определяют бюджет и ставка. А вот <strong>к сдаче кирпичный формат приходит на 74,5% — выше нормы ДОМ.РФ (~70%); массовый монолит-кирпич — на 59,9%, ниже нормы</strong>. Разрыв держится и в малых, и в крупных домах.</p>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">ЕИСЖС 11.07.2026 · материал × год сдачи × размер дома</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 15 · Ликбез: технологии -->
+<section class="slide">
+  <p class="eyebrow">Ликбез · чтобы говорить уверенно</p>
+  <h2>Как устроены эти две технологии</h2>
+  <div class="grow">
+    <div class="cols">
+      <div>
+        <p class="colhead">Кирпичный дом · несущие стены</p>
+        <p class="plain">Стены из кирпича <strong>несут дом</strong>: кладка 51–64 см + плиты перекрытий. Так строили сталинки — отсюда репутация.<br><br>
+        · Медленно: кладка ручная<br>
+        · Потолок ~9–12 этажей (ниже — стены съедают площадь)<br>
+        · Себестоимость м² выше<br>
+        · Планировки заданы конструкцией<br>
+        · Формат: малый дом, 60–150 квартир</p>
+      </div>
+      <div>
+        <p class="colhead">Монолит-кирпич · ж/б каркас</p>
+        <p class="plain">Несёт дом <strong>железобетонный каркас</strong> (колонны + перекрытия, отливаются на площадке). Кирпич снаружи — <em>ненесущее заполнение</em> + утеплитель + фасад.<br><br>
+        · Быстро: этаж каркаса в неделю, стройка и зимой<br>
+        · Этажность любая: в Ижевске 18–33<br>
+        · Дешевле на м² в высотных объёмах → 79% рынка<br>
+        · Свободные планировки<br>
+        · Формат: башня/квартал на сотни квартир</p>
+      </div>
+    </div>
+    <p class="legend-note"><strong>Главная ловушка терминов:</strong> «монолит-кирпич» — НЕ кирпичный дом. Кирпич там — обёртка каркаса. В ЕИСЖС «Кирпич» = несущие кирпичные стены, другой конструктив и другой формат. Панели в стройке УР практически нет.</p>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">Ликбез полностью: docs/kirpich-vs-monolit.md</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 16 · Ликбез: для покупателя -->
+<section class="slide">
+  <p class="eyebrow">Ликбез · глазами покупателя</p>
+  <h2>За что покупатель голосует рублём</h2>
+  <div class="grow">
+    <table class="dt">
+      <tr><th>Свойство</th><th>Кирпич (несущий)</th><th>Монолит-кирпич</th></tr>
+      <tr><td>Звук и тепло</td><td>Массивные стены: тихо, тепло держит</td><td>Каркас проводит ударный шум; зависит от заполнения</td></tr>
+      <tr><td>Планировки</td><td>Заданы конструкцией</td><td class="ok">Свободные, можно объединять</td></tr>
+      <tr><td>Усадка</td><td class="ok">Минимальная</td><td>Каркас «играет» первые годы — возможны трещины штукатурки</td></tr>
+      <tr><td>Фасад через 20 лет</td><td class="ok">Кирпич стареет благородно</td><td>Штукатурка/вентфасад требуют ухода</td></tr>
+      <tr><td>Масштаб дома</td><td class="ok">«Все соседи знакомы»</td><td>Сотни квартир, анонимность</td></tr>
+      <tr><td>Культурный код</td><td class="ok">«Кирпичный дом» = качество</td><td>«Новостройка» — нейтрально</td></tr>
+    </table>
+    <p class="dt-note">Конструктивно современный монолит-кирпич <strong>не хуже</strong>: надёжность, огнестойкость, долговечность — в нормах. Разница для покупателя — не в бетоне, а в <strong>формате дома и его восприятии</strong>. Мы не ругаем технологию — мы говорим о продукте.</p>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">docs/kirpich-vs-monolit.md · раздел 2</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 17 · Материал: вывод -->
+<section class="slide">
+  <p class="eyebrow"><b>Инсайт 02</b> · вывод</p>
+  <h2>Не материал — формат. И формат делается архитектурой</h2>
+  <div class="grow">
+    <div class="quote">«Кирпичные дома приходят к сдаче распроданными на 74,5% — выше равновесной нормы. Массовый монолит-кирпич — на 59,9%, ниже нормы. Дело не в бетоне: дело в масштабе, соразмерности человеку и узнаваемости дома. Покупатель платит за дом, который можно назвать своим, — а не за этаж в безымянной башне.»
+    <small>формулировка для сцены — выдерживает вопрос «это же просто сроки сдачи»: контроли показаны до того, как спросят</small></div>
+    <p class="sub"><strong>Практический вывод для застройщика:</strong> дефицитный формат «человеческого масштаба» можно воспроизводить и в каркасной экономике — пластика и материальность фасада (клинкер, кладочные фактуры), членение объёма на «дома» с именами, соразмерные дворы, узнаваемый силуэт. Это и есть работа архитектора — и именно в массовом сегменте 18–24 этажа она даст максимальный прирост.</p>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">Q&A по теме — docs/kirpich-vs-monolit.md · раздел 5</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 18 · Этажность -->
+<section class="slide">
+  <p class="eyebrow"><b>Инсайт 02</b> · этажность</p>
+  <h2>Самый массовый формат — самый слабый</h2>
+  <div class="grow">
+    <div class="chart">
+      <div class="row"><div class="cat">Высотные, 25+ этажей <span class="n num">1 723 квартиры · видовые доминанты</span></div><div class="track"><div class="bar" style="--v:50.0%"></div><span class="val num">50,0%</span></div></div>
+      <div class="row"><div class="cat">10–17 этажей <span class="n num">6 826 квартир</span></div><div class="track"><div class="bar" style="--v:35.4%"></div><span class="val num">35,4%</span></div></div>
+      <div class="row dim"><div class="cat">До 4 этажей <span class="n num">120 квартир · малая база</span></div><div class="track"><div class="bar" style="--v:33.9%"></div><span class="val num">33,9%</span></div></div>
+      <div class="row"><div class="cat">5–9 этажей <span class="n num">2 478 квартир</span></div><div class="track"><div class="bar" style="--v:32.2%"></div><span class="val num">32,2%</span></div></div>
+      <div class="row hl"><div class="cat">18–24 этажа <span class="n num">11 139 квартир · половина рынка</span></div><div class="track"><div class="bar" style="--v:27.9%"></div><span class="val num">27,9%</span></div></div>
+    </div>
+    <p class="legend-note">Честная оговорка (тот же метод, что с материалом): часть эффекта 25+ — сроки (половина видовых башен сдаётся в 2026). Устойчивый факт другой: <strong>18–24 этажа — это 50% рынка с худшей распроданностью</strong>, самая массовая и самая безликая когорта. Здесь живёт навес-2028.</p>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">ЕИСЖС 11.07.2026</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 19 · Цена -->
+<section class="slide">
+  <p class="eyebrow"><b>Инсайт 03</b> · цена</p>
+  <h2>Спрос живёт до 160 тысяч за метр</h2>
+  <div class="grow">
+    <div class="chart">
+      <div class="row"><div class="cat">130–160 тыс ₽/м² <span class="n num">9 541 квартира</span></div><div class="track"><div class="bar" style="--v:36.6%"></div><span class="val num">36,6%</span></div></div>
+      <div class="row"><div class="cat">100–130 тыс ₽/м² <span class="n num">6 311 квартир</span></div><div class="track"><div class="bar" style="--v:31.7%"></div><span class="val num">31,7%</span></div></div>
+      <div class="row hl"><div class="cat">160–200 тыс ₽/м² <span class="n num">2 131 квартира</span></div><div class="track"><div class="bar" style="--v:22.0%"></div><span class="val num">22,0%</span></div></div>
+      <div class="row dim"><div class="cat">Свыше 200 тыс ₽/м² <span class="n num">977 квартир · малая когорта, 5 домов</span></div><div class="track"><div class="bar" style="--v:28.0%"></div><span class="val num">28,0%</span></div></div>
+      <div class="row dim"><div class="cat">До 100 тыс ₽/м² <span class="n num">400 квартир · малая база</span></div><div class="track"><div class="bar" style="--v:9.4%"></div><span class="val num">9,4%</span></div></div>
+    </div>
+    <p class="legend-note">Механика потолка: лимит семейной ипотеки 6 млн ₽ + взнос ≈ бюджет 7,5 млн ₽ → при 47–55 м² это ~140–160 тыс ₽/м². Дороже 160 тыс распроданность падает до 23,9% (обе верхние когорты вместе). Когорту «200+» отдельно не цитировать — 5 домов, статистика шумная. «До 100 тыс» — дальние малые города.</p>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">ЕИСЖС 11.07.2026</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 20 · Класс -->
+<section class="slide">
+  <p class="eyebrow"><b>Инсайт 03</b> · класс жилья</p>
+  <h2>«Типовой» проваливается вдвое</h2>
+  <div class="grow">
+    <div class="chart">
+      <div class="row"><div class="cat">Комфорт <span class="n num">17 643 квартиры · 79% рынка</span></div><div class="track"><div class="bar" style="--v:69%"></div><span class="val num">34,5%</span></div></div>
+      <div class="row"><div class="cat">Бизнес <span class="n num">2 325 квартир</span></div><div class="track"><div class="bar" style="--v:61%"></div><span class="val num">30,3%</span></div></div>
+      <div class="row hl"><div class="cat">Типовой <span class="n num">2 296 квартир</span></div><div class="track"><div class="bar" style="--v:36%"></div><span class="val num">18,1%</span></div></div>
+      <div class="row dim"><div class="cat">Элитный <span class="n num">22 квартиры · 1 дом</span></div><div class="track"><div class="bar" style="--v:35%"></div><span class="val num">17,6%</span></div></div>
+    </div>
+    <p class="legend-note">Полосы — в масштабе слайда (макс = комфорт). «Типовой» — это не «дешёвый», это «никакой»: рынок отказывается платить за жильё без свойств даже при низкой цене. Единственный «элитный» дом (18% при 262 тыс ₽/м²) — обратный урок: цена выше потолка спроса без соответствующего продукта тоже не продаётся.</p>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">ЕИСЖС 11.07.2026 · классификация ЕИСЖС</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 21 · Разброс застройщиков -->
+<section class="slide">
+  <p class="eyebrow"><b>Инсайт 03</b> · застройщики</p>
+  <h2>Разброс ×20 при одном рынке — продукт решает</h2>
+  <div class="grow">
+    <div class="cols">
+      <div>
+        <table class="dt">
+          <tr><th>Группа</th><th class="r">Домов/кв</th><th class="r">Продано</th></tr>
+          <tr class="hl"><td>АССО-Строй</td><td class="r">1 / 177</td><td class="r">86,8%</td></tr>
+          <tr><td>Литум</td><td class="r">1 / 140</td><td class="r">70,3%</td></tr>
+          <tr><td>ПЗСП</td><td class="r">1 / 292</td><td class="r">64,9%</td></tr>
+          <tr><td>Железно</td><td class="r">7 / 1 685</td><td class="r">49,2%</td></tr>
+          <tr><td>Федерация</td><td class="r">12 / 1 160</td><td class="r">42,8%</td></tr>
+          <tr><td>Талан</td><td class="r">1 / 485</td><td class="r">39,8%</td></tr>
+          <tr><td>Парус</td><td class="r">2 / 282</td><td class="r">39,8%</td></tr>
+          <tr><td>Калинка Групп</td><td class="r">2 / 583</td><td class="r">38,7%</td></tr>
+          <tr><td>UDS</td><td class="r">12 / 1 332</td><td class="r">38,4%</td></tr>
+          <tr><td>Острова</td><td class="r">3 / 989</td><td class="r">37,3%</td></tr>
+        </table>
+      </div>
+      <div>
+        <table class="dt">
+          <tr><th>Группа</th><th class="r">Домов/кв</th><th class="r">Продано</th></tr>
+          <tr><td>КОМОССТРОЙ</td><td class="r">32 / 6 747</td><td class="r">33,7%</td></tr>
+          <tr><td>Зардон-групп</td><td class="r">5 / 1 085</td><td class="r">32,8%</td></tr>
+          <tr><td>СТРОЙ-ЦЕНТР</td><td class="r">2 / 126</td><td class="r">28,6%</td></tr>
+          <tr><td>УК СТИМ</td><td class="r">3 / 657</td><td class="r">20,9%</td></tr>
+          <tr><td>Без группы (28 домов)</td><td class="r">28 / 5 188</td><td class="r">20,9%</td></tr>
+          <tr class="dim"><td>РЕНТЕК</td><td class="r">4 / 608</td><td class="r">12,6%</td></tr>
+          <tr class="dim"><td>Римский Квадрат</td><td class="r">1 / 169</td><td class="r">10,5%</td></tr>
+          <tr class="dim"><td>АСПЭК-Домстрой</td><td class="r">2 / 270</td><td class="r">4,2%</td></tr>
+          <tr class="dim"><td>Символ Девелопмент</td><td class="r">1 / 311</td><td class="r">2,8%</td></tr>
+        </table>
+      </div>
+    </div>
+    <p class="dt-note">Одна ставка, один город, сопоставимые цены — и распроданность от 2,8% до 86,8%. Со сцены аутсайдеров не называем (этика; в зале могут сидеть). Малые портфели (1 дом) читать осторожно — но и разрыв «Железно 49% против лидера рынка 34%» на больших портфелях говорит сам за себя.</p>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">ЕИСЖС 11.07.2026 · взвешено по квартирам</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 22 · Акт II титул -->
+<section class="slide">
+  <p class="eyebrow"><b>Акт II</b> · данные витрин</p>
+  <h2>Как рынок продаёт: 16 сайтов под микроскопом</h2>
+  <div class="grow">
+    <div class="cols">
+      <div>
+        <p class="colhead">Выборка</p>
+        <p class="plain"><strong>УР (8):</strong> КОМОССТРОЙ, UDS, Железно, Талан, Острова, Федерация, Зардон, АСПЭК.<br><br>
+        <strong>Федералы (8):</strong> ПИК, Самолет, Брусника, Level, Setl, А101, Донстрой, Эталон.</p>
+      </div>
+      <div>
+        <p class="colhead">Семь измерений</p>
+        <p class="plain">Посыл первого экрана · продуктовые атрибуты · финансовые инструменты · цифровые инструменты выбора · сигналы доверия · роль архитектуры · тон коммуникации.<br><br>
+        Только дословные цитаты; каждая перепроверена вживую 11.07.2026.</p>
+      </div>
+    </div>
+    <p class="legend-note">Важно про ротацию: первые экраны — карусели, баннеры меняются день ото дня (проверено: у КОМОССТРОЙ цитата 09.07 сменилась к 11.07). Все цитаты датируем срезом; перед докладом — свежие скриншоты.</p>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">Снапшоты 09–10.07 + живая перепроверка 11.07.2026</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 23 · Первый экран -->
+<section class="slide">
+  <p class="eyebrow"><b>Инсайт 04</b> · первый экран</p>
+  <h2>Скидка против смысла — дословно</h2>
+  <div class="grow">
+    <div class="cols">
+      <div>
+        <p class="colhead">По-удмуртски</p>
+        <div class="quote">«Скидка на все квартиры! 5%»<small>КОМОССТРОЙ, снапшот 09.07 (к 11.07 баннер сменился на «5% на квартиры от Комосстрой! Предложение ограничено» — суть та же)</small></div>
+        <p class="plain">Карусель акций без слогана — у 5 из 8 сайтов региона. Ни на одном первом экране УР нет связки «смысл + платёж + доказательство».</p>
+      </div>
+      <div>
+        <p class="colhead">По-федеральному</p>
+        <div class="quote">«Своя квартира от 10 500 ₽ в месяц»<small>Самолет, первый экран главной, 11.07.2026 — с таймером окончания программы</small></div>
+        <div class="quote">«Сэтл – это честно. Мы не просто строим дома. Мы строим доверие» + «от 33 тыс. ₽ в месяц»<small>Setl, подтверждено дословно 11.07</small></div>
+        <div class="quote">«Мы строим города, в которых хочется жить»<small>А101, H1 главной, подтверждено дословно 11.07</small></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">Все цитаты проверены на живых сайтах 11.07.2026</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 24 · Смысловые слоганы УР -->
+<section class="slide">
+  <p class="eyebrow"><b>Инсайт 04</b> · честная оговорка</p>
+  <h2>Смысл в регионе есть — нет связки</h2>
+  <div class="grow">
+    <div class="quote">«Девелопмент со смыслом»<small>Железно, первый экран — единственный полноценный концептуальный слоган региона</small></div>
+    <div class="quote">«С заботой о людях и теплом для родных городов»<small>Талан, первый экран</small></div>
+    <div class="quote">«ФЕДЕРАЦИЯ. СТРОИМ СЕРЬЁЗНО.»<small>Федерация — лаконично, но одностраничник без инструментов</small></div>
+    <p class="sub">У троих есть <strong>смысл</strong>. У Островов есть <strong>платёж</strong> на карточках квартир. У UDS есть <strong>доказательства</strong> (трекер стройки, кабинеты). Но ни один сайт УР не собирает три элемента вместе — а у федералов это норма первого экрана: <em>какая это жизнь · сколько в месяц · чем докажете</em>.</p>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">Проверено 11.07.2026</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 25 · Финансовые инструменты -->
+<section class="slide">
+  <p class="eyebrow"><b>Акт II</b> · финансовая подача</p>
+  <h2>Федералы продают платёж, УР — процент скидки</h2>
+  <div class="grow">
+    <div class="cols">
+      <div>
+        <p class="colhead">Федералы · платёж и программы</p>
+        <p class="plain">· Самолет: <strong>«от 10 500 ₽ в месяц»</strong> на первом экране + «Ипотека 0,1%» пунктом меню<br>
+        · Setl: <strong>«от 33 тыс. ₽ в месяц»</strong> + рассрочка в 2 платежа + трейд-ин 90 дней<br>
+        · Брусника: «Семейная ипотека 5% на весь срок», «Ипотека 0,1%», обмен для семей<br>
+        · Level: калькулятор «от 80 775 ₽/мес» в «Способах покупки», рассрочка 0%, трейд-ин Level+<br>
+        · А101: «Платёж 1 рубль в месяц на период строительства», трейд-ин авто</p>
+      </div>
+      <div>
+        <p class="colhead">УР · что есть</p>
+        <p class="plain">· Острова: платёж <strong>«от 28 387 ₽/мес»</strong> на карточках квартир + семейная 5,75% + скидка 13% — лучшая финансовая подача региона<br>
+        · Талан: калькулятор с 4 программами (не на первом экране)<br>
+        · Железно: семейная от 3,5%, трейд-ин с проживанием, скидка 12% учителям/медикам/СВО<br>
+        · UDS: «одобрение от 19 банков» — без цифры платежа<br>
+        · КОМОССТРОЙ, Федерация, Зардон, АСПЭК: <em>цифры платежа нет вообще</em></p>
+      </div>
+    </div>
+    <p class="legend-note">Цифры платежей плавают день ото дня (ставки, лоты) — цитировать с датой. Смысл устойчив: федерал переводит цену в «сколько в месяц» — язык покупателя семейной ипотеки; в УР так делает один сайт из восьми.</p>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">Живые сайты, 11.07.2026</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 26 · Цифровые инструменты -->
+<section class="slide">
+  <p class="eyebrow"><b>Акт II</b> · цифровые инструменты</p>
+  <h2>Инструменты выбора: карта региона</h2>
+  <div class="grow">
+    <table class="dt">
+      <tr><th>Сайт УР</th><th>Фильтр каталога</th><th>Выбор на генплане</th><th>3D-туры</th><th>Онлайн-бронь</th><th>Личный кабинет</th></tr>
+      <tr><td>UDS</td><td class="ok">да</td><td class="ok">да, на плане</td><td class="no">нет</td><td class="half">кабинеты + «Цифровая сделка» (УКЭП)</td><td class="ok">клиента и риелтора</td></tr>
+      <tr><td>Талан</td><td class="ok">да</td><td class="ok">да</td><td class="ok">да («3D туры»)</td><td class="half">через приложение</td><td class="half">приложение</td></tr>
+      <tr><td>Острова</td><td class="ok">да, каталог /flats/</td><td class="half">по кварталам</td><td class="no">нет</td><td class="half">заявка на бронь (без оплаты)</td><td class="no">нет</td></tr>
+      <tr><td>Железно</td><td class="ok">да</td><td class="half">вкладка, без клика</td><td class="no">нет</td><td class="no">нет</td><td class="half">только риелтора</td></tr>
+      <tr><td>АСПЭК</td><td class="ok">да</td><td class="half">здания на генплане</td><td class="no">нет</td><td class="half">лид-форма</td><td class="no">нет</td></tr>
+      <tr><td>КОМОССТРОЙ</td><td class="ok">да, «3 306 квартир»</td><td class="no">картинка</td><td class="no">нет</td><td class="no">нет</td><td class="no">нет</td></tr>
+      <tr class="dim"><td>Федерация</td><td class="no">одностраничник</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="no">—</td></tr>
+      <tr class="dim"><td>Зардон</td><td class="no">редиректы на ЖК</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="no">—</td></tr>
+    </table>
+    <p class="dt-note">Проверено вживую 11.07.2026 (включая клик по броне Островов). Федеральная норма — полный онлайн-цикл у 6 из 8 (ПИК: 3Д-генплан, ЛК, live-трансляции; Брусника: /lk/, онлайн-покупка; Эталон: ЛК + онлайн-оплата). Генплан и 3D требуют архитектурной 3D-модели — это компетенция бюро, а не только IT-подрядчика.</p>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">Живая проверка 11.07.2026 · docs/fact-check-report.md §4</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 27 · Сигналы доверия -->
+<section class="slide">
+  <p class="eyebrow"><b>Акт II</b> · сигналы доверия</p>
+  <h2>Доверие: у федералов — раздел сайта, в УР — молчание</h2>
+  <div class="grow">
+    <div class="cols">
+      <div>
+        <p class="colhead">Федералы</p>
+        <p class="plain">· <strong>Онлайн-камеры стройки:</strong> Донстрой — 5 живых камер по «Острову» (проверено через API), Setl — трансляция «Дом на Кирочной», ПИК — pik.ru/live<br>
+        · <strong>Рейтинги на сайте:</strong> Setl — золотой знак «Надежный застройщик России-2025»; Донстрой — «первое место в рейтинге уверенности застройщиков столицы» (Forbes, номинация «Жилье бизнес-класса»); Level — кредитный рейтинг АКРА A-(RU), топ-5 по выручке (Метриум)<br>
+        · <strong>Портфель:</strong> Донстрой — «Мы работаем уже 30 лет! За это время построили целый город!»</p>
+      </div>
+      <div>
+        <p class="colhead">УР</p>
+        <p class="plain">· Ход стройки есть у 5 из 8 (лучший — UDS: помесячный трекер, май 2026 — 52%)<br>
+        · <strong>Онлайн-камер — ни у кого</strong><br>
+        · Рейтинги ЕРЗ на сайты не выносятся: Талан — лучший рейтинг региона <em>84,72</em> — и молчит о нём<br>
+        · Анти-кейс: декларация «все объекты в срок» у одного игрока прямо противоречит независимым рейтингам — доверие без доказательств не работает</p>
+      </div>
+    </div>
+    <p class="legend-note">Все формулировки выверены факт-чеком 11.07: у Донстроя «№1 Forbes 2024» на сайте нет — есть формулировка без года; цитата Level про «рейтинг доверия» не существует — заменена реальной. Используйте только эти проверенные версии.</p>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">Живая проверка 11.07.2026</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 28 · Архитектор-невидимка -->
+<section class="slide">
+  <p class="eyebrow"><b>Инсайт 05</b> · кульминация</p>
+  <h2>Архитектор-невидимка: кто называет автора</h2>
+  <div class="grow">
+    <table class="dt">
+      <tr><th>Сайт</th><th>Имя архитектора / бюро</th><th>Где и как</th></tr>
+      <tr class="hl"><td>Острова (УР)</td><td>SPEECH · Сергей Чобан</td><td>«Архитекторы проекта — бюро SPEECH» на сайте; Чобан — в СМИ. Единственный системный продавец имени в УР</td></tr>
+      <tr><td>UDS (УР)</td><td>mla+, Benoy, cie.nl, Dyer</td><td>Партнёры списком на главной («сотрудничаем с мировыми бюро») — не привязано к конкретному дому</td></tr>
+      <tr><td>Федерация (УР)</td><td>«МАДИ» Дмитрия Максимова</td><td>Только на лендинге ЖК «Форум» («название, архитектура, исполнение, разработанные бюро „МАДИ"»); на основном сайте — нет</td></tr>
+      <tr><td>Талан (УР)</td><td>Cubica</td><td>Только концепция двора «Вишнёвый сад» — не здание</td></tr>
+      <tr class="dim"><td>КОМОССТРОЙ, Железно, Зардон, АСПЭК</td><td>—</td><td>Эпитеты («скандинавская», «джапанди») без имён</td></tr>
+      <tr><td>Самолет (федерал)</td><td>DDD Architects</td><td>«Авторская архитектура от DDD Architects» на странице проекта</td></tr>
+      <tr><td>Level (федерал)</td><td>ARCH(E)TYPE + GAFA</td><td>«Изысканная архитектура от бюро ARCH(E)TYPE», двор «от студии GAFA» — прямо на карточке проекта</td></tr>
+      <tr><td>А101 (федерал)</td><td>MORS ARCHITECTS</td><td>Концепция паркинга (здание — обезличено)</td></tr>
+    </table>
+    <p class="dt-note">Точная формулировка для сцены: «Ни один сайт УР не привязывает имя архитектора к продаваемому дому так, как федералы на карточке проекта; ближе всех — Острова». На федеральном рынке связь институционализирована: рейтинг архбюро по темпам продаж их заказчиков (URBAN×BnMap.pro — уточнить точное название перед сценой).</p>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">Живая проверка 11.07.2026 · вкл. лендинг жк-форум.рф</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 29 · Кейс Острова -->
+<section class="slide">
+  <p class="eyebrow"><b>Инсайт 05</b> · проверка гипотезы</p>
+  <div class="grow">
+    <div class="hero-num num">37,3% <span style="font-size:.4em;color:var(--ink-3)">против 32,4% по рынку</span></div>
+    <p class="hero-cap"><strong>Единственный в УР застройщик со звёздным именем — Острова × SPEECH (Сергей Чобан)</strong> — распродан на +4,9 пп лучше рынка: 3 дома, 989 квартир, монолит-кирпич, кварталы 6–9 этажей.</p>
+    <p class="sub">Бэкграунд кейса (проверен по первоисточникам): мастер-план «Нового города» SPEECH представило ещё в 2016; компания тогда называлась «Инком-Инвест», ребрендинг в «Острова» — 2017. Рядом — сделка Талан+Острова: 32 га, 247,7 тыс м², 24,7 млрд ₽ (РИА Недвижимость, 29.05.2025) — заказ на внешнюю архитектурную экспертизу в регионе уже существует.</p>
+    <p class="legend-note">Честные оговорки: один кейс — корреляция, не причинность; разрыв к рынку в июле сузился (было +6,2 пп к срезу 08.07, стало +4,9 — рынок догоняет). Имя Чобана на сайте тише, чем в СМИ, — само по себе иллюстрация недоиспользованного актива.</p>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">ЕИСЖС 11.07.2026 · tehne.com 2016 · izhlife 2017 · РИА 2025</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 30 · Рейтинг сайтов УР -->
+<section class="slide">
+  <p class="eyebrow"><b>Акт II</b> · итог бенчмарка</p>
+  <h2>Витрины УР: внутренний рейтинг 1–8</h2>
+  <div class="grow">
+    <table class="dt">
+      <tr><th>#</th><th>Сайт</th><th>Сильное</th><th>Слабое</th></tr>
+      <tr><td>1</td><td>UDS</td><td>Именованные бюро, генплан, кабинеты, цифровая сделка, трекер стройки</td><td>Первый экран — цифры вместо смысла; нет ₽/мес</td></tr>
+      <tr><td>2</td><td>Талан</td><td>3D-туры, генплан, приложение с бронью, зрелый слоган</td><td>Лучший рейтинг ЕРЗ региона (84,72) не используется</td></tr>
+      <tr><td>3</td><td>Железно</td><td>Единственный концептуальный слоган; соцпрограммы</td><td>Нет 3D/ЛК покупателя; архитектура-эпитет без имени</td></tr>
+      <tr><td>4</td><td>Острова</td><td>Платёж на карточках, онлайн-заявка на бронь, SPEECH</td><td>Нет слогана и ЛК; бронь без оплаты; Чобан тише, чем в СМИ</td></tr>
+      <tr><td>5</td><td>КОМОССТРОЙ</td><td>Сильные легенды ЖК, большой каталог</td><td>Посыл = скидка; «топ-3 по надёжности» расходится с ЕРЗ</td></tr>
+      <tr><td>6</td><td>АСПЭК</td><td>Дворовая этика, ход стройки на карточке проекта</td><td>SPA прячет контент; финансовый блок беден</td></tr>
+      <tr><td>7</td><td>Федерация</td><td>Лаконичный слоган; МАДИ на лендинге ЖК</td><td>Одностраничник: ни каталога, ни инструментов</td></tr>
+      <tr class="dim"><td>8</td><td>Зардон</td><td>—</td><td>Ни слогана, ни архитектуры, ни инструментов; титул «производственно финансовая компания»</td></tr>
+    </table>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">Бенчмарк: docs/messaging-benchmark.md · проверено 11.07.2026</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 31 · Поворот -->
+<section class="slide">
+  <p class="eyebrow"><b>Акт III</b> · поворот</p>
+  <div class="grow">
+    <div class="turn">
+      <div class="no">Конкурировать скидкой — ломает эскроу и маржу</div>
+      <div class="no">Конкурировать ставкой — она не ваша</div>
+      <div class="no">Конкурировать локацией — она уже выбрана</div>
+      <div class="yes">Остаётся <em>продукт</em> и его <em>подача</em></div>
+    </div>
+    <p class="sub">Данные продаж: формат с характером приходит к сдаче выше нормы, безликая массовость — ниже. Данные витрин: характер продукта в регионе почти никто не умеет предъявить. И то и другое — работа архитектора.</p>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">Сходимость двух исследований</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 32 · Роль архитектора -->
+<section class="slide">
+  <p class="eyebrow"><b>Акт III</b> · роль архитектора</p>
+  <h2>Архитектура, посчитанная в деньгах эскроу</h2>
+  <div class="grow">
+    <p class="plain" style="max-width:66ch">Механика простая: банк выдаёт проектное финансирование под остатки на эскроу. Чем выше распроданность на каждом этапе — тем ниже ставка спецкредита и тем раньше раскрытие счетов.</p>
+    <div class="chart">
+      <div class="row"><div class="cat">Формат «человеческого масштаба» к сдаче <span class="n num">кирпичный портфель, когорта-2026</span></div><div class="track"><div class="bar" style="--v:74.5%"></div><span class="val num">74,5%</span></div></div>
+      <div class="row dim"><div class="cat">Норма ДОМ.РФ <span class="n num">равновесный уровень</span></div><div class="track"><div class="bar" style="--v:70%"></div><span class="val num">~70%</span></div></div>
+      <div class="row hl"><div class="cat">Массовый монолит-кирпич к сдаче <span class="n num">когорта-2026</span></div><div class="track"><div class="bar" style="--v:59.9%"></div><span class="val num">59,9%</span></div></div>
+    </div>
+    <p class="sub">· Застройщику: архитектор не тратит бюджет — ускоряет продажи; гонорар окупается на десятках квартир.<br>· Архитектору: продавать не «красоту», а распроданность — говорить языком воронки и эскроу.<br>· Имя автора — бесплатный маркетинговый актив: в УР его использует один сайт из восьми.</p>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">ЕИСЖС 11.07.2026 · норма — АЦ ДОМ.РФ</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 33 · 5 ходов -->
+<section class="slide">
+  <p class="eyebrow"><b>Акт III</b> · программа · продукт</p>
+  <h2>Пять ходов по продукту</h2>
+  <div class="grow">
+    <div class="moves">
+      <div class="move"><span class="k num">01</span><div class="t">Квартирография под лимит ипотеки<small>Проходной бюджет ≈ 7,5 млн ₽ (семейная 6 млн + взнос), коридор до 160 тыс ₽/м². Планировки, попадающие в платёж, — первый фильтр покупателя.</small></div></div>
+      <div class="move"><span class="k num">02</span><div class="t">Разгонять когорту-2028 сейчас<small>10 035 квартир проданы на 16%. Пока стройка ранняя, продукт можно донастроить (фасады, дворы, лоты); у сдачи останется только скидка.</small></div></div>
+      <div class="move"><span class="k num">03</span><div class="t">Переупаковать массовый монолит-кирпич 18–24 этажа<small>Половина рынка с худшей распроданностью. Дать формат: членение на «дома» с именами, материальность фасада (клинкер/кладка), соразмерный двор, узнаваемый силуэт.</small></div></div>
+      <div class="move"><span class="k num">04</span><div class="t">Отделка как финансовый продукт<small>Рынок — white box; «заехать сразу за тот же платёж» (отделка в теле льготного кредита) — недоиспользованный ускоритель для компактных лотов и инвесторов. [Проверить долю чистовой: оценка ~6 ЖК из ~104 — агрегаторы]</small></div></div>
+      <div class="move"><span class="k num">05</span><div class="t">Малые города: продукт против вторички<small>В Сарапуле/Воткинске/Глазове/Можге семейная ипотека работает и на вторичку — новостройка обязана быть заметно лучше по продукту, иначе проигрывает по цене. [Проверить актуальный перечень городов]</small></div></div>
+    </div>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">Программа бюро · из данных Акта I</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 34 · 6 быстрых побед -->
+<section class="slide">
+  <p class="eyebrow"><b>Акт III</b> · программа · витрина</p>
+  <h2>Шесть быстрых побед витрины (недели, не годы)</h2>
+  <div class="grow">
+    <div class="moves">
+      <div class="move"><span class="k num">01</span><div class="t">Имя архбюро на карточке проекта<small>Эталон: Самолет («Авторская архитектура от DDD Architects»), Level (ARCH(E)TYPE, GAFA). Стоимость — ноль: имя уже есть в проектной документации.</small></div></div>
+      <div class="move"><span class="k num">02</span><div class="t">Платёж «от Х ₽/мес» на первом экране<small>Эталон: Самолет (от 10 500 ₽/мес с таймером), Setl (от 33 тыс). В УР платёж показывают только Острова — и то на карточках, не на первом экране.</small></div></div>
+      <div class="move"><span class="k num">03</span><div class="t">Мультислойный первый экран<small>Вместо карусели скидок: идея («какая это жизнь») + цена в ₽/мес + доказательство (стройка/рейтинг). Ни один сайт УР пока не собирает все три.</small></div></div>
+      <div class="move"><span class="k num">04</span><div class="t">Онлайн-камеры стройки как раздел<small>Эталон: Донстрой (5 живых камер), Setl, ПИК (pik.ru/live). В УР — ни у кого; максимум фотоотчёты.</small></div></div>
+      <div class="move"><span class="k num">05</span><div class="t">Рейтинги и награды — на собственный сайт<small>Талан: лучший ЕРЗ-рейтинг региона 84,72 — и ни слова на сайте. Setl показывает золотой знак прямо в «О компании».</small></div></div>
+      <div class="move"><span class="k num">06</span><div class="t">Ход стройки как «дневник от автора»<small>Экспертный контент архитектора и технадзора вместо голых фотоотчётов: почему такой фасад, что за узел, как принимали этаж. Дифференциатор, который не скопировать баннером.</small></div></div>
+    </div>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">Эталоны — живые сайты федералов, 11.07.2026</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 35 · Рынок уже готов -->
+<section class="slide">
+  <p class="eyebrow"><b>Акт III</b> · почему сейчас</p>
+  <h2>Рынок уже покупает архитектуру — четыре сигнала</h2>
+  <div class="grow">
+    <div class="moves">
+      <div class="move"><span class="k num">01</span><div class="t">Острова × SPEECH<small>Мастер-план федерального бюро (2016) → лучшая распроданность среди крупных портфелей региона. Прецедент внешней экспертизы создан.</small></div></div>
+      <div class="move"><span class="k num">02</span><div class="t">Талан + Острова: 32 га, 24,7 млрд ₽<small>Крупнейшая площадка агломерации (пос. Октябрьский, 247,7 тыс м², 13 очередей, максимум 10 этажей — «человеческий масштаб» как ТЗ). РИА Недвижимость, 29.05.2025 — проверено.</small></div></div>
+      <div class="move"><span class="k num">03</span><div class="t">КРТ-волна<small>«Зенит» (20 га) утверждён, генплан-2026 в работе: мастер-планы, ТЭП-оптимизация и концепции под торги — растущий рынок услуг для бюро.</small></div></div>
+      <div class="move"><span class="k num">04</span><div class="t">Федеральный рынок институционализировал связь<small>Рейтинг архбюро по темпам продаж заказчиков (URBAN×BnMap.pro): индустрия официально признала — имя архитектора ускоряет продажи. [точное название сверить перед сценой]</small></div></div>
+    </div>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">Первоисточники сверены 11.07.2026</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 36 · Границы данных -->
+<section class="slide">
+  <p class="eyebrow">Честность метода</p>
+  <h2>Чего в этих данных нет</h2>
+  <div class="grow">
+    <div class="cols">
+      <div>
+        <p class="colhead">Не заявляем со сцены</p>
+        <p class="plain">· <strong>Строительная готовность</strong> в % публичным API не отдаётся — соотношение «распроданность/готовность» не считали<br>
+        · <strong>Помесячный темп ДДУ</strong> (Росреестр) — не собран; динамику продаж видим только между срезами ЕИСЖС<br>
+        · <strong>Квартирография по типам лотов</strong> — нет в открытых данных<br>
+        · <strong>Причинность в кейсе Островов</strong> — корреляция, один кейс</p>
+      </div>
+      <div>
+        <p class="colhead">Помним про хрупкое</p>
+        <p class="plain">· Первые экраны — карусели: цитаты датируем, скриншоты обновляем накануне<br>
+        · Цифры платежей «от Х ₽/мес» плавают ежедневно<br>
+        · Акции с дедлайнами (ПИК «−15% до 15.07», Setl до 31.07) истекают<br>
+        · ЕИСЖС обновляется ~10 числа: срез устаревает за 2–3 дня<br>
+        · Заседание ЦБ 24.07 может изменить ставку</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">Чек-лист перед сценой: docs/fact-check-report.md §8</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 37 · Финал -->
+<section class="slide">
+  <div class="grow">
+    <div class="mark"><svg viewBox="0 0 24 24"><path d="M3 20h18M4 20v-7l4-4 4 4v7M12 20v-9l5-5 4 4v10"/></svg></div>
+    <h1>Мы посчитали.<br>Ход за вами.</h1>
+    <p class="sub">Рынок здоров, но ценовой рост кончился, 45% предложения ещё предстоит продать, а витрины продают скидку вместо продукта. Это окно: кто первым начнёт конкурировать продуктом и подачей — снимет рынок.</p>
+    <p class="sub" style="color:var(--ink)"><strong>АРТЕЛЬ</strong> · архитектура · проектирование · строительство<br><span style="color:var(--ink-2)">info@artel.ru · +7 (999) 000-00-00</span></p>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">Спасибо · вопросы</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 38 · Приложение: методика -->
+<section class="slide">
+  <p class="eyebrow">Приложение А · методика и источники</p>
+  <div class="grow">
+    <div class="cols">
+      <div>
+        <p class="colhead">Данные</p>
+        <p class="plain" style="font-size:clamp(12px,1.3vw,18px)">
+          <strong>ЕИСЖС / наш.дом.рф</strong> — карточки всех 120 строящихся домов региона, срез 11.07.2026 (`data/eisgs/houses-2026-07-11.csv`). Распроданность взвешена по квартирам; данные у 98 из 120 домов.<br><br>
+          <strong>Снапшоты 16 сайтов</strong> (09–10.07.2026) + живая перепроверка каждой цитаты 11.07.2026 (`docs/fact-check-report.md`).<br>
+          <strong>ЕРЗ.РФ</strong> 01.07.2026 · <strong>ЦБ РФ</strong> 11.07.2026 · СМИ-факты — по первоисточникам (РИА, Коммерсантъ, ЦИАН, izhlife, tehne.com).</p>
+      </div>
+      <div>
+        <p class="colhead">Контроли и воспроизводимость</p>
+        <p class="plain" style="font-size:clamp(12px,1.3vw,18px)">
+          Разрезы «материал/этажность» проверены контролями по году сдачи и размеру дома (`docs/kirpich-vs-monolit.md`).<br><br>
+          Скрипты: `scripts/market-data/analyze_houses.py` (разрезы), сбор ЕИСЖС — через браузер (API за WAF).<br>
+          Все расчёты воспроизводимы из репозитория; выгрузка и методика открыты по запросу.</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">Аналитика подготовлена бюро «АРТЕЛЬ» · июль 2026</span><span class="pg num" data-pg></span></div>
+</section>
+
+<!-- 39 · Приложение: словарик -->
+<section class="slide">
+  <p class="eyebrow">Приложение Б · словарик</p>
+  <h2>Термины, которые прозвучат</h2>
+  <div class="grow">
+    <table class="dt">
+      <tr><td>Распроданность</td><td>Доля проданных квартир в строящемся доме. В докладе — взвешена по числу квартир (большие дома весят больше)</td></tr>
+      <tr><td>Эскроу-счёт</td><td>Деньги дольщика лежат в банке до сдачи дома; застройщик строит на кредит банка (проектное финансирование)</td></tr>
+      <tr><td>Проектное финансирование</td><td>Кредит банка застройщику; ставка тем ниже, чем больше денег на эскроу — распроданность напрямую удешевляет стройку</td></tr>
+      <tr><td>Норма ~70% к вводу</td><td>Равновесный уровень распроданности на момент сдачи (АЦ ДОМ.РФ): покрывает проектное финансирование, остаток продаётся с прибылью</td></tr>
+      <tr><td>Семейная ипотека</td><td>Льготная ставка 6% для семей с детьми; лимит кредита 6 млн ₽ — отсюда «потолок» бюджета ≈ 7,5 млн ₽</td></tr>
+      <tr><td>ЕИСЖС</td><td>Единая информационная система жилищного строительства (наш.дом.рф) — официальные карточки всех строящихся домов</td></tr>
+      <tr><td>ЕРЗ</td><td>Единый ресурс застройщиков — отраслевой рейтинг и объёмы стройки по компаниям</td></tr>
+      <tr><td>КРТ</td><td>Комплексное развитие территорий — механизм торгов на застройку больших площадок с обязательствами</td></tr>
+      <tr><td>White box / предчистовая</td><td>Отделка «под финишный ремонт»: стены выровнены, коммуникации разведены — стандарт рынка УР</td></tr>
+    </table>
+  </div>
+  <div class="foot"><span class="brand">АРТЕЛЬ</span><span class="src">Полная версия · конец колоды</span><span class="pg num" data-pg></span></div>
+</section>
+
+</div>
+<div class="hud"><i id="hudbar"></i></div>
+<div class="navhint">← → листать · Home/End</div>
+
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide')),i=0;
+  var hud=document.getElementById('hudbar');
+  slides.forEach(function(s,j){
+    var pg=s.querySelector('[data-pg]');
+    if(pg)pg.textContent=String(j+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0');
+  });
+  function go(n){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach(function(s,j){s.classList.toggle('active',j===i);});
+    hud.style.width=((i+1)/slides.length*100)+'%';
+    try{history.replaceState(null,'','#'+(i+1));}catch(e){}
+  }
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' '||e.key==='PageDown'){e.preventDefault();go(i+1);}
+    else if(e.key==='ArrowLeft'||e.key==='ArrowUp'||e.key==='PageUp'){e.preventDefault();go(i-1);}
+    else if(e.key==='Home'){go(0);}else if(e.key==='End'){go(slides.length-1);}
+  });
+  document.getElementById('deck').addEventListener('click',function(e){
+    var x=e.clientX/window.innerWidth;
+    if(x<0.2)go(i-1);else go(i+1);
+  });
+  var m=location.hash.match(/^#(\d+)$/); if(m)go(parseInt(m[1],10)-1); else go(0);
+})();
+</script>
+</body>
+</html>
