@@ -119,9 +119,10 @@
   .hud i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s;}
   .navhint{position:fixed;right:1.2vw;bottom:1.4vh;font-size:11px;color:var(--ink-3);
     z-index:5;user-select:none;}
+  @page{size:33.87cm 19.05cm;margin:0;}
   @media print{
     .deck{position:static;overflow:visible;}
-    .slide{position:relative;opacity:1;visibility:visible;page-break-after:always;height:100vh;}
+    .slide{position:relative;opacity:1;visibility:visible;page-break-after:always;height:100vh;height:19.05cm;overflow:hidden;}
     .bar{width:var(--v)!important;transition:none;}
     .hud,.navhint{display:none;}
   }
