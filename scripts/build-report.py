@@ -22,7 +22,8 @@ CHAPTERS = [
     ("Глава 4. Бенчмарк посылов: сайты застройщиков УР vs федералы", "docs/messaging-benchmark.md"),
     ("Глава 5. Геймификация и продуктовые механики", "docs/gamification-analysis.md"),
     ("Глава 6. ИИ-инструменты для застройщиков", "docs/ai-tools-for-developers.md"),
-    ("Глава 7. Методика и факт-чек", "docs/fact-check-report.md"),
+    ("Глава 7. Остатки готового жилья: кто сидит на сданных квартирах", "docs/ready-stock-report.md"),
+    ("Глава 8. Методика и факт-чек", "docs/fact-check-report.md"),
 ]
 # Разрыв страницы для docx через raw OpenXML (pandoc пробрасывает как есть)
 PAGEBREAK = '\n```{=openxml}\n<w:p><w:r><w:br w:type="page"/></w:r></w:p>\n```\n\n'
