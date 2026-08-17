@@ -1,0 +1,682 @@
+<title>Порядок работ</title>
+<style>
+  :root {
+    --paper: #EFF2F4; --surface: #FFFFFF; --surface-2: #F7F9FA;
+    --ink: #101519; --ink-2: #5C6771; --ink-3: #8A939B;
+    --line: #D3D9DE; --line-soft: #E3E8EB;
+    --accent: #0E7C86; --accent-tint: rgba(14,124,134,0.08);
+    --flag: #A9463C; --flag-tint: rgba(169,70,60,0.07);
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace;
+    --s1: 6px; --s2: 12px; --s3: 20px; --s4: 32px; --s5: 52px; --s6: 84px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #0D1215; --surface: #141A1F; --surface-2: #171E24;
+      --ink: #E4E9EC; --ink-2: #9AA5AE; --ink-3: #77828B;
+      --line: #263037; --line-soft: #1E262C;
+      --accent: #45BAC4; --accent-tint: rgba(69,186,196,0.10);
+      --flag: #DE8378; --flag-tint: rgba(222,131,120,0.09);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #0D1215; --surface: #141A1F; --surface-2: #171E24;
+    --ink: #E4E9EC; --ink-2: #9AA5AE; --ink-3: #77828B;
+    --line: #263037; --line-soft: #1E262C;
+    --accent: #45BAC4; --accent-tint: rgba(69,186,196,0.10);
+    --flag: #DE8378; --flag-tint: rgba(222,131,120,0.09);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: var(--sans); font-size: 16.5px; line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+  .sheet {
+    max-width: 1080px; margin: 0 auto;
+    padding: var(--s5) var(--s4) var(--s6);
+    display: flex; flex-direction: column; gap: var(--s5);
+  }
+  .eyebrow {
+    font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--ink-3); margin: 0;
+  }
+
+  .masthead {
+    display: flex; flex-direction: column; gap: var(--s3);
+    padding-bottom: var(--s4); border-bottom: 2px solid var(--ink);
+  }
+  .masthead h1 {
+    margin: 0; font-size: clamp(2.1rem, 5.4vw, 3.4rem); line-height: 1.03;
+    letter-spacing: -0.032em; font-weight: 760; text-wrap: balance;
+  }
+  .lead { margin: 0; max-width: 62ch; font-size: 1.06rem; color: var(--ink-2); }
+
+  .toc {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1px; background: var(--line); border: 1px solid var(--line);
+  }
+  .toc a {
+    display: flex; flex-direction: column; gap: var(--s1); padding: var(--s3);
+    background: var(--surface); color: inherit; text-decoration: none;
+    transition: background 0.15s ease;
+  }
+  .toc a:hover, .toc a:focus-visible { background: var(--accent-tint); }
+  .toc a strong { font-size: 0.95rem; font-weight: 620; letter-spacing: -0.01em; }
+  .toc a em {
+    font-style: normal; font-family: var(--mono); font-size: 12px;
+    color: var(--accent); font-variant-numeric: tabular-nums;
+  }
+
+  .block {
+    display: grid; grid-template-columns: 104px minmax(0, 1fr); gap: var(--s4);
+    padding-top: var(--s4); border-top: 1px solid var(--line); scroll-margin-top: 20px;
+  }
+  .rail { position: relative; }
+  .rail .code {
+    position: sticky; top: 24px; display: block; font-family: var(--mono);
+    font-size: 13px; letter-spacing: 0.08em; color: var(--accent);
+    padding-top: 6px; border-top: 2px solid var(--accent);
+  }
+  .content { display: flex; flex-direction: column; gap: var(--s4); }
+  .content > * { margin: 0; }
+  .content h2 {
+    font-size: clamp(1.5rem, 3.4vw, 2.05rem); line-height: 1.14;
+    letter-spacing: -0.024em; font-weight: 720; text-wrap: balance;
+  }
+  .content p { max-width: 66ch; color: var(--ink-2); }
+  .content strong { color: var(--ink); font-weight: 620; }
+  .group { display: flex; flex-direction: column; gap: var(--s2); }
+
+  /* steps */
+  .steps { display: flex; flex-direction: column; gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  .step { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: var(--s3); padding: var(--s3); background: var(--surface); }
+  .step > .when {
+    display: flex; flex-direction: column; gap: 3px; padding-top: 2px;
+    font-family: var(--mono); font-size: 12px; font-variant-numeric: tabular-nums;
+  }
+  .when b { color: var(--accent); font-weight: 500; letter-spacing: 0.04em; }
+  .when span { color: var(--ink-3); }
+  .step-body { display: flex; flex-direction: column; gap: var(--s2); min-width: 0; }
+  .step-body h3 { margin: 0; font-size: 1.04rem; font-weight: 650; letter-spacing: -0.012em; }
+  .step-body p { margin: 0; font-size: 0.95rem; }
+
+  ul.check, ul.plain { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: var(--s2); font-size: 0.945rem; color: var(--ink-2); }
+  ul.check li, ul.plain li { padding-left: 20px; position: relative; }
+  ul.check li::before {
+    content: ""; position: absolute; left: 0; top: 0.42em;
+    width: 9px; height: 9px; border: 1px solid var(--accent);
+  }
+  ul.plain li::before {
+    content: ""; position: absolute; left: 0; top: 0.63em;
+    width: 9px; height: 1px; background: var(--accent);
+  }
+
+  .callout { display: flex; flex-direction: column; gap: var(--s2); padding: var(--s3); background: var(--flag-tint); border-left: 3px solid var(--flag); }
+  .callout .eyebrow { color: var(--flag); }
+  .callout p { color: var(--ink); max-width: 64ch; margin: 0; }
+  .note { padding: var(--s3); background: var(--surface-2); border: 1px solid var(--line-soft); display: flex; flex-direction: column; gap: var(--s2); }
+  .note p { margin: 0; }
+
+  .scroller { overflow-x: auto; border: 1px solid var(--line); }
+  table { width: 100%; border-collapse: collapse; background: var(--surface); font-size: 0.93rem; }
+  th, td { text-align: left; padding: 11px var(--s3); border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+  thead th {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-3); font-weight: 400; border-bottom: 1px solid var(--line); white-space: nowrap;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  td { color: var(--ink-2); }
+  td:first-child { color: var(--ink); }
+  td.figure { font-family: var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--ink); }
+
+  pre {
+    margin: 0; padding: var(--s3); background: var(--surface); border: 1px solid var(--line);
+    overflow-x: auto; font-family: var(--mono); font-size: 12.5px; line-height: 1.7; color: var(--ink);
+  }
+
+  footer { padding-top: var(--s4); border-top: 2px solid var(--ink); display: flex; flex-direction: column; gap: var(--s2); }
+  footer p { margin: 0; color: var(--ink-2); font-size: 0.93rem; max-width: 62ch; }
+  a { color: var(--accent); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  @media (max-width: 720px) {
+    .sheet { padding: var(--s4) var(--s3) var(--s5); }
+    .block { grid-template-columns: minmax(0, 1fr); gap: var(--s3); }
+    .rail .code { position: static; display: inline-block; }
+    .step { grid-template-columns: minmax(0, 1fr); gap: var(--s2); }
+    .step > .when { flex-direction: row; gap: var(--s2); }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="sheet">
+
+  <header class="masthead">
+    <p class="eyebrow">Внутренний документ · не для клиента</p>
+    <h1>Порядок работ</h1>
+    <p class="lead">Что делать по шагам: подготовка к встрече, тест визуализации, сама встреча и исполнение каждого направления. С часами, точками контроля и правилами, которые нельзя нарушать.</p>
+  </header>
+
+  <nav class="toc">
+    <a href="#p1"><em>01</em><strong>Семь дней до встречи</strong></a>
+    <a href="#p2"><em>02</em><strong>Тест визуализации</strong></a>
+    <a href="#p3"><em>03</em><strong>Встреча</strong></a>
+    <a href="#p4"><em>04</em><strong>После встречи</strong></a>
+    <a href="#p5"><em>05</em><strong>Исполнение: обучение</strong></a>
+    <a href="#p6"><em>06</em><strong>Исполнение: сайт</strong></a>
+    <a href="#p7"><em>07</em><strong>Исполнение: GEO</strong></a>
+    <a href="#p8"><em>08</em><strong>Исполнение: исследование</strong></a>
+    <a href="#p9"><em>09</em><strong>Режим при нескольких проектах</strong></a>
+  </nav>
+
+  <!-- 01 -->
+  <section class="block" id="p1">
+    <div class="rail"><span class="code">01</span></div>
+    <div class="content">
+      <h2>Семь дней до встречи</h2>
+      <p>Задача недели — прийти не с идеями, а с двумя конкретными вещами: списком найденных у них проблем и работающим тестом визуализации. Идеи есть у всех, находки и результат — только у того, кто поработал.</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="when"><b>ДЕНЬ 1</b><span>2 часа</span></div>
+          <div class="step-body">
+            <h3>Разведка по их сайту</h3>
+            <p>Всё, что ниже, делается из браузера и бесплатно. Цель — пять находок с цифрами, каждую из которых можно назвать вслух за двадцать секунд.</p>
+            <ul class="check">
+              <li>Открой <code>их-сайт.ру/robots.txt</code> — есть ли там GPTBot, PerplexityBot, ClaudeBot и что им запрещено</li>
+              <li>Прогони главную через PageSpeed Insights, запиши балл для мобильных</li>
+              <li>Открой сайт на телефоне и попробуй найти контакты за десять секунд</li>
+              <li>Отключи JavaScript в браузере и перезагрузи — что осталось на странице? Это примерно то, что видит ИИ-краулер</li>
+              <li>Проверь микроразметку валидатором Rich Results и валидатором Яндекса</li>
+              <li>Посмотри, когда последний раз обновлялось портфолио</li>
+              <li>Найди их в Яндекс Бизнес и 2ГИС — совпадают ли название, телефон, описание с сайтом</li>
+              <li>Спроси у ChatGPT, Perplexity и Яндекс Нейро: «архитектурное бюро в [их город]» — кого называют и есть ли они</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="when"><b>ДНИ 2–4</b><span>6–8 часов</span></div>
+          <div class="step-body">
+            <h3>Тест визуализации</h3>
+            <p>Подробно разложен в следующем разделе. Это главная работа недели: без пройденного теста обучение продавать нельзя.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="when"><b>ДЕНЬ 5</b><span>2 часа</span></div>
+          <div class="step-body">
+            <h3>Материалы для показа</h3>
+            <ul class="check">
+              <li>Один лист А4 или один экран: слева исходный массинг, справа результат, ниже четыре ракурса серии</li>
+              <li>Никакой презентации на двадцать слайдов — она работает против тебя</li>
+              <li>Проверь, что всё открывается офлайн: интернет в переговорной может не работать</li>
+              <li>Продублируй файлы на телефон</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="when"><b>ДЕНЬ 6</b><span>1 час</span></div>
+          <div class="step-body">
+            <h3>Репетиция вслух</h3>
+            <p>Проговори три формулировки, пока они не начнут звучать естественно. Именно вслух — в голове всё гладко, а на встрече запинаешься.</p>
+            <ul class="plain">
+              <li>Про перевыставление затрат: «вы продолжите получать двадцать тысяч, но себестоимость станет полторы»</li>
+              <li>Про «первое место»: почему это не разовая работа и что ты гарантируешь вместо него</li>
+              <li>Про то, что ты один: «работаете напрямую с исполнителем, без менеджеров и испорченного телефона»</li>
+            </ul>
+            <p>Отдельно засеки рассказ о себе — он должен укладываться в 90 секунд. Всё, что дольше, они не слушают.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section class="block" id="p2">
+    <div class="rail"><span class="code">02</span></div>
+    <div class="content">
+      <h2>Тест визуализации</h2>
+      <p>Цель — не красивая картинка, а доказательство трёх вещей: геометрия слушается, серия держится, правки управляемы. Красивую картинку выдаёт любой сервис, и как продукт она стоит ноль.</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="when"><b>ШАГ 1</b><span>30 мин</span></div>
+          <div class="step-body">
+            <h3>Исходный объём</h3>
+            <p>Нужна геометрия, от которой нейросеть будет отталкиваться. По убыванию качества:</p>
+            <ul class="plain">
+              <li>Скриншот из их модели — Revit, ArchiCAD, SketchUp. Идеальный вариант, попроси заранее</li>
+              <li>Свой массинг в SketchUp за полчаса: коробки нужной этажности и пропорций</li>
+              <li>Ручной скетч перспективы — работает хуже, но работает</li>
+            </ul>
+            <p>Требования к кадру: камера на уровне глаз, вертикали вертикальны, здание занимает 60–70% кадра. Кривой ракурс исходника даёт кривой результат, и это не лечится промтом.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="when"><b>ШАГ 2</b><span>20 мин</span></div>
+          <div class="step-body">
+            <h3>Карта управления</h3>
+            <p>Нужна карта, по которой нейросеть поймёт форму. Два рабочих варианта:</p>
+            <ul class="plain">
+              <li><strong>Контурная карта.</strong> Проще всего: скриншот массинга в режиме «скрытые линии» — это уже готовая карта контуров, ничего дополнительно делать не надо</li>
+              <li><strong>Карта глубины.</strong> Рендер depth-прохода из SketchUp или Blender, либо прогон обычного скриншота через модель оценки глубины</li>
+            </ul>
+            <p>Начинай с контурной — она предсказуемее и её проще объяснить на обучении.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="when"><b>ШАГ 3</b><span>1 час</span></div>
+          <div class="step-body">
+            <h3>Первый прогон</h3>
+            <p>Инструмент: ComfyUI локально с SDXL или Flux плюс ControlNet, если есть видеокарта от 8–12 ГБ — бесплатно и полностью под контролем. Иначе облачный сервис с поддержкой ControlNet.</p>
+            <p>Структура промта — держись этого порядка, он же пойдёт в программу обучения:</p>
+            <pre>тип объекта и этажность
+    → материалы фасада, конкретно и по частям
+    → первый этаж и входная группа
+    → окружение и благоустройство
+    → время года, время суток, направление света
+    → камера: высота, объектив, перспектива
+    → качество и стиль подачи
+    → что исключить</pre>
+            <p><strong>Главный параметр — сила контроля.</strong> Ставь 0.6–0.8. Ниже — нейросеть уходит в свою фантазию и рисует чужое здание. Выше — получается плоская раскраска твоего массинга без жизни. Вилка узкая, и в ней вся суть работы.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="when"><b>ШАГ 4</b><span>15 мин</span></div>
+          <div class="step-body">
+            <h3>Проверка точности</h3>
+            <p>Открой исходник и результат рядом и посчитай руками:</p>
+            <ul class="check">
+              <li>Количество этажей совпало</li>
+              <li>Количество осей окон по главному фасаду совпало</li>
+              <li>Пропорция ширины к высоте совпала</li>
+              <li>Крупные объёмы стоят там же, где в массинге</li>
+            </ul>
+            <p>Не совпало — поднимай силу контроля на 0.05 и повторяй. Это и есть навык, которому ты будешь их учить.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="when"><b>ШАГ 5</b><span>2 часа</span></div>
+          <div class="step-body">
+            <h3>Серия из четырёх ракурсов</h3>
+            <p>Самая сложная часть и главное, что отличает продукт от картинки. Разверни массинг на четыре ракурса и прогони каждый.</p>
+            <p><strong>Фиксируй всё, кроме ракурса:</strong> тот же seed, тот же промт с изменением только описания камеры, та же сила контроля, те же слова про материалы и свет. Любое лишнее изменение — и здание поплывёт.</p>
+            <p>Критерий приёмки жёсткий: покажи четыре картинки человеку со стороны и спроси, одно это здание или разные. Ответ «похоже, но не уверен» считается провалом.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="when"><b>ШАГ 6</b><span>30 мин</span></div>
+          <div class="step-body">
+            <h3>Управляемая правка</h3>
+            <p>Возьми готовый результат и измени ровно одну вещь — например, цвет фасада. Через инпейнт по выделенной области или img2img с низкой силой изменения.</p>
+            <p>Критерий: изменилось только то, что просили. Если поехали окна, крыша или благоустройство — правка неуправляема, и на реальном заказе ты будешь бесконечно переделывать.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <p class="eyebrow">Как читать результат</p>
+        <p><strong>Три из трёх</strong> — продавай уверенно, включая пакет «Внедрение под ключ».</p>
+        <p><strong>Два из трёх</strong> — продавай «Старт» и «Рабочий процесс», обещание «первые три объекта вместе» пока не давай.</p>
+        <p><strong>Одно или ноль</strong> — обучение не продаём в этот заход. Скажи честно: «покажу отдельно, когда доведу до продакшена». Это стоит одной сделки, а проданное и проваленное обучение стоит всего рынка в городе.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 -->
+  <section class="block" id="p3">
+    <div class="rail"><span class="code">03</span></div>
+    <div class="content">
+      <h2>Встреча</h2>
+      <p>Час времени, разложенный по минутам. Главная ошибка — начать рассказывать о себе. Вторая по величине — назвать цену до того, как понял задачу.</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="when"><b>0–5</b><span>минут</span></div>
+          <div class="step-body">
+            <h3>Не про себя</h3>
+            <p>Открывай вопросом, а не презентацией: «Расскажите, где у вас сейчас больше всего уходит времени впустую». Дальше молчи и слушай.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="when"><b>5–25</b><span>минут</span></div>
+          <div class="step-body">
+            <h3>Слушаешь и записываешь дословно</h3>
+            <p>Ничего не предлагай. Записывай их формулировки как есть — потом вставишь их же слова в КП, и оно будет читаться как написанное про них. Задавай только уточняющие: «сколько это занимает», «как часто», «кто этим занимается».</p>
+            <p>Обязательно вытащи цифру: сколько визуализаций в год. Умножь при них на 18 000 и дай им самим произнести результат.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="when"><b>25–35</b><span>минут</span></div>
+          <div class="step-body">
+            <h3>Находки по их сайту</h3>
+            <p>Здесь ты впервые говоришь долго. Конкретика с цифрами, без оценок и без «у вас всё плохо». Формат: «у вас в robots.txt закрыт GPTBot — для ChatGPT вашего сайта не существует; правится за пять минут».</p>
+            <p>Найденная при них проблема продаёт лучше любого рассказа о компетенциях.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="when"><b>35–45</b><span>минут</span></div>
+          <div class="step-body">
+            <h3>Визуализация</h3>
+            <p>Показываешь лист: массинг, результат, серия. Проговариваешь вслух их экономику — двадцать тысяч против полутора, три дня против трёх часов, и то, что разница остаётся у них, потому что застройщик платит по-прежнему.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="when"><b>45–55</b><span>минут</span></div>
+          <div class="step-body">
+            <h3>Вопросы и границы</h3>
+            <p>Отвечай честно, включая «это сегодня не работает». Заранее готовые честные ответы: генерация чертежей не работает, топ-1 в ИИ никто не гарантирует, ПЗЗ в цифре нет и правила заводятся руками.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="when"><b>55–60</b><span>минут</span></div>
+          <div class="step-body">
+            <h3>Конкретный следующий шаг с датой</h3>
+            <p>Не «будем на связи», а «до четверга пришлю расчёт по обучению, в пятницу созвонимся на пятнадцать минут». Встреча без назначенной даты следующего контакта считается проигранной.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="note">
+        <p><strong>Про цену на встрече.</strong> Не называй, если не спросили прямо. Говори: «пришлю расчёт в течение двух дней». Цена в письме после разбора задачи выглядит обоснованной, цена с потолка на встрече — выдуманной.</p>
+        <p>Спросили в лоб — называй нижнюю границу и уходи в детали: «обучение от шестидесяти, обновление сайта от девяноста пяти, точные цифры в расчёте».</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 -->
+  <section class="block" id="p4">
+    <div class="rail"><span class="code">04</span></div>
+    <div class="content">
+      <h2>После встречи</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="when"><b>В ТОТ ЖЕ<br>ДЕНЬ</b><span>30 мин</span></div>
+          <div class="step-body">
+            <h3>Письмо-резюме</h3>
+            <p>Короткое письмо: что услышал, о чём договорились, когда пришлёшь расчёт. Это фиксирует договорённости и показывает, что ты работаешь, а не «был на встрече».</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="when"><b>ДЕНЬ 2–3</b><span>2 часа</span></div>
+          <div class="step-body">
+            <h3>КП по обучению — только оно</h3>
+            <p>Первым отправляется одно КП, а не пакет. Вставь в него их собственные формулировки с встречи и их цифру по количеству визуализаций. Умножение делай прямо в тексте.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="when"><b>+7 ДНЕЙ</b><span>—</span></div>
+          <div class="step-body">
+            <h3>КП по сайту</h3>
+            <p>Отправляется, когда по первому есть какая-то реакция. Если тишина — сначала звонок, а не второе КП вдогонку.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="when"><b>+14 ДНЕЙ</b><span>—</span></div>
+          <div class="step-body">
+            <h3>Исследование по посадке</h3>
+            <p>Девяносто тысяч за документ — низкий риск для них. Но отправляй только после того, как первая сделка закрыта и они увидели тебя в работе.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section class="block" id="p5">
+    <div class="rail"><span class="code">05</span></div>
+    <div class="content">
+      <h2>Исполнение: обучение визуализациям</h2>
+      <p>Пакет «Рабочий процесс», 120 000 ₽, пять сессий. Разложено так, чтобы каждая сессия заканчивалась результатом на экране у ученика, а не конспектом.</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="when"><b>ДО СТАРТА</b><span>8–10 часов</span></div>
+          <div class="step-body">
+            <h3>Подготовка — оплачивается, но невидима</h3>
+            <ul class="check">
+              <li>Запроси: 5 объектов в работе, их прошлые визуализации от подрядчика, фирменные материалы, список учеников и что каждый умеет</li>
+              <li>Сделай 10 эталонных результатов <strong>на их объектах</strong> — придёшь с примерами их проектов, а не абстрактных зданий</li>
+              <li>Настрой эталонное рабочее место и запиши видео установки от начала до конца</li>
+              <li>Собери 6–8 шаблонов промтов под их типы объектов</li>
+            </ul>
+          </div>
+        </div>
+        <div class="step">
+          <div class="when"><b>СЕССИЯ 1</b><span>3 часа</span></div>
+          <div class="step-body">
+            <h3>Доступ и оплата</h3>
+            <p>Инструменты и чем отличаются — 30 мин. <strong>Установка прямо на занятии на их машины</strong> — 60 мин; никаких «дома поставите», иначе половина не поставит никогда. Оплата сервисов, способы и риски — 30 мин. Первый простой прогон каждым участником — 60 мин.</p>
+            <p>Домашнее: пять любых картинок. Задача не качество, а чтобы каждый сам запустил инструмент дома.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="when"><b>СЕССИЯ 2</b><span>3 часа</span></div>
+          <div class="step-body">
+            <h3>Промт</h3>
+            <p>Разбор домашки и типовых ошибок — 30 мин. Структура промта по частям — 45 мин. Работа с референсом — 30 мин. Практика: один объект, пять вариантов промта, сравнение результатов — 75 мин.</p>
+            <p>Домашнее: описать промтом свой текущий объект.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="when"><b>СЕССИЯ 3</b><span>3 часа</span></div>
+          <div class="step-body">
+            <h3>Контроль геометрии — ключевая сессия</h3>
+            <p>Ради неё всё и затевалось. Массинг → карта контуров → результат. Подбор силы контроля вживую, с показом, что происходит при 0.4 и при 0.95. Практика на их реальном объекте.</p>
+            <p>Домашнее: свой объект с контролем геометрии и проверкой по четырём критериям точности.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="when"><b>СЕССИЯ 4</b><span>3 часа</span></div>
+          <div class="step-body">
+            <h3>Серия и правки</h3>
+            <p>Консистентность ракурсов, фиксация параметров, таблица настроек для повторяемости. Инпейнт для точечных правок. Доводка в Photoshop: что быстрее исправить руками, чем перегенерировать.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="when"><b>СЕССИЯ 5</b><span>3 часа</span></div>
+          <div class="step-body">
+            <h3>Рабочий процесс</h3>
+            <p>Сборка регламента: кто делает ракурсы, кто генерит, кто принимает. Контроль качества перед отправкой застройщику. Что показывать можно, а что нельзя. Разбор их живых задач на ближайшие недели.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="when"><b>МЕСЯЦ<br>ПОСЛЕ</b><span>до 4 ч/мес</span></div>
+          <div class="step-body">
+            <h3>Поддержка</h3>
+            <p>Чат для вопросов плюс разбор их работ раз в неделю по 30 минут. Лимит в четыре часа держи жёстко и сообщи о нём заранее, иначе поддержка съест месяц.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="note">
+        <p><strong>Что сдаёшь по акту:</strong> регламент в PDF, библиотека промтов, видеоинструкции по установке, настроенные рабочие места, таблица параметров для повторяемости.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 -->
+  <section class="block" id="p6">
+    <div class="rail"><span class="code">06</span></div>
+    <div class="content">
+      <h2>Исполнение: сайт под ключ</h2>
+      <p>290 000 ₽, 6–8 недель. Порядок недель важнее скорости: каждый следующий этап опирается на письменно утверждённый предыдущий.</p>
+
+      <div class="scroller">
+        <table>
+          <thead><tr><th>Неделя</th><th>Работа</th><th>Чем закрывается</th></tr></thead>
+          <tbody>
+            <tr><td class="figure">1</td><td>Интервью с руководством 2 часа, разбор четырёх конкурентов, позиционирование, структура сайта. <strong>Здесь же запрашиваешь весь контент.</strong></td><td>Утверждённая структура</td></tr>
+            <tr><td class="figure">2</td><td>Прототипы всех страниц — схемы без дизайна</td><td>Письменное «утверждаю»</td></tr>
+            <tr><td class="figure">3</td><td>Две концепции первого экрана, выбор одной</td><td>Выбранная концепция</td></tr>
+            <tr><td class="figure">4</td><td>Дизайн остальных страниц и мобильных версий</td><td>Утверждённый дизайн</td></tr>
+            <tr><td class="figure">5–6</td><td>Вёрстка, разработка, админка, раздел проектов с фильтрами</td><td>Рабочий сайт на тестовом адресе</td></tr>
+            <tr><td class="figure">7</td><td>Наполнение до 12 проектов, SEO, фундамент GEO, аналитика, формы</td><td>Готовый к запуску сайт</td></tr>
+            <tr><td class="figure">8</td><td>Обучение работе с админкой, видеоинструкция, запуск</td><td>Акт и передача доступов</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout">
+        <p class="eyebrow">Четыре правила, которые спасают проект</p>
+        <p><strong>Контент запрашивается на первой неделе, а не на седьмой.</strong> Ожидание текстов и фотографий — причина срыва сроков номер один во всех веб-проектах без исключения.</p>
+        <p><strong>Каждый этап закрывается письменно.</strong> В переписке, не устно. «Утверждаю» от заказчика — единственное, что защищает от переделки дизайна на шестой неделе.</p>
+        <p><strong>Два круга правок — считай их вслух.</strong> «Это второй круг, следующий будет платным» говорится до третьего круга, а не после.</p>
+        <p><strong>Стек с серверным рендерингом.</strong> Next.js или Astro. Если сделаешь клиентский рендеринг, проданный им GEO не будет работать — краулеры увидят пустую страницу, и ты сам себе сломаешь вторую услугу.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 -->
+  <section class="block" id="p7">
+    <div class="rail"><span class="code">07</span></div>
+    <div class="content">
+      <h2>Исполнение: GEO</h2>
+      <p>45 000 ₽, две недели. Работа делится ровно пополам: неделя техники, неделя содержания.</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="when"><b>ДНИ 1–2</b><span>аудит</span></div>
+          <div class="step-body">
+            <h3>Замер точки отсчёта</h3>
+            <p>Без замера «до» вся услуга недоказуема — это первое, что делается, и последнее, о чём вспоминают.</p>
+            <ul class="check">
+              <li>Разбор robots.txt: какие боты закрыты и чем</li>
+              <li>Проверка реальной отдачи контента боту — запрос с User-Agent GPTBot и сравнение с обычным</li>
+              <li>Отключить JavaScript и посмотреть, что остаётся на ключевых страницах</li>
+              <li>Валидация микроразметки</li>
+              <li>Составить 25 вопросов, которые задал бы их клиент, прогнать через ChatGPT, Perplexity и Яндекс Нейро, записать результат в таблицу</li>
+            </ul>
+            <p>Отчёт по находкам отправляется клиенту сразу — это первая точка, где он видит, за что заплатил.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="when"><b>ДНИ 3–7</b><span>техника</span></div>
+          <div class="step-body">
+            <h3>Технические правки</h3>
+            <ul class="check">
+              <li>Открыть в robots.txt GPTBot, OAI-SearchBot, ChatGPT-User, PerplexityBot, ClaudeBot, Google-Extended, YandexBot</li>
+              <li>Проверить настройки защитного сервиса — там часто отдельная галочка блокировки ИИ-ботов</li>
+              <li>Обеспечить серверный рендеринг ключевых страниц</li>
+              <li>Разметка Schema.org: Organization, LocalBusiness, Service, FAQPage</li>
+              <li>Даты публикации и обновления на страницах, актуальный sitemap</li>
+              <li>Положить llms.txt — бесплатно, эффект не гарантирован, клиенту так и сказать</li>
+            </ul>
+          </div>
+        </div>
+        <div class="step">
+          <div class="when"><b>ДНИ 8–12</b><span>содержание</span></div>
+          <div class="step-body">
+            <h3>Тексты под извлечение</h3>
+            <ul class="check">
+              <li>Переписать заголовки в форме реальных вопросов клиента</li>
+              <li>Первые два предложения каждого раздела — прямой ответ без разбега</li>
+              <li>Разбить длинные абзацы, вынести перечисления в списки и таблицы</li>
+              <li>Добавить блок вопросов и ответов из настоящих вопросов клиентов</li>
+            </ul>
+          </div>
+        </div>
+        <div class="step">
+          <div class="when"><b>ДНИ 13–14</b><span>сущность</span></div>
+          <div class="step-body">
+            <h3>Единство данных и сдача</h3>
+            <p>Сверка названия, адреса, телефона и описания по всем площадкам, исправление расхождений, список площадок, где надо появиться. Финальный отчёт «было — стало» плюс зафиксированная точка отсчёта по 25 запросам и план мониторинга.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 -->
+  <section class="block" id="p8">
+    <div class="rail"><span class="code">08</span></div>
+    <div class="content">
+      <h2>Исполнение: исследование по посадке</h2>
+      <p>90 000 ₽, 2–3 недели. Продукт — документ. Твоя задача не программировать, а формализовать то, что сейчас живёт в головах их архитекторов.</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="when"><b>НЕДЕЛЯ 1</b><span>интервью</span></div>
+          <div class="step-body">
+            <h3>Три-четыре разговора по полтора часа</h3>
+            <p>ГАП, ГИП, генпланист если есть. Вопросы высылай заранее — люди приходят подготовленными и говорят по делу. Записывай с разрешения, потом расшифровка сильно экономит время.</p>
+            <p>Что вытаскиваешь: как выбирается первый вариант посадки, какие ограничения проверяются в каком порядке, что чаще всего заставляет переделывать, сколько времени занимает один вариант, откуда берутся исходные данные.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="when"><b>НЕДЕЛЯ 1–2</b><span>разбор</span></div>
+          <div class="step-body">
+            <h3>Две-три прошлые посадки по документам</h3>
+            <p>Берёшь реальные завершённые проекты и восстанавливаешь ход: что было на входе, какие ограничения сработали, почему победил именно этот вариант. Это даёт то, чего не даст ни одно интервью — реальные критерии вместо декларируемых.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="when"><b>НЕДЕЛЯ 2</b><span>формализация</span></div>
+          <div class="step-body">
+            <h3>Таблица ограничений</h3>
+            <p>Каждое ограничение в строку: параметр, источник (пункт СП или ПЗЗ), как проверяется, откуда берутся данные, поддаётся ли автоматизации. Последняя колонка — самая ценная, именно она определит объём разработки.</p>
+            <p>Параллельно проверяешь по их региону: доступны ли границы участков, есть ли ПЗЗ в машиночитаемом виде, какая топооснова. Здесь выяснится реальный масштаб работы.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="when"><b>НЕДЕЛЯ 3</b><span>сдача</span></div>
+          <div class="step-body">
+            <h3>Документ и защита</h3>
+            <p>15–25 страниц: техническое задание, модель ограничений, оценка реализуемости, карта рисков, рекомендация по объёму этапа 2. Плюс защита на 30 минут перед ними — документ, который просто прислали, не читают.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09 -->
+  <section class="block" id="p9">
+    <div class="rail"><span class="code">09</span></div>
+    <div class="content">
+      <h2>Режим при нескольких проектах</h2>
+      <p>Один человек проваливает проекты не из-за нехватки навыка, а из-за переключений. Три правила, которые это держат.</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="when"><b>ПРАВИЛО 1</b><span>—</span></div>
+          <div class="step-body">
+            <h3>Один крупный проект за раз</h3>
+            <p>Второй крупный не берётся, пока первый не сдан по акту. Крупное — это сайт под ключ, прототип посадки, максимальный пакет лидогенерации. Мелкое — обучение, GEO, рестайлинг, исследование; одно мелкое рядом с крупным допустимо.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="when"><b>ПРАВИЛО 2</b><span>—</span></div>
+          <div class="step-body">
+            <h3>Поддержка — в один день недели</h3>
+            <p>Все вопросы по всем клиентам разбираются, скажем, в четверг. Клиентам это сообщается заранее и никого не смущает. Поддержка «по мере поступления» гарантированно съедает неделю на переключениях.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="when"><b>ПРАВИЛО 3</b><span>—</span></div>
+          <div class="step-body">
+            <h3>Пятница — не для клиентов</h3>
+            <p>Продажи, переписка по новым КП, собственное развитие, отработка инструментов. Без выделенного дня на продажи поток кончится ровно в тот момент, когда закончится текущий проект — и это классическая ловушка одиночки.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="note">
+        <p><strong>Если подключаешь студента:</strong> инструкцию пиши в тот же день, когда даёшь первую задачу, даже если задача одна. Не для бюрократии — чтобы замена ушедшего студента занимала день вместо месяца. Эти же инструкции станут основой, когда дойдёт до настоящего найма.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p class="eyebrow">Главное</p>
+    <p>Единственное, что нельзя нарушать: не продавать то, что не проверено на своих руках. Всё остальное в этом документе — оптимизация, а это правило — условие выживания на маленьком рынке, где все друг друга знают.</p>
+  </footer>
+
+</div>
