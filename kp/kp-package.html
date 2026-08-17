@@ -1,0 +1,746 @@
+<title>Предложения для АС проект</title>
+<style>
+  :root {
+    --paper: #EFF2F4;
+    --surface: #FFFFFF;
+    --surface-2: #F7F9FA;
+    --ink: #101519;
+    --ink-2: #5C6771;
+    --ink-3: #8A939B;
+    --line: #D3D9DE;
+    --line-soft: #E3E8EB;
+    --accent: #0E7C86;
+    --accent-tint: rgba(14, 124, 134, 0.08);
+    --flag: #A9463C;
+    --flag-tint: rgba(169, 70, 60, 0.07);
+
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace;
+
+    --s1: 6px;  --s2: 12px; --s3: 20px;
+    --s4: 32px; --s5: 52px; --s6: 84px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #0D1215;
+      --surface: #141A1F;
+      --surface-2: #171E24;
+      --ink: #E4E9EC;
+      --ink-2: #9AA5AE;
+      --ink-3: #77828B;
+      --line: #263037;
+      --line-soft: #1E262C;
+      --accent: #45BAC4;
+      --accent-tint: rgba(69, 186, 196, 0.10);
+      --flag: #DE8378;
+      --flag-tint: rgba(222, 131, 120, 0.09);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --paper: #0D1215;
+    --surface: #141A1F;
+    --surface-2: #171E24;
+    --ink: #E4E9EC;
+    --ink-2: #9AA5AE;
+    --ink-3: #77828B;
+    --line: #263037;
+    --line-soft: #1E262C;
+    --accent: #45BAC4;
+    --accent-tint: rgba(69, 186, 196, 0.10);
+    --flag: #DE8378;
+    --flag-tint: rgba(222, 131, 120, 0.09);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16.5px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .sheet {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: var(--s5) var(--s4) var(--s6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--s5);
+  }
+
+  /* ---------- utility type ---------- */
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin: 0;
+  }
+  .num { font-variant-numeric: tabular-nums; }
+
+  /* ---------- masthead ---------- */
+  .masthead {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s3);
+    padding-bottom: var(--s4);
+    border-bottom: 2px solid var(--ink);
+  }
+  .masthead h1 {
+    margin: 0;
+    font-size: clamp(2.1rem, 5.4vw, 3.4rem);
+    line-height: 1.03;
+    letter-spacing: -0.032em;
+    font-weight: 760;
+    text-wrap: balance;
+  }
+  .lead {
+    margin: 0;
+    max-width: 62ch;
+    font-size: 1.06rem;
+    color: var(--ink-2);
+  }
+  .factbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s2) var(--s4);
+    padding-top: var(--s2);
+  }
+  .fact { display: flex; flex-direction: column; gap: 2px; }
+  .fact span:last-child {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--ink);
+  }
+
+  /* ---------- contents ---------- */
+  .toc {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .toc a {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s1);
+    padding: var(--s3);
+    background: var(--surface);
+    color: inherit;
+    text-decoration: none;
+    transition: background 0.15s ease;
+  }
+  .toc a:hover, .toc a:focus-visible { background: var(--accent-tint); }
+  .toc a strong { font-size: 0.97rem; font-weight: 620; letter-spacing: -0.01em; }
+  .toc a em {
+    font-style: normal;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---------- proposal blocks ---------- */
+  .block {
+    display: grid;
+    grid-template-columns: 104px minmax(0, 1fr);
+    gap: var(--s4);
+    padding-top: var(--s4);
+    border-top: 1px solid var(--line);
+    scroll-margin-top: 20px;
+  }
+  .rail { position: relative; }
+  .rail .code {
+    position: sticky;
+    top: 24px;
+    display: block;
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    padding-top: 6px;
+    border-top: 2px solid var(--accent);
+  }
+  .content { display: flex; flex-direction: column; gap: var(--s4); }
+  .content > * { margin: 0; }
+
+  .content h2 {
+    font-size: clamp(1.5rem, 3.4vw, 2.05rem);
+    line-height: 1.14;
+    letter-spacing: -0.024em;
+    font-weight: 720;
+    text-wrap: balance;
+  }
+  .content h3 {
+    font-size: 1.12rem;
+    font-weight: 660;
+    letter-spacing: -0.012em;
+  }
+  .content p { max-width: 66ch; color: var(--ink-2); }
+  .content p.tight { max-width: 66ch; }
+  .content strong { color: var(--ink); font-weight: 620; }
+
+  .group { display: flex; flex-direction: column; gap: var(--s2); }
+
+  /* ---------- variant cards ---------- */
+  .variants {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--s3);
+  }
+  .variant {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s3);
+    padding: var(--s3);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--line);
+  }
+  .variant.pick { border-top-color: var(--accent); }
+  .variant-head { display: flex; flex-direction: column; gap: var(--s1); }
+  .variant-head h3 { margin: 0; }
+  .chip {
+    align-self: flex-start;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-tint);
+    padding: 3px 8px;
+  }
+  .price {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: var(--s1) var(--s2);
+    padding-bottom: var(--s2);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .price b {
+    font-family: var(--mono);
+    font-size: 1.52rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+    color: var(--ink);
+  }
+  .price span {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-3);
+    font-variant-numeric: tabular-nums;
+  }
+  .variant ul, .content ul.plain {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--s2);
+    font-size: 0.945rem;
+    color: var(--ink-2);
+  }
+  .variant li, .content ul.plain li {
+    padding-left: 18px;
+    position: relative;
+  }
+  .variant li::before, .content ul.plain li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0.63em;
+    width: 8px; height: 1px;
+    background: var(--accent);
+  }
+  .variant li.out { color: var(--ink-3); }
+  .variant li.out::before { background: var(--ink-3); }
+
+  /* ---------- stage sequence ---------- */
+  .stages {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .stage {
+    display: grid;
+    grid-template-columns: 40px minmax(0, 1fr);
+    gap: var(--s3);
+    padding: var(--s3);
+    background: var(--surface);
+  }
+  .stage > .n {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+    padding-top: 3px;
+  }
+  .stage-body { display: flex; flex-direction: column; gap: var(--s2); }
+  .stage-body h4 {
+    margin: 0;
+    font-size: 1.02rem;
+    font-weight: 640;
+    letter-spacing: -0.012em;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--s2);
+  }
+  .stage-body h4 em {
+    font-style: normal;
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--ink-3);
+    font-variant-numeric: tabular-nums;
+  }
+  .stage-body p { margin: 0; font-size: 0.945rem; }
+
+  /* ---------- callout ---------- */
+  .callout {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s2);
+    padding: var(--s3);
+    background: var(--flag-tint);
+    border-left: 3px solid var(--flag);
+  }
+  .callout .eyebrow { color: var(--flag); }
+  .callout p { color: var(--ink); max-width: 64ch; }
+  .callout p:last-child { margin: 0; }
+
+  .note {
+    padding: var(--s3);
+    background: var(--surface-2);
+    border: 1px solid var(--line-soft);
+  }
+  .note p { margin: 0; }
+
+  /* ---------- tables ---------- */
+  .scroller { overflow-x: auto; border: 1px solid var(--line); }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface);
+    font-size: 0.93rem;
+  }
+  th, td {
+    text-align: left;
+    padding: 11px var(--s3);
+    border-bottom: 1px solid var(--line-soft);
+    vertical-align: top;
+  }
+  thead th {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 400;
+    border-bottom: 1px solid var(--line);
+    white-space: nowrap;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  td:first-child { color: var(--ink); }
+  td { color: var(--ink-2); }
+  td.figure {
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    color: var(--ink);
+  }
+  td.figure.up { color: var(--accent); }
+
+  /* ---------- terms + footer ---------- */
+  .terms {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .term {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s1);
+    padding: var(--s3);
+    background: var(--surface);
+  }
+  .term p { margin: 0; font-size: 0.93rem; color: var(--ink-2); }
+
+  footer {
+    padding-top: var(--s4);
+    border-top: 2px solid var(--ink);
+    display: flex;
+    flex-direction: column;
+    gap: var(--s2);
+  }
+  footer p { margin: 0; color: var(--ink-2); font-size: 0.93rem; max-width: 62ch; }
+
+  a { color: var(--accent); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  @media (max-width: 720px) {
+    .sheet { padding: var(--s4) var(--s3) var(--s5); }
+    .block { grid-template-columns: minmax(0, 1fr); gap: var(--s3); }
+    .rail .code { position: static; display: inline-block; }
+    .stage { grid-template-columns: minmax(0, 1fr); gap: var(--s2); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+
+<div class="sheet">
+
+  <header class="masthead">
+    <p class="eyebrow">Коммерческое предложение · Август 2026</p>
+    <h1>Четыре направления работы</h1>
+    <p class="lead">Сайты, обучение работе с нейросетями и разработка программы автоматизированной посадки домов. Каждое направление оценено отдельно и может быть запущено независимо от остальных.</p>
+    <div class="factbar">
+      <div class="fact"><p class="eyebrow">Для кого</p><span>АС проект</span></div>
+      <div class="fact"><p class="eyebrow">Валюта</p><span>RUB, без НДС</span></div>
+      <div class="fact"><p class="eyebrow">Срок действия</p><span>30 дней</span></div>
+      <div class="fact"><p class="eyebrow">Разделов</p><span class="num">4</span></div>
+    </div>
+  </header>
+
+  <nav class="toc">
+    <a href="#kp1"><em>КП-01</em><strong>Сайт для «АС проект»</strong></a>
+    <a href="#kp2"><em>КП-02</em><strong>Сайт бизнес-тренера</strong></a>
+    <a href="#kp3"><em>КП-03</em><strong>Обучение визуализациям</strong></a>
+    <a href="#kp4"><em>КП-04</em><strong>Программа посадки домов</strong></a>
+  </nav>
+
+  <!-- ============ КП-01 ============ -->
+  <section class="block" id="kp1">
+    <div class="rail"><span class="code">КП-01</span></div>
+    <div class="content">
+      <h2>Сайт для «АС проект»</h2>
+      <p>Сайт архитектурного бюро продаёт не услугу, а уровень мышления. Застройщик решает, доверить ли вам объект на сотни миллионов, глядя на то, как вы показываете предыдущие. Поэтому задача сайта — не рассказать о компании, а дать почувствовать качество работы до первого разговора.</p>
+
+      <div class="variants">
+        <div class="variant">
+          <div class="variant-head">
+            <h3>Вариант 1. Рестайлинг</h3>
+          </div>
+          <div class="price"><b>190 000 ₽</b><span>3 недели</span></div>
+          <p class="tight">Обновляем внешний вид, не трогая структуру. Подходит, если сайт по сути работает, но выглядит устаревшим.</p>
+          <ul>
+            <li>Аудит: что мешает и где теряются посетители</li>
+            <li>Новая визуальная система — палитра, типографика, сетка</li>
+            <li>Переработка первого экрана и раздела проектов</li>
+            <li>Полная адаптация под мобильные и планшеты</li>
+            <li>Оптимизация скорости загрузки</li>
+            <li>Обновление текстов и портфолио — до 10 проектов</li>
+            <li>Базовое SEO и микроразметка</li>
+            <li>Аналитика, цели, форма заявки</li>
+            <li class="out">Не входит: новая структура, админка, съёмка</li>
+          </ul>
+        </div>
+
+        <div class="variant pick">
+          <div class="variant-head">
+            <span class="chip">Рекомендуем</span>
+            <h3>Вариант 2. Новый сайт под ключ</h3>
+          </div>
+          <div class="price"><b>620 000 ₽</b><span>8–10 недель</span></div>
+          <p class="tight">Сайт строится заново: от позиционирования до админки, в которой вы сами добавляете проекты без программиста.</p>
+          <ul>
+            <li>Исследование, разбор пяти конкурентов, позиционирование</li>
+            <li>Прототипы всех страниц — утверждаем до дизайна</li>
+            <li>Две концепции первого экрана на выбор</li>
+            <li>Дизайн до 8 шаблонов плюс мобильные версии</li>
+            <li>Портфолио с фильтрами по типу, стадии и году</li>
+            <li>Карточка проекта с галереей и показателями</li>
+            <li>Админка: проекты, страницы, новости, команда</li>
+            <li>SEO-фундамент, аналитика, приём заявок</li>
+            <li>Наполнение до 15 проектов и обучение команды</li>
+            <li>3 месяца технической поддержки включено</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="group">
+        <p class="eyebrow">Дополнительные опции</p>
+        <div class="scroller">
+          <table>
+            <thead><tr><th>Опция</th><th>Стоимость</th></tr></thead>
+            <tbody>
+              <tr><td>Английская версия сайта</td><td class="figure">140 000 ₽</td></tr>
+              <tr><td>Раздел «Журнал» с публикациями</td><td class="figure">90 000 ₽</td></tr>
+              <tr><td>Интеграция с CRM</td><td class="figure">60 000 ₽</td></tr>
+              <tr><td>Профессиональная съёмка объектов</td><td class="figure">по запросу</td></tr>
+              <tr><td>Поддержка после первых 3 месяцев</td><td class="figure">25 000 ₽ / мес</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ КП-02 ============ -->
+  <section class="block" id="kp2">
+    <div class="rail"><span class="code">КП-02</span></div>
+    <div class="content">
+      <h2>Сайт бизнес-тренера: система привлечения клиентов</h2>
+
+      <div class="callout">
+        <p class="eyebrow">Сначала честно про «первое место на всех платформах»</p>
+        <p>Это цель, а не услуга, и достигается она не разработкой сайта. Позиции — результат постоянной работы: свежий контент, накопленные отзывы, заполненные карточки, внешние упоминания, реклама. Разовая разработка создаёт фундамент, но сама по себе никуда не выводит.</p>
+        <p>Реалистичные сроки: первые движения в выдаче — через 3–4 месяца, устойчивые позиции — через 6–12. Если вам обещают топ за месяц, речь идёт либо о рекламе, которая выключится вместе с бюджетом, либо о методах, за которые площадки наказывают.</p>
+        <p><strong>Мы гарантируем</strong> измеримый рост числа заявок и прозрачный ежемесячный отчёт. <strong>Мы не гарантируем</strong> конкретное место в выдаче — его не гарантирует никто, кто разбирается в предмете.</p>
+      </div>
+
+      <div class="variants">
+        <div class="variant">
+          <div class="variant-head"><h3>Вариант 1. Старт</h3></div>
+          <div class="price"><b>240 000 ₽</b><span>3–4 недели</span><span>+ 45 000 ₽ / мес, от 3 мес</span></div>
+          <ul>
+            <li>Лендинг с проработанным предложением под конверсию</li>
+            <li>Квиз или калькулятор для мягкого захвата контакта</li>
+            <li>Заявки в мессенджер и почту</li>
+            <li>Аналитика, цели, запись поведения посетителей</li>
+            <li>Базовое SEO под ключевые запросы ниши</li>
+            <li>Яндекс Бизнес и Google Business Profile</li>
+            <li>Карточки на 5 профильных каталогах</li>
+            <li>Система сбора отзывов</li>
+          </ul>
+        </div>
+
+        <div class="variant pick">
+          <div class="variant-head">
+            <span class="chip">Под задачу лидогенерации</span>
+            <h3>Вариант 2. Система лидогенерации</h3>
+          </div>
+          <div class="price"><b>780 000 ₽</b><span>10–12 недель</span><span>+ 140 000 ₽ / мес, от 6 мес</span></div>
+          <ul>
+            <li>Отдельные страницы под каждую программу и аудиторию</li>
+            <li>Кейсы с измеримыми результатами клиентов</li>
+            <li>Отзывы, включая видео</li>
+            <li>База знаний и блог — основа органического роста</li>
+            <li>Автоворонка: лид-магнит, серия писем, прогрев</li>
+            <li>CRM и сквозная аналитика до оплат, а не до кликов</li>
+            <li>Семантическое ядро и техническое SEO</li>
+            <li>Контент-план: 4–8 материалов в месяц</li>
+            <li>YouTube, VK Видео, Telegram</li>
+            <li>Присутствие на 15+ площадках, работа с репутацией</li>
+            <li>Настройка и ведение контекстной и таргетированной рекламы</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="note">
+        <p><strong>Рекламный бюджет в стоимость не входит</strong> и оплачивается напрямую площадкам. Рекомендуемый старт — от 100 000 ₽ в месяц.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ КП-03 ============ -->
+  <section class="block" id="kp3">
+    <div class="rail"><span class="code">КП-03</span></div>
+    <div class="content">
+      <h2>Обучение визуализациям на нейросетях</h2>
+
+      <div class="group">
+        <p class="eyebrow">Экономика решения</p>
+        <div class="scroller">
+          <table>
+            <thead><tr><th></th><th>Сейчас</th><th>После обучения</th></tr></thead>
+            <tbody>
+              <tr><td>Стоимость одной визуализации</td><td class="figure">20 000 ₽</td><td class="figure up">1 000–2 000 ₽</td></tr>
+              <tr><td>Срок получения</td><td class="figure">3–7 дней</td><td class="figure up">2–4 часа</td></tr>
+              <tr><td>Стоимость правки</td><td class="figure">новый заказ</td><td class="figure up">минуты работы</td></tr>
+              <tr><td>Зависимость от подрядчика</td><td class="figure">полная</td><td class="figure up">нет</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="note">
+        <p><strong>Ключевое.</strong> Затраты на визуализацию вы перевыставляете застройщику. Значит, снижение себестоимости не сокращает ваши расходы — оно превращается в маржу, которая остаётся в бюро. Статья дохода сохраняется, себестоимость падает более чем в десять раз. При 30 объектах в год это около <strong>540 000 ₽ дополнительной прибыли</strong>, а пакет «Старт» окупается на пятой визуализации.</p>
+      </div>
+
+      <div class="group">
+        <p class="eyebrow">Программа</p>
+        <div class="stages">
+          <div class="stage">
+            <div class="n">01</div>
+            <div class="stage-body">
+              <h4>Доступ и оплата</h4>
+              <p>Самый недооценённый барьер. Какие сервисы действительно нужны и чем отличаются, как получить доступ и оплачивать из России, сколько это стоит в месяц, как настроить рабочие места и не потерять доступ. Конфиденциальность материалов заказчика.</p>
+            </div>
+          </div>
+          <div class="stage">
+            <div class="n">02</div>
+            <div class="stage-body">
+              <h4>Написание промта</h4>
+              <p>Структура промта, дающая предсказуемый результат. Работа с референсами. Контроль геометрии — как заставить нейросеть следовать вашему объёму, а не фантазировать: карты глубины и контуров из вашей модели или скетча. Материалы, свет, время суток, окружение, антураж. Собираем библиотеку промтов под ваши типы объектов.</p>
+            </div>
+          </div>
+          <div class="stage">
+            <div class="n">03</div>
+            <div class="stage-body">
+              <h4>Тренировка</h4>
+              <p>Практика на ваших реальных проектах. Выстраиваем процесс целиком: модель, выбор ракурса, черновой рендер, нейросеть, доводка. Стилевые пресеты под фирменную подачу бюро, чтобы визуализации выглядели как ваши, а не как «сделано нейросетью». Граница допустимого: что можно показывать застройщику, а что нельзя.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="variants">
+        <div class="variant">
+          <div class="variant-head"><h3>Старт</h3></div>
+          <div class="price"><b>90 000 ₽</b><span>окупается на 5-й визуализации</span></div>
+          <ul>
+            <li>2 сессии по 3 часа</li>
+            <li>До 3 человек</li>
+            <li>Библиотека готовых промтов</li>
+            <li>2 недели поддержки в чате</li>
+          </ul>
+        </div>
+        <div class="variant pick">
+          <div class="variant-head"><span class="chip">Рекомендуем</span><h3>Рабочий процесс</h3></div>
+          <div class="price"><b>190 000 ₽</b><span>окупается на 11-й визуализации</span></div>
+          <ul>
+            <li>5 сессий</li>
+            <li>До 6 человек</li>
+            <li>Практика на ваших объектах</li>
+            <li>Настроенный и оплаченный пайплайн</li>
+            <li>Письменный регламент для бюро</li>
+            <li>1 месяц поддержки</li>
+          </ul>
+        </div>
+        <div class="variant">
+          <div class="variant-head"><h3>Внедрение под ключ</h3></div>
+          <div class="price"><b>390 000 ₽</b><span>окупается на 22-й визуализации</span></div>
+          <ul>
+            <li>Всё из пакета «Рабочий процесс»</li>
+            <li>Стилевые пресеты под вашу фирменную подачу</li>
+            <li>Первые 3 объекта делаем вместе с вашей командой</li>
+            <li>3 месяца сопровождения</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="note">
+        <p><strong>Альтернативная схема оплаты.</strong> 8 000 ₽ за каждую визуализацию, сделанную вашими силами, первые 40 штук. Вы платите по мере получения пользы и всё равно экономите 12 000 ₽ на объекте с первого дня.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ КП-04 ============ -->
+  <section class="block" id="kp4">
+    <div class="rail"><span class="code">КП-04</span></div>
+    <div class="content">
+      <h2>Программа автоматизированной посадки домов</h2>
+      <p>Подбор вариантов размещения объектов на участке с автоматической проверкой градостроительных и нормативных ограничений и расчётом технико-экономических показателей. Работа делится на три этапа с точками выхода после первого и второго — вы не подписываетесь на многомесячную разработку вслепую.</p>
+
+      <div class="stages">
+        <div class="stage">
+          <div class="n">01</div>
+          <div class="stage-body">
+            <h4>Исследование <em>290 000 ₽ · 3–4 недели</em></h4>
+            <p>Прежде чем что-то программировать, нужно понять, как посадка делается у вас сегодня и что поддаётся формализации. Интервью с ГАПами и ГИПами: процесс, критерии решений, где теряется время. Формализация ограничений: ПЗЗ по высотности, проценту застройки, плотности и отступам; противопожарные разрывы; инсоляция; СП 42.13330 в части расстояний, озеленения, парковок и площадок; доступность; данные ГПЗУ. Источники данных: ЕГРН и публичная кадастровая карта, рельеф, охранные зоны, инженерные сети. Разбор существующих решений на рынке и их слабых мест.</p>
+            <p><strong>Результат:</strong> техническое задание, формализованная модель ограничений, оценка реализуемости, карта рисков. Документ остаётся у вас независимо от того, продолжаем ли мы работу.</p>
+          </div>
+        </div>
+        <div class="stage">
+          <div class="n">02</div>
+          <div class="stage-body">
+            <h4>Оценка и прототип <em>490 000 ₽ · 4–6 недель</em></h4>
+            <p>Проектирование архитектуры решения и рабочий прототип на одном-двух ваших реальных участках. Проверка гипотезы: сравниваем варианты, выданные алгоритмом, с тем, что ваши архитекторы сделали руками, и смотрим, признают ли инженеры результат разумным.</p>
+            <p><strong>Результат:</strong> работающий прототип, фиксированная смета на разработку, дорожная карта. Если прототип не убедил — мы не идём дальше, и вы не потеряли миллионы на проверке идеи.</p>
+          </div>
+        </div>
+        <div class="stage">
+          <div class="n">03</div>
+          <div class="stage-body">
+            <h4>Разработка <em>5–7 месяцев</em></h4>
+            <p>Загрузка участка по кадастровому номеру или контуру. Автоматический сбор исходных данных и применимых ограничений. Генерация вариантов посадки с оптимизацией по выбранному критерию — максимум продаваемой площади, качество инсоляции или себестоимость. Автоматическая проверка на соответствие нормам с указанием конкретного нарушенного пункта. Расчёт технико-экономических показателей и сравнение вариантов. Выгрузка в DXF и IFC плюс презентационные материалы для застройщика.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="variants">
+        <div class="variant">
+          <div class="variant-head"><span class="chip">Права у бюро</span><h3>Вариант А. Эксклюзив</h3></div>
+          <div class="price"><b>от 3 900 000 ₽</b><span>+ 120 000 ₽ / мес сопровождение</span></div>
+          <ul>
+            <li>Исключительные права на программу принадлежат бюро</li>
+            <li>Мы не продаём, не передаём и не лицензируем решение никому</li>
+            <li>Исходный код передаётся вам</li>
+            <li>Инструмент, которого нет у ваших конкурентов</li>
+          </ul>
+        </div>
+        <div class="variant pick">
+          <div class="variant-head"><span class="chip">Разделённый риск</span><h3>Вариант Б. Совместный продукт</h3></div>
+          <div class="price"><b>1 600 000 ₽</b><span>+ 60 000 ₽ / мес сопровождение</span></div>
+          <ul>
+            <li>41% от эксклюзивной стоимости</li>
+            <li>Бессрочная безлимитная лицензия для бюро, обновления бесплатно</li>
+            <li>Статус соразработчика: ваша методика в основе продукта</li>
+            <li>Роялти 15% от выручки с продаж третьим лицам в течение 3 лет</li>
+            <li>Приоритет в очереди на доработки</li>
+            <li>Права на продукт остаются у нас, мы выводим его на рынок</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="note">
+        <p><strong>Как выбирать.</strong> Вариант А — про защиту конкурентного преимущества. Вариант Б — про меньшие вложения и потенциальный доход: если продукт пойдёт на рынке, роялти способны перекрыть разницу и вывести проект в плюс; если не пойдёт — вы всё равно получили инструмент за 41% цены.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Условия ============ -->
+  <section class="block" id="terms">
+    <div class="rail"><span class="code">Условия</span></div>
+    <div class="content">
+      <h2>Общие условия</h2>
+      <div class="terms">
+        <div class="term">
+          <p class="eyebrow">Оплата</p>
+          <p>Поэтапно. До 500 000 ₽ — 50% аванс, 50% по приёмке. Крупные проекты — 40 / 40 / 20 по этапам.</p>
+        </div>
+        <div class="term">
+          <p class="eyebrow">Документы</p>
+          <p>Работаем по договору с техническим заданием, актами и закрывающими документами.</p>
+        </div>
+        <div class="term">
+          <p class="eyebrow">Права</p>
+          <p>Все права на результат передаются заказчику. Единственное исключение — вариант Б в КП-04, условия описаны отдельно.</p>
+        </div>
+        <div class="term">
+          <p class="eyebrow">Сроки</p>
+          <p>Отсчитываются от даты предоставления материалов, доступов и предоплаты. Задержки с обратной связью сдвигают сроки соответственно.</p>
+        </div>
+        <div class="term">
+          <p class="eyebrow">Пакетное предложение</p>
+          <p>При заказе двух и более направлений — скидка 10% на весь объём.</p>
+        </div>
+        <div class="term">
+          <p class="eyebrow">Срок действия</p>
+          <p>30 дней с даты отправки. Цены указаны без НДС.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p class="eyebrow">Следующий шаг</p>
+    <p>Выберите направление и вариант — соберём под него договор с техническим заданием и календарным планом. Любое из четырёх направлений можно запустить отдельно, не дожидаясь решения по остальным.</p>
+  </footer>
+
+</div>
