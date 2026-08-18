@@ -26,7 +26,24 @@ export function fileSlug(name: string): string {
   return slug || 'project'
 }
 
-export function download(filename: string, content: string, mime: string) {
+interface HostDownloads {
+  save: (request: { filename: string; data: string }) => Promise<unknown>
+}
+
+interface HostBridge {
+  use?: (name: string) => Promise<unknown>
+}
+
+/** Расширения, которые принимает просмотрщик артефактов без дополнительных прав. */
+const SAFE_EXTENSIONS = new Set(['txt', 'json', 'md', 'png', 'jpg', 'jpeg', 'webp', 'gif', 'mp4', 'webm'])
+
+/** Запасное имя, если хост не принимает исходное расширение. */
+function fallbackFilename(filename: string): string {
+  const base = filename.replace(/\.[^.]+$/, '')
+  return filename.endsWith('.geojson') ? `${base}.json` : `${base}.txt`
+}
+
+function anchorDownload(filename: string, content: string, mime: string) {
   const blob = new Blob([content], { type: `${mime};charset=utf-8` })
   const url = URL.createObjectURL(blob)
   const a = document.createElement('a')
@@ -36,6 +53,40 @@ export function download(filename: string, content: string, mime: string) {
   a.click()
   a.remove()
   URL.revokeObjectURL(url)
+}
+
+/**
+ * Сохранение через хост-страницу (опубликованный артефакт): обычная ссылка
+ * с атрибутом download там заблокирована.
+ */
+async function hostDownload(bridge: HostBridge, filename: string, content: string): Promise<boolean> {
+  const downloads = (await bridge.use?.('downloads').catch(() => null)) as HostDownloads | null
+  if (!downloads) return false
+  const extension = filename.split('.').pop() ?? ''
+  const names = SAFE_EXTENSIONS.has(extension) ? [filename] : [filename, fallbackFilename(filename)]
+  for (const name of names) {
+    try {
+      await downloads.save({ filename: name, data: content })
+      return true
+    } catch (error) {
+      const code = (error as { code?: string } | null)?.code
+      // Отказ пользователя — это нормальный исход, повторять не нужно.
+      if (code === 'declined') return true
+      if (code !== 'rejected_extension' && code !== 'extension_not_enabled') return false
+    }
+  }
+  return false
+}
+
+export function download(filename: string, content: string, mime: string) {
+  const bridge = (window as unknown as { claude?: HostBridge }).claude
+  if (bridge?.use) {
+    void hostDownload(bridge, filename, content).then((saved) => {
+      if (!saved) anchorDownload(filename, content, mime)
+    })
+    return
+  }
+  anchorDownload(filename, content, mime)
 }
 
 export const projectToJson = (project: Project): string => JSON.stringify(project, null, 2)
