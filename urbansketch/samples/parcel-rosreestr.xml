@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Упрощённый образец выгрузки Росреестра для проверки импорта.
+     Координаты в МСК: X — север, Y — восток, метры. -->
+<extract_about_property_land>
+  <land_record>
+    <object>
+      <common_data>
+        <cad_number>66:41:0704001:1234</cad_number>
+      </common_data>
+    </object>
+    <contours_location>
+      <contours>
+        <contour number_pp="1">
+          <entity_spatial>
+            <spatials_elements>
+              <spatial_element>
+                <ordinates>
+                  <ordinate x="393120.55" y="1534210.30" num_geopoint="1"/>
+                  <ordinate x="393120.55" y="1534410.30" num_geopoint="2"/>
+                  <ordinate x="393000.55" y="1534430.10" num_geopoint="3"/>
+                  <ordinate x="392980.15" y="1534240.75" num_geopoint="4"/>
+                </ordinates>
+              </spatial_element>
+            </spatials_elements>
+          </entity_spatial>
+        </contour>
+      </contours>
+    </contours_location>
+  </land_record>
+</extract_about_property_land>
