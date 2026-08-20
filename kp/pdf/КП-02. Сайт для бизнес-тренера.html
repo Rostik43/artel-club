@@ -1,0 +1,550 @@
+<title>Сайт для бизнес-тренера</title>
+<style>
+  :root {
+    --paper: #EFF2F4;
+    --surface: #FFFFFF;
+    --surface-2: #F7F9FA;
+    --ink: #101519;
+    --ink-2: #5C6771;
+    --ink-3: #8A939B;
+    --line: #D3D9DE;
+    --line-soft: #E3E8EB;
+    --accent: #0E7C86;
+    --accent-tint: rgba(14, 124, 134, 0.08);
+    --flag: #A9463C;
+    --flag-tint: rgba(169, 70, 60, 0.07);
+
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace;
+
+    --s1: 6px;  --s2: 12px; --s3: 20px;
+    --s4: 32px; --s5: 52px; --s6: 84px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #0D1215;
+      --surface: #141A1F;
+      --surface-2: #171E24;
+      --ink: #E4E9EC;
+      --ink-2: #9AA5AE;
+      --ink-3: #77828B;
+      --line: #263037;
+      --line-soft: #1E262C;
+      --accent: #45BAC4;
+      --accent-tint: rgba(69, 186, 196, 0.10);
+      --flag: #DE8378;
+      --flag-tint: rgba(222, 131, 120, 0.09);
+    }
+  }
+
+  
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16.5px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .sheet {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: var(--s5) var(--s4) var(--s6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--s5);
+  }
+
+  /* ---------- utility type ---------- */
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin: 0;
+  }
+  .num { font-variant-numeric: tabular-nums; }
+
+  /* ---------- masthead ---------- */
+  .masthead {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s3);
+    padding-bottom: var(--s4);
+    border-bottom: 2px solid var(--ink);
+  }
+  .masthead h1 {
+    margin: 0;
+    font-size: clamp(2.1rem, 5.4vw, 3.4rem);
+    line-height: 1.03;
+    letter-spacing: -0.032em;
+    font-weight: 760;
+    text-wrap: balance;
+  }
+  .lead {
+    margin: 0;
+    max-width: 62ch;
+    font-size: 1.06rem;
+    color: var(--ink-2);
+  }
+  .factbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s2) var(--s4);
+    padding-top: var(--s2);
+  }
+  .fact { display: flex; flex-direction: column; gap: 2px; }
+  .fact span:last-child {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--ink);
+  }
+
+  /* ---------- contents ---------- */
+  .toc {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .toc a {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s1);
+    padding: var(--s3);
+    background: var(--surface);
+    color: inherit;
+    text-decoration: none;
+    transition: background 0.15s ease;
+  }
+  .toc a:hover, .toc a:focus-visible { background: var(--accent-tint); }
+  .toc a strong { font-size: 0.97rem; font-weight: 620; letter-spacing: -0.01em; }
+  .toc a em {
+    font-style: normal;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---------- proposal blocks ---------- */
+  .block {
+    display: grid;
+    grid-template-columns: 104px minmax(0, 1fr);
+    gap: var(--s4);
+    padding-top: var(--s4);
+    border-top: 1px solid var(--line);
+    scroll-margin-top: 20px;
+  }
+  .rail { position: relative; }
+  .rail .code {
+    position: sticky;
+    top: 24px;
+    display: block;
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    padding-top: 6px;
+    border-top: 2px solid var(--accent);
+  }
+  .content { display: flex; flex-direction: column; gap: var(--s4); }
+  .content > * { margin: 0; }
+
+  .content h2 {
+    font-size: clamp(1.5rem, 3.4vw, 2.05rem);
+    line-height: 1.14;
+    letter-spacing: -0.024em;
+    font-weight: 720;
+    text-wrap: balance;
+  }
+  .content h3 {
+    font-size: 1.12rem;
+    font-weight: 660;
+    letter-spacing: -0.012em;
+  }
+  .content p { max-width: 66ch; color: var(--ink-2); }
+  .content p.tight { max-width: 66ch; }
+  .content strong { color: var(--ink); font-weight: 620; }
+
+  .group { display: flex; flex-direction: column; gap: var(--s2); }
+
+  /* ---------- variant cards ---------- */
+  .variants {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--s3);
+  }
+  .variant {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s3);
+    padding: var(--s3);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--line);
+  }
+  .variant.pick { border-top-color: var(--accent); }
+  .variant-head { display: flex; flex-direction: column; gap: var(--s1); }
+  .variant-head h3 { margin: 0; }
+  .chip {
+    align-self: flex-start;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-tint);
+    padding: 3px 8px;
+  }
+  .price {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: var(--s1) var(--s2);
+    padding-bottom: var(--s2);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .price b {
+    font-family: var(--mono);
+    font-size: 1.52rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+    color: var(--ink);
+  }
+  .price span {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-3);
+    font-variant-numeric: tabular-nums;
+  }
+  .variant ul, .content ul.plain {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--s2);
+    font-size: 0.945rem;
+    color: var(--ink-2);
+  }
+  .variant li, .content ul.plain li {
+    padding-left: 18px;
+    position: relative;
+  }
+  .variant li::before, .content ul.plain li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0.63em;
+    width: 8px; height: 1px;
+    background: var(--accent);
+  }
+  .variant li.out { color: var(--ink-3); }
+  .variant li.out::before { background: var(--ink-3); }
+
+  /* ---------- stage sequence ---------- */
+  .stages {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .stage {
+    display: grid;
+    grid-template-columns: 40px minmax(0, 1fr);
+    gap: var(--s3);
+    padding: var(--s3);
+    background: var(--surface);
+  }
+  .stage > .n {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+    padding-top: 3px;
+  }
+  .stage-body { display: flex; flex-direction: column; gap: var(--s2); }
+  .stage-body h4 {
+    margin: 0;
+    font-size: 1.02rem;
+    font-weight: 640;
+    letter-spacing: -0.012em;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--s2);
+  }
+  .stage-body h4 em {
+    font-style: normal;
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--ink-3);
+    font-variant-numeric: tabular-nums;
+  }
+  .stage-body p { margin: 0; font-size: 0.945rem; }
+
+  /* ---------- callout ---------- */
+  .callout {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s2);
+    padding: var(--s3);
+    background: var(--flag-tint);
+    border-left: 3px solid var(--flag);
+  }
+  .callout .eyebrow { color: var(--flag); }
+  .callout p { color: var(--ink); max-width: 64ch; }
+  .callout p:last-child { margin: 0; }
+
+  .note {
+    padding: var(--s3);
+    background: var(--surface-2);
+    border: 1px solid var(--line-soft);
+  }
+  .note p { margin: 0; }
+
+  /* ---------- tables ---------- */
+  .scroller { overflow-x: auto; border: 1px solid var(--line); }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface);
+    font-size: 0.93rem;
+  }
+  th, td {
+    text-align: left;
+    padding: 11px var(--s3);
+    border-bottom: 1px solid var(--line-soft);
+    vertical-align: top;
+  }
+  thead th {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 400;
+    border-bottom: 1px solid var(--line);
+    white-space: nowrap;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  td:first-child { color: var(--ink); }
+  td { color: var(--ink-2); }
+  td.figure {
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    color: var(--ink);
+  }
+  td.figure.up { color: var(--accent); }
+
+  /* ---------- terms + footer ---------- */
+  .terms {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .term {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s1);
+    padding: var(--s3);
+    background: var(--surface);
+  }
+  .term p { margin: 0; font-size: 0.93rem; color: var(--ink-2); }
+
+  footer {
+    padding-top: var(--s4);
+    border-top: 2px solid var(--ink);
+    display: flex;
+    flex-direction: column;
+    gap: var(--s2);
+  }
+  footer p { margin: 0; color: var(--ink-2); font-size: 0.93rem; max-width: 62ch; }
+
+  a { color: var(--accent); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  @media (max-width: 720px) {
+    .sheet { padding: var(--s4) var(--s3) var(--s5); }
+    .block { grid-template-columns: minmax(0, 1fr); gap: var(--s3); }
+    .rail .code { position: static; display: inline-block; }
+    .stage { grid-template-columns: minmax(0, 1fr); gap: var(--s2); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+
+  @page { size: A4; margin: 16mm 15mm 18mm; }
+  body { font-size: 10.4pt; line-height: 1.55; background: #fff; }
+  .sheet { max-width: none; margin: 0; padding: 0; gap: 26px; }
+  .block { display: block; border-top: none; padding-top: 0; }
+  .rail { display: none; }
+  .content { gap: 18px; }
+  .content h2 { font-size: 17pt; }
+  .content h3 { font-size: 11.5pt; }
+  .content p { max-width: none; font-size: 10.4pt; }
+  .variant ul, .content ul.plain { font-size: 9.8pt; }
+  .stage-body p, table { font-size: 9.8pt; }
+  .price b { font-size: 15pt; }
+  .variants { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
+  .variant, .stage, .callout, .note, .term, table tr { break-inside: avoid; }
+  .group, .stages, .variants, .terms { break-inside: auto; }
+  h2, h3, h4 { break-after: avoid; }
+  .scroller { overflow: visible; }
+  .docmast { display: flex; flex-direction: column; gap: 10px;
+             padding-bottom: 16px; border-bottom: 2px solid var(--ink); }
+  .docmast .code { font-family: var(--mono); font-size: 10pt; letter-spacing: .1em; color: var(--accent); }
+  .docmast h1 { margin: 0; font-size: 23pt; line-height: 1.06; letter-spacing: -.025em; font-weight: 760; }
+  .docmast .meta { display: flex; flex-wrap: wrap; gap: 6px 26px; font-family: var(--mono);
+                   font-size: 8.6pt; color: var(--ink-3); padding-top: 4px; }
+  .terms-print { break-before: page; }
+  .signoff { padding-top: 16px; border-top: 2px solid var(--ink); }
+  .signoff p { font-size: 9.6pt; color: var(--ink-2); margin: 0; max-width: none; }
+</style>
+<div class="sheet">
+  <header class="docmast">
+    <span class="code">КП-02 · Коммерческое предложение</span>
+    <h1>Сайт для бизнес-тренера</h1>
+    <div class="meta"><span>Август 2026</span><span>RUB, без НДС</span><span>Срок действия — 30 дней</span></div>
+  </header>
+  <section class="block"><div class="content">
+      <p>Мы отвечаем за сайт: за то, что на нём, и за то, что в него встроено. Всё, что живёт за его пределами — реклама, соцсети, рассылки, работа с площадками — остаётся вне нашей зоны. Ниже эта граница проведена явно, чтобы к ней не возвращаться в процессе.</p>
+
+      <div class="callout">
+        <p class="eyebrow">Честно про «первое место на всех платформах»</p>
+        <p>Это цель, а не услуга, и разработкой сайта она не достигается. Позиции — результат постоянной работы: свежий контент, накопленные отзывы, внешние упоминания, реклама. Разовая разработка создаёт фундамент, но сама по себе никуда не выводит.</p>
+        <p><strong>Мы не занимаемся продвижением</strong> и, соответственно, не обещаем ни позиций, ни числа заявок. Мы делаем сайт технически правильным: быстрым, читаемым для поисковых и ИИ-краулеров, с корректной разметкой и настроенной аналитикой — чтобы продвижение, когда вы за него возьмётесь, начиналось не с исправления ошибок.</p>
+      </div>
+
+      <div class="group">
+        <p class="eyebrow">Граница работ</p>
+        <div class="variants">
+          <div class="variant pick">
+            <div class="variant-head"><span class="chip">Наша зона</span><h3>Что мы делаем</h3></div>
+            <ul>
+              <li>Структура сайта и тексты страниц</li>
+              <li>Дизайн и вёрстка, адаптация под мобильные</li>
+              <li>Формы и квиз с передачей заявок в почту и мессенджер</li>
+              <li>Техническое SEO: скорость, структура, описания, микроразметка, карта сайта</li>
+              <li>Доступ поисковых и ИИ-краулеров</li>
+              <li>Счётчики аналитики и настройка целей</li>
+              <li>Обучение работе с сайтом и статистикой</li>
+            </ul>
+          </div>
+          <div class="variant">
+            <div class="variant-head"><span class="chip">Вне нашей зоны</span><h3>Чего мы не делаем</h3></div>
+            <ul>
+              <li class="out">Ведение соцсетей и личного блога</li>
+              <li class="out">Реклама, её настройка и бюджеты</li>
+              <li class="out">CRM, рассылки и автоворонки</li>
+              <li class="out">Карточки в справочниках, каталогах и на площадках отзывов</li>
+              <li class="out">Ежемесячное продвижение и работа с позициями</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="variants">
+        <div class="variant pick">
+          <div class="variant-head"><span class="chip">Рекомендуем для старта</span><h3>Вариант 1. Лендинг</h3></div>
+          <div class="price"><b>95 000 ₽</b><span>2–3 недели</span></div>
+          <p class="tight">Одна страница, собранная под одно понятное действие: оставить заявку.</p>
+          <ul>
+            <li>Проработанное предложение и структура под конверсию</li>
+            <li>Квиз или калькулятор для мягкого захвата контакта</li>
+            <li>Формы с передачей заявок в мессенджер и почту</li>
+            <li>Тексты страницы на основе вашего материала</li>
+            <li>Техническое SEO и микроразметка</li>
+            <li>Аналитика, цели, запись поведения посетителей</li>
+            <li>Обучение работе со страницей и статистикой</li>
+          </ul>
+        </div>
+
+        <div class="variant">
+          <div class="variant-head"><h3>Вариант 2. Многостраничный сайт</h3></div>
+          <div class="price"><b>240 000 ₽</b><span>6–8 недель</span></div>
+          <p class="tight">Полноценный сайт с админкой, если программ несколько и аудитории разные.</p>
+          <ul>
+            <li>Всё из варианта 1</li>
+            <li>Отдельные страницы под каждую программу и аудиторию</li>
+            <li>Кейсы с измеримыми результатами клиентов</li>
+            <li>Отзывы на сайте, включая видео</li>
+            <li>Раздел публикаций — площадка для будущего продвижения</li>
+            <li>Админка: страницы, публикации, кейсы, отзывы</li>
+            <li>Семантическое ядро как основа структуры</li>
+            <li>2 месяца технической поддержки включено</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="group">
+        <p class="eyebrow">Дополнительно</p>
+        <div class="scroller">
+          <table>
+            <thead><tr><th>Опция</th><th>Стоимость</th></tr></thead>
+            <tbody>
+              <tr><td>Техническая поддержка сайта: хостинг, обновления, резервные копии, правки до 2 часов</td><td class="figure">12 000 ₽ / мес</td></tr>
+              <tr><td>Дополнительная посадочная страница под новую программу</td><td class="figure">35 000 ₽</td></tr>
+              <tr><td>Подготовка сайта под ИИ-поиск — см. КП-04</td><td class="figure">45 000 ₽</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="note">
+        <p><strong>Что дальше с продвижением.</strong> Сайт — фундамент, но не источник заявок сам по себе. Дальше нужен человек или подрядчик, который ведёт рекламу, соцсети и площадки. Мы этим не занимаемся, но передаём сайт технически подготовленным: с настроенной аналитикой, целями и разметкой, чтобы тот, кто придёт следом, начал с работы, а не с починки. Подсказать, на что смотреть при выборе такого подрядчика, можем.</p>
+      </div>
+
+      <div class="note">
+        <p><strong>Про текущий сайт.</strong> Он сделан на Tilda и фактически представляет собой одну страницу. Для варианта 1 это приемлемо — можно остаться на текущей платформе. Вариант 2 предполагает переезд: на Tilda нельзя управлять серверным рендерингом и очень ограниченно — микроразметкой, а без этого сайт хуже читается и поисковиками, и языковыми моделями.</p>
+      </div>
+    </div></section>
+  <section class="block terms-print"><div class="content">
+      <h2>Общие условия</h2>
+      <div class="terms">
+        <div class="term">
+          <p class="eyebrow">Оплата</p>
+          <p>Поэтапно. До 300 000 ₽ — 50% аванс, 50% по приёмке. Крупные проекты — 40 / 40 / 20 по этапам.</p>
+        </div>
+        <div class="term">
+          <p class="eyebrow">Поддержка</p>
+          <p>Включённая в проект поддержка — до 4 часов в месяц, ответ в течение 2 рабочих дней. Доработки сверх этого объёма оцениваются отдельно.</p>
+        </div>
+        <div class="term">
+          <p class="eyebrow">Документы</p>
+          <p>Работаем по договору с техническим заданием, актами и закрывающими документами.</p>
+        </div>
+        <div class="term">
+          <p class="eyebrow">Права</p>
+          <p>Все права на результат передаются заказчику. Единственное исключение — вариант Б в КП-03, условия описаны отдельно.</p>
+        </div>
+        <div class="term">
+          <p class="eyebrow">Сроки</p>
+          <p>Отсчитываются от даты предоставления материалов, доступов и предоплаты. Задержки с обратной связью сдвигают сроки соответственно.</p>
+        </div>
+        <div class="term">
+          <p class="eyebrow">Пакетное предложение</p>
+          <p>При заказе двух и более направлений — скидка 10% на весь объём.</p>
+        </div>
+        <div class="term">
+          <p class="eyebrow">Срок действия</p>
+          <p>30 дней с даты отправки. Цены указаны без НДС.</p>
+        </div>
+      </div>
+    </div></section>
+  <div class="signoff"><p>Готовы обсудить состав и сроки под вашу задачу. Направление запускается отдельно, не дожидаясь решения по остальным.</p></div>
+</div>
